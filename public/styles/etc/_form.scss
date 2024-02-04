@@ -1,0 +1,130 @@
+// 체크박스
+.form_checkbox_wrapper {
+	@include center;
+	@include media(gap, 8);
+	@include media(font-size, 16);
+
+	.form_label {
+		font-size: 1em;
+	}
+
+	@keyframes checkedBefore {
+		0% {
+			transform: rotate(45deg) scaleY(0);
+		}
+		70% {
+			transform: rotate(45deg) scaleY(1.2);
+		}
+		100% {
+			transform: rotate(45deg) scaleY(1);
+		}
+	}
+	@keyframes uncheckedBefore {
+		0% {
+			transform: rotate(45deg) scaleY(1);
+		}
+		100% {
+			transform: rotate(45deg) scaleY(0);
+		}
+	}
+	@keyframes checkedAfter {
+		0% {
+			transform: rotate(-45deg) scaleY(0);
+		}
+		70% {
+			transform: rotate(-45deg) scaleY(1.2);
+		}
+		100% {
+			transform: rotate(-45deg) scaleY(1);
+		}
+	}
+	
+	@keyframes uncheckedAfter {
+		0% {
+			transform: rotate(-45deg) scaleY(1);
+		}
+		100% {
+			transform: rotate(-45deg) scaleY(0);
+		}
+	}
+	@keyframes checkedCheckbox {
+		0% {
+			transform: scale(1);
+		}
+		20% {
+			transform: scale(0.9);
+		}
+		80% {
+			transform: scale(1.1);
+		}
+		100% {
+			transform: scale(1);
+		}
+	}
+
+	input[type='checkbox'] {
+		@include hide;
+
+		+ {
+			.fake_btn {
+				position: relative;
+				width: 1em;
+				height: 1em;
+				min-width: 1em;
+				min-height: 1em;
+				border-radius: 0.2em;
+				background-color: $COLOR_GRAY_3;
+				transition: background-color 0.3s;
+				box-shadow: 0.1em 0.1em 0.3em 0 rgba(0, 0, 0, 0.1);
+
+				&:before,
+				&:after {
+					content: '';
+					display: block;
+					position: absolute;
+					width: 0.1em;
+					bottom: 0.25em;
+					border-radius: 0.05em;
+					background-color: #fff;
+					transform-origin: bottom center;
+				}
+
+				&:before {
+					height: 0.6em;
+					left: 0.315em;
+					transform: rotate(45deg) scaleY(0);
+					animation: uncheckedBefore 0.15s ease-in-out forwards;
+				}
+
+				&:after {
+					height: 0.3em;
+					left: 0.365em;
+					transform: rotate(-45deg) scaleY(0);
+					animation: uncheckedAfter 0.15s ease-in-out forwards;
+				}
+			}
+		}
+
+		&:checked {
+			+ {
+				.fake_btn {
+					background-color: $COLOR_PRIMARY;
+					animation: checkedCheckbox 0.3s ease-in-out forwards;
+
+					&:before {
+						animation: checkedBefore 0.3s ease-in-out forwards;
+					}
+
+					&:after {
+						animation: checkedAfter 0.3s ease-in-out forwards;
+					}
+				}
+			}
+		}
+
+	
+	}
+
+
+}
+

@@ -1,0 +1,28 @@
+.star_grade_wrapper {
+	@include center(flex-start);
+	@include media(gap, 4);
+	@include media(font-size, 16);
+	flex-direction: row-reverse;
+
+	.star_box {
+		@include center;
+		gap: 0.125em;
+	}
+
+	.star_item {
+		position: relative;
+		width: 1.1em;
+		height: 1.1em;
+
+		img {
+			@include fit;
+		}
+	}
+
+	.point_box {
+		font-size: 1em;
+		line-height: 1em;
+		font-weight: inherit;
+		margin-top: 0.1em;
+	}
+}

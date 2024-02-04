@@ -1,0 +1,394 @@
+.content_wrapper.review_product {
+	.page_content {
+		padding: 0;
+	}
+
+	// 제품 슬라이드 이미지 영역
+	.product_slide_wrapper {
+		height: viewHeight();
+		width: 100%;
+		position: relative;
+		top: 0;
+
+		.pagination_box {
+			@include center;
+			@include media(top, 100);
+			@include media(gap, 8);
+			position: absolute;
+			left: 50%;
+			transform: translate3d(-50%, 0, 1px);
+			z-index: 2;
+		}
+
+		.pagination_bullet {
+			@include mediaBox(12, 12);
+			background-color: $COLOR_GRAY_5;
+			border-radius: 50%;
+			opacity: 0.5;
+			transition:
+				opacity 0.3s,
+				background-color 0.3s;
+
+			&.active {
+				opacity: 1;
+				background-color: $COLOR_PRIMARY;
+			}
+		}
+
+		.star_grade_wrapper {
+			@include media(bottom, 40);
+			@include media(left, 40);
+			@include media(font-size, 24);
+			font-weight: bold;
+			position: absolute;
+			z-index: 2;
+		}
+	}
+
+	// 제품 영역 정보
+	.detail_wrapper {
+		@include media(padding, 40);
+
+		.product_name {
+			@include font(32, -1.38, bold);
+		}
+	}
+
+	// 해시태그
+	.hash_tag_list {
+		@include center(flex-start);
+		@include media(margin-top, 24);
+		@include media(gap, 12);
+		flex-wrap: wrap;
+	}
+
+	.hash_tag_item {
+		button {
+			@include font(16, -1.2, 600);
+			color: $COLOR_PRIMARY;
+			word-break: keep-all;
+		}
+	}
+
+	// 브랜드 정보
+	.brand_info_box {
+		@include media(margin-top, 40);
+	}
+
+	.btn_brand_info {
+		@include center(flex-start);
+		@include font(20, -1.32, bold);
+
+		.svg_wrap {
+			@include mediaBox(20, 20);
+		}
+	}
+
+	.brand_info_detail {
+		@include center(space-between);
+		@include media(margin-top, 32);
+
+		.brand_info {
+			@include center(flex-start);
+		}
+
+		.brand_logo {
+			@include mediaBox(180, 96);
+			@include media(padding, 20);
+			@include media(border-radius, 32);
+			@include boxshadow(-4, 8, 16, 0, rgba(0, 0, 0, 0.1));
+
+			img {
+				@include fit(contain);
+			}
+		}
+
+		.brand_text {
+			@include center(center, flex-start);
+			@include media(margin-left, 20);
+			@include media(gap, 8);
+			flex-direction: column;
+		}
+
+		.brand_name {
+			@include font(24, -1.38, bold);
+		}
+
+		.brand_follow_count {
+			@include font(16, -1.08, normal);
+		}
+
+		.btn_follow {
+			@include center;
+			@include mediaBox(80, 80);
+			@include font(16, -1.02, normal);
+			@include media(margin-right, -4);
+			background-color: $COLOR_PRIMARY;
+			color: #fff;
+			border-radius: 50%;
+			transition: background-color 0.3s;
+
+			&.followed {
+				background-color: $COLOR_GRAY_4;
+			}
+		}
+	}
+
+	// 제품 리뷰 작성 버튼
+	.btn_block.review {
+		@include center;
+		@include font(20, -0.1, bold);
+		@include media(height, 80);
+		@include media(margin-top, 56);
+		@include media(border-radius, 32);
+		@include boxshadow(-4, 8, 16, 0, rgba(0, 0, 0, 0.1));
+		background-color: $COLOR_GRAY_7;
+		width: 100%;
+		color: #fff;
+	}
+
+	// 별점 영역
+	.grade_wrapper {
+		@include center(space-between);
+		@include media(margin-top, 40);
+	}
+
+	.total_grade_box {
+		@include center;
+		flex-direction: column;
+		flex: 1;
+
+		.star_grade_wrapper {
+			@include font(56, normal, bold);
+			flex-direction: column-reverse;
+
+			.star_item {
+				@include mediaBox(28, 28);
+			}
+		}
+
+		.review_count {
+			@include center;
+			@include media(margin-top, 16);
+
+			span {
+				@include media(margin-left, 4);
+				@include font(20, normal, normal);
+				color: $COLOR_GRAY_5;
+			}
+
+			.svg_wrap {
+				@include mediaBox(20, 20);
+			}
+		}
+	}
+
+	.detail_grade_box {
+		@include center;
+		@include media(gap, 12);
+		@include media(margin-left, 16);
+		flex-direction: column;
+
+		.grade_option {
+			@include center(space-between);
+			@include media(gap, 12);
+			@include font(20, -1.08, normal);
+			width: 100%;
+		}
+
+		.star_grade_wrapper {
+			flex-direction: row;
+			font-size: inherit;
+
+			.point_box {
+				@include media(width, 24);
+				text-align: right;
+			}
+		}
+	}
+
+	// 별점 구간 별 분포도
+	.grade_graph_wrapper {
+		@include center(space-around);
+		@include media(margin-top, 52);
+		flex-direction: row-reverse;
+	}
+
+	.grade_graph_item {
+		@include center;
+		flex-direction: column;
+
+		@for $i from 5 through 1 {
+			&.grade_#{$i} {
+				.value,
+				.grade {
+					opacity: #{($i + 5) / 10};
+				}
+			}
+		}
+
+		&.active {
+			.value {
+				color: $COLOR_GRAY_7;
+			}
+
+			.graph_foreground {
+				background-color: $COLOR_PRIMARY;
+			}
+
+			.grade {
+				color: $COLOR_GRAY_6;
+			}
+
+			.btn_filter {
+				background-color: $COLOR_GRAY_7;
+			}
+		}
+
+		.value {
+			@include font(24, -0.24, bold);
+			color: $COLOR_GRAY_5;
+			transition: color 0.3s;
+
+			small {
+				color: inherit;
+				font-size: 60%;
+				font-weight: normal;
+			}
+		}
+
+		.graph_background {
+			@include mediaBox(20, 180);
+			@include media(margin-top, 16);
+			@include media(border-radius, 20);
+			background-color: $COLOR_GRAY_2;
+			position: relative;
+			overflow: hidden;
+		}
+
+		.graph_foreground {
+			@include media(border-radius, 20);
+			background-color: $COLOR_GRAY_4;
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			bottom: 0;
+			transition: background-color 0.3s;
+		}
+
+		.grade {
+			@include font(20, -0.24, normal);
+			@include media(margin-top, 16);
+			color: $COLOR_GRAY_3;
+			transition: color 0.3s;
+		}
+
+		.btn_filter {
+			@include center;
+			@include mediaBox(44, 44);
+			@include media(padding, 8);
+			@include media(margin-top, 8);
+			background-color: $COLOR_GRAY_5;
+			border-radius: 50%;
+			transition: background-color 0.3s;
+
+			.svg_wrap {
+				transform: rotate(180deg);
+			}
+		}
+	}
+
+	// 별점 필터 리뷰 리스트
+	.filtered_review_list {
+		@include center(flex-start);
+		@include media(gap, 40);
+		@include media(margin-top, 52);
+		flex-direction: column;
+
+		.empty_list_box {
+			@include center;
+			@include media(padding, 40);
+			flex-direction: column;
+
+			.svg_wrap {
+				@include mediaBox(100, 100);
+			}
+
+			span {
+				@include media(margin-top, 40);
+				@include font(24, normal, bold);
+			}
+		}
+	}
+
+	.filtered_review_item {
+		@include media(height, 172);
+		width: 100%;
+		position: relative;
+
+		button {
+			@include center(space-between);
+			@include media(gap, 24);
+			width: 100%;
+			height: 100%;
+		}
+
+		.img_box {
+			@include media(width, 224);
+			@include media(min-width, 224);
+			@include media(border-radius, 32);
+			height: 100%;
+			overflow: hidden;
+
+			img {
+				@include fit;
+			}
+		}
+
+		.review_info_box {
+			@include center(space-between, flex-start);
+			@include media(padding, 16, 0);
+			flex-direction: column;
+			flex: 1;
+			height: 100%;
+
+			.text_box {
+				@include center(flex-start, flex-start);
+				@include media(gap, 16);
+				flex-direction: column;
+				text-align: left;
+			}
+
+			.content {
+				@include font(20, -1.02, normal);
+			}
+
+			.brand_name {
+				@include font(16, -1.02, bold);
+			}
+
+			.grade_box {
+				@include center(flex-start);
+
+				.star_grade_wrapper {
+					@include media(font-size, 16);
+					flex-direction: row;
+				}
+			}
+
+			.profile_box {
+				@include mediaBox(72, 72);
+				background-color: $COLOR_GRAY_1;
+				border-radius: 50%;
+				position: absolute;
+				right: 0;
+				bottom: 0;
+				overflow: hidden;
+
+				img {
+					@include fit;
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,92 @@
+.page_container > .header {
+	@include center;
+	@include media(height, $HEADER_HEIGHT);
+	position: relative;
+
+	@mixin headerBtn {
+	}
+
+	&.transparent {
+		background-color: transparent;
+	}
+
+	&.floating {
+		@include media(max-width, $MAX_WIDTH);
+		position: fixed;
+		top: 0;
+		width: 100%;
+		z-index: 2;
+
+		+ .content_wrapper {
+			z-index: 1;
+		}
+	}
+
+	&.scroll_top {
+		background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
+		opacity: 1;
+		transform: translateY(0%);
+		transition:
+			opacity 0.3s,
+			transform 0.3s;
+	}
+
+	&.scroll_up {
+		background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
+		opacity: 0;
+		transform: translateY(-100%);
+		transition:
+			opacity 0.3s,
+			transform 0.3s;
+	}
+
+	.header_title {
+		@include center;
+		@include media(padding, 0, 100);
+		@include font(34, normal, bold);
+		text-align: center;
+		width: 100%;
+		height: 100%;
+		position: relative;
+		background-color: #01C33C;
+		color: #fff;
+		z-index: 1;
+
+		img {
+			display: block;
+			height: 40%;
+			width: auto;
+		}
+	}
+
+	> button {
+		@include center;
+		@include media(padding, 32);
+		@include media(width, $HEADER_HEIGHT);
+		position: absolute;
+		height: 100%;
+		z-index: 2;
+
+		&:first-of-type {
+			left: 0;
+		}
+
+		&:last-of-type {
+			right: 0;
+		}
+	}
+
+	.btn_group {
+		@include center(flex-end);
+		@include media(right, 28);
+		@include media(gap, 12);
+		position: absolute;
+		height: 100%;
+
+		> button {
+			@include media(padding, 32, 12);
+			height: 100%;
+			position: relative;
+		}
+	}
+}

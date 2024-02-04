@@ -1,0 +1,445 @@
+.page_content.main {
+	@include media(padding-bottom, 160);
+
+	// 메인 유저정보영역
+	.main_header_box {
+		@include center(flex-start);
+		@include media(gap, 12);
+
+		.img_box {
+			@include mediaBox(52, 52);
+			border-radius: 50%;
+			overflow: hidden;
+
+			img {
+				@include fit;
+			}
+		}
+
+		.text_box {
+			p {
+				@include center(flex-start);
+				@include font(24, normal, bold, 28);
+
+				&.username span {
+					@include ellipsis(210);
+					display: block;
+				}
+			}
+		}
+
+		.btn_header {
+			@include center;
+			@include mediaBox(36, 36);
+			@include media(right, 40);
+			position: absolute;
+		}
+	}
+
+	// 메인 아라쇼 플로팅 배너
+	.main_livebanner_box {
+		@include mediaBox(300, 64);
+		@include media(top, 40);
+		background-color: #fff;
+		position: absolute;
+		opacity: 0;
+		transform: translate3d(mediaVal(-300 - 40), 0, 1px);
+		@media (min-width:#{$MAX_WIDTH}px) {
+			transform: translate3d((-300px - 40px), 0, 1px);
+		}
+		transition:
+			opacity 0.3s,
+			transform 0.3s;
+
+		&.active {
+			opacity: 1;
+			transform: translate3d(0, 0, 1px);
+		}
+
+		.img_box {
+			width: 100%;
+			height: 100%;
+			position: relative;
+
+			img {
+				@include fit;
+			}
+		}
+
+		p {
+			position: absolute;
+			z-index: 100;
+		}
+
+		.brand {
+			@include font(24, -0.7, bold);
+			@include media(top, -4);
+			@include media(left, 140);
+		}
+
+		.date {
+			@include font(24, -1, bold);
+			@include media(bottom, 6);
+			@include media(left, 24);
+			color: #fff;
+		}
+	}
+
+	// 메인 빠른바로가기영역
+	.main_quick_move_box {
+		@include media(margin, 24, 0, 24, -40);
+		@include media(padding, 20, 20, 20, 40);
+		@include media(border-radius, 0, 100, 100, 0);
+		background-color: $COLOR_GRAY_2;
+
+		.quick_move_list {
+			@include center(flex-start);
+			@include media(gap, 16);
+		}
+
+		.quick_move_item {
+			@include center;
+			position: relative;
+
+			[class*='btn_'] {
+				@include center;
+				@include mediaBox(170, 60);
+				@include media(border-radius, 60/2);
+				@include media(gap, 16);
+				@include boxshadow(0, 0, 6, 0, rgba(0, 0, 0, 0.1));
+				position: relative;
+				background-color: #fff;
+
+				&.btn_bebecam {
+					background-color: #000;
+
+					.text_box {
+						color: #fff;
+					}
+
+					&.active {
+						background-color: $COLOR_PRIMARY;
+
+						.icon_box img {
+							right: 0;
+							left: auto;
+						}
+					}
+
+					+ .balloon_box {
+						@include mediaBox(168, 72);
+						@include media(top, -36);
+						@include media(left, 0);
+					}
+				}
+
+				&.btn_diary {
+					&.bordered {
+						&:after {
+							@include content;
+							@include mediaBox((170 - 8), (60 - 8));
+							@include media(border-radius, 60/2);
+							@include media(top, 4);
+							@include media(left, 4);
+							background-color: #fff;
+							z-index: 2;
+						}
+
+						&:before {
+							@include content;
+							@include media(border-radius, 60/2);
+							width: 100%;
+							height: 100%;
+							background-color: #000;
+							z-index: 1;
+						}
+
+						> * {
+							position: inherit;
+							z-index: 3;
+						}
+					}
+				}
+
+				&.btn_album {
+					+ .balloon_box {
+						@include mediaBox(100, 50);
+						@include media(top, -40);
+						left: 50%;
+						transform: translateX(-50%);
+					}
+				}
+			}
+
+			.icon_box {
+				@include mediaBox(24, 24);
+				position: relative;
+				overflow: hidden;
+
+				img {
+					position: absolute;
+					display: block;
+					height: 100%;
+					width: auto;
+					top: 0;
+					left: 0;
+				}
+			}
+
+			.text_box {
+				@include font(20, -0.4, normal);
+			}
+
+			.balloon_box {
+				position: absolute;
+
+				img {
+					@include fit;
+				}
+			}
+		}
+	}
+
+	// 메인 육아상담 플로팅 배너
+	.main_floating_counseling_box {
+		@include center(flex-end);
+		@include mediaBox(460, 80);
+		@include media(border-radius, 40);
+		@include media(bottom, 160);
+		@include media(right, 40);
+		opacity: 0;
+		transform: translate3d(calc(100% + mediaVal(40)), 0, 1px);
+		@media (min-width:#{$MAX_WIDTH}px) {
+			transform: translate3d(calc(100% + 40px), 0, 1px);
+		}
+		overflow: hidden;
+		background-color: #288a7d;
+		z-index: 100;
+		position: fixed;
+		transition:
+			width 0.3s,
+			transform 0.3s,
+			opacity 0.3s;
+
+		&.visible {
+			transform: translate3d(0%, 0, 1px);
+			opacity: 1;
+		}
+
+		&.minimum {
+			@include media(width, 80);
+		}
+
+		.btn_close {
+			@include center;
+			@include media(width, 68);
+			@include media(border-radius, 40, 0, 0, 40);
+			height: 100%;
+
+			.svg_wrap {
+				@include mediaBox(18, 18);
+				display: block;
+			}
+		}
+
+		.btn_move {
+			@include center(space-between);
+			@include media(border-radius, 0, 40, 40, 0);
+			height: 100%;
+			flex: 1;
+
+			.text_box {
+				width: 100%;
+				text-align: left;
+				color: #fff;
+
+				p {
+					color: inherit;
+				}
+			}
+
+			.sub_title {
+				@include font(18, normal, lighter);
+			}
+			.main_title {
+				@include font(20, normal, bold);
+			}
+
+			.icon_box {
+				@include mediaBox(80, 80);
+				overflow: hidden;
+				position: absolute;
+				top: 0;
+				right: 0;
+
+				img {
+					@include fit;
+				}
+			}
+		}
+	}
+
+	// 메인 상단 광고 캠페인 배너
+	.main_top_campaign_box {
+		@include media(margin, 0, -40);
+
+		.swiper {
+			width: 100%;
+			@include media(padding, 0, 60);
+
+			.swiper-slide {
+			}
+		}
+
+		.item_box {
+			@include center;
+			@include mediaBox(520, 520);
+			@include media(border-radius, 32);
+			border: 1px solid red;
+		}
+	}
+
+	// 메인 광고배너 영역
+	.main_event_banner_box {
+		@include media(margin-top, 32);
+
+		.banner_list {
+			@include center;
+			@include media(gap, 16);
+			flex-direction: column;
+		}
+
+		.img_box {
+			@include media(border-radius, 32);
+			overflow: hidden;
+
+			img {
+				@include fit;
+			}
+		}
+
+		.link {
+			@include media(margin-top, 20);
+			@include font(18, -1.36, normal);
+			display: block;
+			text-align: right;
+		}
+	}
+
+	// 서비스섹션 공통
+	.service_section {
+		@include media(margin-top, 52);
+		position: relative;
+
+		.service_section_title {
+			width: 100%;
+			position: relative;
+
+			&:before {
+				@include mediaCalc(width, 100%, '-', 20);
+				content: '';
+				display: block;
+				position: absolute;
+				right: 0;
+				top: 50%;
+				transform: translateY(-50%) translate3d(0, 0, 1px);
+				border-top: 1px solid $COLOR_GRAY_5;
+				z-index: 1;
+			}
+
+			p {
+				@include center;
+				@include font(20, -1.32, normal);
+				@include media(border-radius, 32);
+				@include media(padding, 8, 20);
+				display: inline-flex;
+				border: 1px solid #000;
+				background-color: #fff;
+				position: relative;
+				z-index: 2;
+				transform: translate3d(0, 0, 1px);
+			}
+		}
+
+		.service_section_content {
+			@include media(margin-top, 32);
+
+			.content_title {
+				@include font(40, -2.4, bold);
+			}
+
+			.content_sub_title {
+				@include media(margin-top, 28);
+				@include font(24, -1.44, normal);
+			}
+		}
+
+		.service_section_btn_block {
+			@include center;
+			@include media(height, 80);
+			@include media(border-radius, 32);
+			@include media(margin-top, 32);
+			background-color: $COLOR_GRAY_3;
+			width: 100%;
+			position: relative;
+
+			&:before {
+				@include mediaCalc(width, 100%, '-', 12);
+				@include mediaCalc(height, 100%, '-', 12);
+				@include media(border-radius, 24);
+				content: '';
+				display: block;
+				position: absolute;
+				background-color: #fff;
+				z-index: 1;
+				transform: translate3d(0, 0, 1px);
+			}
+
+			span {
+				@include center;
+				@include font(24, -1.44, normal);
+				position: relative;
+				z-index: 2;
+				transform: translate3d(0, 0, 1px);
+
+				.svg_wrap {
+					@include mediaBox(20, 20);
+				}
+			}
+		}
+
+		@import 'main/section_liveshow';
+		@import 'main/section_tip';
+	}
+
+	// 메인 하단 sns 버튼 영역
+	.main_sns_box {
+		@include center(flex-start, flex-end);
+		@include media(padding, 0, 40, 24);
+		@include media(gap, 8);
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+
+		&:before {
+			@include media(height, 36);
+			background-color: $COLOR_GRAY_3;
+			position: absolute;
+			content: '';
+			display: block;
+			width: 100%;
+			bottom: 0;
+			left: 0;
+			z-index: 1;
+			transform: translate3d(0, 0, 1px);
+		}
+
+		.btn_sns {
+			@include mediaBox(52, 52);
+			position: relative;
+			z-index: 2;
+			transform: translate3d(0, 0, 1px);
+		}
+	}
+}

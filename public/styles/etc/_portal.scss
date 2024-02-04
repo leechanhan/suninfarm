@@ -1,0 +1,334 @@
+.portal_container {
+	@include center;
+	z-index: $POPUP_INDEX;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: none;
+
+	.position_bottom & {
+		align-items: flex-end;
+	}
+
+	&.scroll {
+		align-items: flex-start;
+		overflow-y: auto;
+	}
+
+	.portal_content_box {
+		@include center;
+		z-index: $POPUP_INDEX + 2;
+		max-width: #{$MAX_WIDTH}px;
+		position: relative;
+	}
+
+	.background {
+		z-index: $POPUP_INDEX + 1;
+		background-color: rgba(0, 0, 0, 0.5);
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+	}
+}
+
+// 아라쇼 알림팝업
+.liveshow_alarm_popup {
+	@include center(flex-start, flex-end);
+	@include media(width, 600);
+	@include media(padding, 20, 0);
+	flex-direction: column;
+	position: relative;
+
+	.btn_close {
+		@include center;
+		@include mediaBox(56, 56);
+		background-color: #fff;
+		border-radius: 50%;
+
+		.svg_wrap {
+			@include mediaBox(24, 24);
+		}
+	}
+
+	.popup_container {
+		@include center(flex-start);
+		@include media(border-radius, 20);
+		@include media(padding, 40, 20);
+		@include media(margin-top, 12);
+		width: 100%;
+		flex-direction: column;
+		background-color: #fff;
+	}
+
+	.popup_title {
+		@include center;
+		@include mediaBox(244, 60);
+		@include media(border-radius, 32);
+		background-color: $COLOR_GRAY_3;
+		position: relative;
+
+		&:after {
+			@include mediaBox(240, 56);
+			@include media(top, 2);
+			@include media(left, 2);
+			@include media(border-radius, 32);
+			content: '';
+			display: block;
+			position: absolute;
+			background-color: #fff;
+			z-index: 1;
+		}
+
+		p {
+			@include font(28, -0.78, bold);
+			position: relative;
+			z-index: 2;
+
+			span {
+				color: #ff415b;
+				position: relative;
+
+				&:after {
+					@include mediaBox(8, 8);
+					@include media(right, -4);
+					top: 0;
+					content: '';
+					display: block;
+					position: absolute;
+					background-color: #ff415b;
+					border-radius: 50%;
+				}
+			}
+		}
+	}
+
+	.popup_sub_title {
+		@include media(margin-top, 24);
+		@include font(40, -1.2, bold);
+
+		p {
+			position: relative;
+			display: inline-block;
+
+			span {
+				position: relative;
+				z-index: 2;
+			}
+
+			&:before {
+				@include media(height, 8);
+				@include media(bottom, 8);
+				right: 0;
+				width: 100%;
+				background-color: #a4e9e0;
+				content: '';
+				display: block;
+				position: absolute;
+				z-index: 1;
+			}
+		}
+	}
+
+	.popup_desc_1 {
+		@include media(margin-top, 24);
+		@include font(24, -0.7, normal, 32);
+		text-align: center;
+
+		span {
+			color: #ff415b;
+			font-weight: bold;
+		}
+	}
+
+	.popup_product_box {
+		@include center;
+		@include media(margin-top, 32);
+		@include mediaBox(220, 220);
+		flex-direction: column;
+		position: relative;
+
+		.img_box {
+			@include boxshadow(4, 4, 20, 0, rgba(0, 0, 0, 0.16));
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			border-radius: 50%;
+			overflow: hidden;
+			z-index: 1;
+
+			&:after {
+				@include content;
+				background-color: rgba(0, 0, 0, 0.5);
+			}
+
+			img {
+				@include fit;
+			}
+		}
+
+		p {
+			position: relative;
+			z-index: 2;
+		}
+
+		.date {
+			@include font(40, normal, bold);
+			color: #fff;
+		}
+
+		.time {
+			@include font(36, normal, normal);
+			color: #fff;
+		}
+
+		.brand_name {
+			@include center;
+			@include font(28, -0.78, bold);
+			@include media(border-radius, 32);
+			@include media(bottom, -20);
+			@include media(height, 56);
+			@include media(padding, 0, 40);
+			background-color: #fff;
+			border: 2px solid $COLOR_GRAY_3;
+			position: absolute;
+			white-space: nowrap;
+		}
+	}
+
+	.popup_desc_2 {
+		@include media(margin-top, 52);
+		@include font(32, -0.9, normal, 40);
+		text-align: center;
+
+		p {
+			position: relative;
+			display: inline-block;
+
+			&:before {
+				@include media(height, 8);
+				@include media(bottom, 8);
+				right: 0;
+				width: 100%;
+				background-color: #a4e9e0;
+				content: '';
+				display: block;
+				position: absolute;
+				z-index: 1;
+			}
+
+			span {
+				position: relative;
+				z-index: 2;
+				font-weight: bold;
+			}
+		}
+	}
+
+	.popup_btn_block {
+		@include center;
+		@include media(border-radius, 40);
+		@include media(margin-top, 40);
+		@include media(height, 80);
+		background-image: linear-gradient(11deg, #ff415b, #ff503d);
+		width: 100%;
+
+		.svg_wrap {
+			@include mediaBox(36, 36);
+		}
+
+		span {
+			@include font(32, -0.9, bold);
+			@include media(margin-left, 12);
+			color: #fff;
+		}
+	}
+}
+
+// 리뷰 공유하기 슬라이드 팝업
+.review_share_slide {
+	@include center;
+	@include media(padding, 52, 40, 40);
+	@include media(border-radius, 32, 32, 0, 0);
+	flex-direction: column;
+	background-color: #fff;
+	width: 100vw;
+
+	h2 {
+		@include font(24, normal, bold);
+	}
+
+	.icon_box {
+		@include center;
+		@include media(margin-top, 32);
+		@include media(gap, 16);
+
+		button {
+			@include mediaBox(80, 80);
+			@include media(border-radius, 16);
+			@include boxshadow(4, 4, 8, 0, rgba(0, 0, 0, 0.1));
+		}
+	}
+}
+
+// 리뷰 제품정보 팝업
+.review_detail_popup {
+	height: viewHeight();
+	width: 100vw;
+	background-color: #fff;
+	overflow-y: auto;
+
+	.btn_close {
+		@include mediaBox(100, 100);
+		@include media(padding, 32);
+	}
+
+	.detail_header {
+		@include center(flex-start);
+		@include media(padding, 40);
+		@include media(gap, 32);
+		@include boxshadow(0, 4, 24, 0, rgba(0, 0, 0, 0.1));
+
+		.img_box {
+			@include mediaBox(100, 100);
+			@include media(min-width, 100);
+			@include boxshadow(0, 8, 8, 0, rgba(0, 0, 0, 0.1));
+			background-color: $COLOR_GRAY_1;
+			overflow: hidden;
+			border-radius: 50%;
+
+			img {
+				@include fit;
+			}
+		}
+
+		h2 {
+			@include font(32, normal, bold);
+
+			small {
+				@include media(margin-bottom, 16);
+				display: block;
+				font-size: 60%;
+				color: $COLOR_GRAY_5;
+				font-weight: lighter;
+			}
+		}
+	}
+
+	.detail_wrapper {
+		@include media(padding, 40);
+		@include media(grid-column-gap, 16);
+		@include media(grid-row-gap, 24);
+		@include font(16, normal, normal);
+		background-color: $COLOR_GRAY_1;
+		display: grid;
+		grid-template-columns: 1fr 1.5fr;
+
+		dt {
+			font-weight: bold;
+		}
+	}
+}

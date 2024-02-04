@@ -1,0 +1,531 @@
+.page_content.review {
+	padding-top: 0;
+
+	// 아이보리뷰 상단 고정 탭
+	$SCROLL_CHECKER_HEIGHT: 72;
+	.scroll_checker {
+		@include center(flex-start);
+		@include media(height, $SCROLL_CHECKER_HEIGHT);
+		@include media(margin, 0, -40);
+		@include media(padding, 0, 40);
+		position: sticky;
+		background-color: #fff;
+		top: 0;
+		box-shadow: 0, 0, 0, 0, rgba(0, 0, 0, 0);
+		transition: box-shadow 0.3s;
+		z-index: 2;
+		overflow-x: hidden;
+
+		&.scrolled {
+			@include boxshadow(0, 15, 20, -10, rgba(0, 0, 0, 0.5));
+
+			.current_active_category {
+				@include media(right, 40);
+			}
+		}
+
+		.current_active_category {
+			@include font(16, -0.25, bold);
+			right: -100%;
+			position: absolute;
+			z-index: -1;
+			transition: right 0.3s;
+		}
+	}
+
+	.tab_header.depth1 {
+		@include center(flex-start);
+		@include media(gap, 20);
+
+		.tab_link {
+			@include font(20, -0.2, bold);
+			color: $COLOR_PRIMARY;
+			opacity: 0.5;
+			transition: opacity 0.3s;
+			position: relative;
+
+			&.active {
+				opacity: 1;
+
+				&:after {
+					@include media(height, 2);
+					@include media(bottom, -2);
+					background-color: $COLOR_PRIMARY;
+					content: '';
+					display: block;
+					width: 100%;
+					position: absolute;
+				}
+			}
+		}
+	}
+
+	// 탭별 타이틀
+	.review_tab_title {
+		@include font(36, -1.75, lighter, 44);
+
+		.strong {
+			font-weight: bold;
+		}
+	}
+
+	.tab_inner_wrapper {
+		position: relative;
+		z-index: 1;
+
+		// 리뷰 올 탭 영역
+		&.all {
+			.tab_header {
+				@include center(space-between);
+				@include media(gap, 16);
+				@include media(margin-top, 36);
+
+				.tab_link {
+					@include center;
+					@include font(20, -1, normal);
+					@include media(height, 52);
+					@include media(border-radius, 36);
+					border: 1px solid #000;
+					background-color: #fff;
+					flex: 1;
+					transition:
+						background-color 0.3s,
+						color 0.3s;
+
+					&.active {
+						background-color: #000;
+						color: #fff;
+					}
+				}
+			}
+		}
+	}
+
+	// 리뷰 올 탭 카테고리 리스트
+	$CATEGORY_ITEM_WIDTH: 72;
+	.review_category_list {
+		@include center(space-between, flex-start);
+		@include media(margin, 40, -40, 0);
+		@include media(padding, 12, 0, 0, 40);
+		@include media(gap, 24);
+		overflow-x: auto;
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
+
+		&:after {
+			@include media(min-width, 16);
+			content: '';
+			display: block;
+		}
+	}
+
+	.review_category_list,
+	.review_category_list * {
+		touch-action: initial;
+	}
+
+	.review_category_item {
+		@include media(width, $CATEGORY_ITEM_WIDTH);
+		position: relative;
+
+		button {
+			@include center(flex-start);
+			flex-direction: column;
+		}
+
+		.active_effect_box {
+			display: none;
+		}
+
+		.img_box {
+			@include center;
+			@include mediaBox($CATEGORY_ITEM_WIDTH, $CATEGORY_ITEM_WIDTH);
+			width: 100%;
+			border-radius: 50%;
+			overflow: hidden;
+			position: relative;
+			background-color: $COLOR_GRAY_2;
+			z-index: 2;
+
+			img {
+				@include fit(contain);
+				width: 80%;
+			}
+		}
+
+		.text_box {
+			@include center;
+			@include font(16, -0.75, normal);
+			@include mediaBox(52, 40);
+			@include media(margin-top, 4);
+			word-break: keep-all;
+			text-align: center;
+			position: relative;
+		}
+
+		@keyframes activeCategory {
+			0% {
+				transform: rotate(0deg);
+				filter: hue-rotate(0deg);
+			}
+			100% {
+				transform: rotate(360deg);
+				filter: hue-rotate(360deg);
+			}
+		}
+
+		&.active {
+			.active_effect_box {
+				@include mediaBox(($CATEGORY_ITEM_WIDTH + 8), ($CATEGORY_ITEM_WIDTH + 8));
+				@include media(top, -4);
+				@include media(left, -4);
+				border-radius: 50%;
+				background: linear-gradient(45deg, transparent, transparent 40%, $COLOR_PRIMARY);
+				mask-image: radial-gradient(transparent, 60%, #000 40%);
+				position: absolute;
+				animation: activeCategory 1.5s linear infinite;
+				display: block;
+				z-index: 1;
+
+				&:after {
+					content: '';
+					display: block;
+					position: absolute;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					background: linear-gradient(45deg, transparent, transparent 40%, $COLOR_PRIMARY);
+					filter: blur(32px);
+				}
+			}
+
+			.text_box {
+				&:after {
+					@include media(height, 2);
+					background-color: $COLOR_PRIMARY;
+					bottom: 0;
+					content: '';
+					display: block;
+					width: 100%;
+					position: absolute;
+				}
+			}
+		}
+	}
+
+	// 리뷰올 카테고리 상품 리스트
+
+	.text_with_check {
+		@include center(flex-end);
+		@include media(top, (128 + 52));
+		position: absolute;
+		right: 0;
+	}
+
+	$NEW_LIST_BOTTOM: 80;
+	.review_product_list {
+		@include media(margin-top, 52);
+		@include media(grid-column-gap, 24);
+		@include media(grid-row-gap, 16);
+		@include media(padding-bottom, $NEW_LIST_BOTTOM);
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+
+		&.new {
+			.review_product_item {
+				&:nth-child(even) {
+					transform: translateY(mediaVal($NEW_LIST_BOTTOM));
+					@media (min-width:#{$MAX_WIDTH}px) {
+						transform: translateY(#{$NEW_LIST_BOTTOM}px);
+					}
+				}
+
+				&:after {
+					@include center;
+					@include mediaBox(60, 60);
+					@include font(16, normal, normal);
+					@include media(top, 8);
+					@include media(right, 8);
+					background-color: $COLOR_PRIMARY;
+					border-radius: 50%;
+					color: #fff;
+					content: 'NEW';
+					position: absolute;
+					z-index: 2;
+					transform: translate3d(0, 0, 1px);
+				}
+			}
+		}
+
+		.review_product_item {
+			@include media(height, 360);
+			@include media(border-radius, 32);
+			position: relative;
+			overflow: hidden;
+
+			a {
+				@include center(center, flex-end);
+				position: relative;
+				width: 100%;
+				height: 100%;
+				z-index: 1;
+				transform: translate3d(0, 0, 1px);
+			}
+
+			.img_box {
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				transform: translate3d(0, 0, 1px);
+				z-index: 1;
+
+				img {
+					@include fit;
+					z-index: 2;
+					transform: translate3d(0, 0, 1px);
+				}
+
+				&:after {
+					content: '';
+					display: block;
+					position: absolute;
+					width: 100%;
+					height: 100%;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					mix-blend-mode: multiply;
+					opacity: 0.3;
+					background: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.2));
+				}
+				z-index: 3;
+				transform: translate3d(0, 0, 1px);
+			}
+
+			.text_box {
+				@include center;
+				@include media(height, 80);
+				@include media(gap, 12);
+				@include media(padding, 16);
+				width: 100%;
+				flex-direction: column;
+				position: relative;
+				z-index: 4;
+				transform: translate3d(0, 0, 1px);
+				background-color: rgba(255, 255, 255, 0.8);
+
+				.product_name {
+					@include font(16, -0.85, normal);
+					@include ellipsis(100%);
+				}
+			}
+		}
+	}
+
+	// 리뷰 올 탭 실시간 리뷰 프리뷰
+	.review_realtime_previw_wrapper {
+		@include media(margin, 40, -40, 0);
+		@include media(padding, 32, 0);
+		background-color: $COLOR_GRAY_1;
+
+		.review_realtime_title {
+			@include media(padding, 0, 40);
+			@include font(32, -1.75, bold, 32);
+		}
+
+		.btn_view_all {
+			@include media(margin-right, 40);
+			display: inline-flex;
+			align-items: center;
+			float: right;
+
+			span {
+				@include font(16, -0.85, lighter);
+			}
+
+			.svg_wrap {
+				@include mediaBox(16, 16);
+			}
+		}
+
+		.review_realtime_preview_list,
+		.review_realtime_preview_list * {
+			touch-action: initial;
+		}
+
+		.review_realtime_preview_list {
+			@include media(margin-top, 52);
+			@include media(padding, 0, 80, 0, 40);
+			@include media(grid-column-gap, 12);
+			@include media(grid-row-gap, 16);
+			display: grid;
+			grid-template-rows: repeat(2, 1fr);
+			grid-auto-flow: column;
+			overflow-x: auto;
+
+			&::-webkit-scrollbar {
+				display: none;
+			}
+		}
+
+		.realtime_preview_item {
+			@include mediaBox(340, 112);
+			@include media(border-radius, 32);
+			position: relative;
+			width: 100%;
+			height: 100%;
+			background-color: #fff;
+			overflow: hidden;
+
+			&:nth-child(odd) {
+				transform: translateX(mediaVal(40));
+				@media (min-width:#{$MAX_WIDTH}px) {
+					transform: translateX(40px);
+				}
+			}
+
+			> a {
+				@include center;
+				height: 100%;
+				position: relative;
+			}
+
+			.text_box {
+				@include center(space-between, space-between);
+				@include media(padding, 24);
+				height: 100%;
+				flex-direction: column;
+				flex: 1;
+			}
+
+			.review_preview {
+				@include ellipsmulti;
+				@include font(16, -0.9, normal);
+			}
+
+			.profile_box {
+				@include media(width, 124);
+				height: 100%;
+				position: relative;
+			}
+
+			.img_box {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+
+				&.product {
+					background-color: $COLOR_PRIMARY;
+					position: relative;
+					z-index: 1;
+				}
+
+				&.user {
+					@include mediaBox(44, 44);
+					@include media(left, -22);
+					@include media(bottom, 8);
+					@include boxshadow(0, 2, 8, 0, rgba(0, 0, 0, 0.2));
+					border-radius: 50%;
+					position: absolute;
+					z-index: 2;
+					overflow: hidden;
+					background-color: $COLOR_GRAY_5;
+				}
+
+				img {
+					@include fit;
+				}
+
+				.svg_wrap {
+					@include media(max-height, 112);
+				}
+			}
+		}
+	}
+
+	// 리뷰 올 탭 브랜드 보기 리스트
+	.review_brand_list {
+		@include media(margin-top, 32);
+		@include media(grid-gap, 12);
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+
+		.review_brand_item {
+			@include media(border-radius, 32);
+			border: 1px solid $COLOR_GRAY_3;
+			width: 100%;
+			overflow: hidden;
+
+			> a {
+				@include center;
+				width: 100%;
+				height: 100%;
+				position: relative;
+				flex-direction: column;
+			}
+
+			.img_box {
+				@include media(height, 132);
+				@include media(padding, 20, 40);
+				width: 100%;
+				position: relative;
+				overflow: hidden;
+
+				img {
+					@include fit;
+				}
+			}
+
+			.text_box {
+				@include media(padding-top, 20);
+				border-top: 1px solid $COLOR_GRAY_3;
+				position: relative;
+				width: 100%;
+			}
+
+			.brand_name {
+				@include font(20, -1.15, bold, 24);
+				@include media(padding, 0, 20);
+				text-align: center;
+			}
+
+			.info_box {
+				@include center(space-between);
+				@include media(padding, 16, 20);
+
+				.count {
+					@include font(16, -0.34, normal, 28);
+
+					&.primary {
+						color: $COLOR_PRIMARY;
+					}
+				}
+			}
+
+			.follow_box {
+				@include center;
+				@include mediaBox(56, 56);
+				@include font(16, -1.02, normal);
+				@include media(margin-right, -4);
+				background-color: $COLOR_PRIMARY;
+				color: #fff;
+				border-radius: 50%;
+				transition: background-color 0.3s;
+
+				&.followed {
+					background-color: $COLOR_GRAY_4;
+				}
+			}
+		}
+	}
+}
+
+@import 'review/detail_review_product'; // 상세 - 제품리뷰

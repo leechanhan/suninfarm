@@ -1,0 +1,177 @@
+&.liveshow {
+	.logo_box {
+		@include mediaBox(88, 44);
+		@include media(top, 32);
+		right: 0;
+		position: absolute;
+
+		img {
+			@include fit(contain);
+		}
+	}
+
+	.drag_list_wrapper {
+		@include media(margin, 32, -40, 0);
+		overflow-x: auto;
+
+		&::-webkit-scrollbar {
+			display: none;
+		}
+	}
+
+	.drag_list_wrapper,
+	.drag_list_wrapper * {
+		touch-action: initial;
+	}
+
+	.drag_list {
+		@include center(flex-start);
+		@include media(padding, 0, 40);
+		@include media(gap, 16);
+		@include media(height, 324);
+		position: relative;
+	}
+
+	.drag_item {
+		@include media(min-width, 214);
+		@include media(border-radius, 32);
+		overflow: hidden;
+		height: 100%;
+		position: relative;
+
+		.img_box {
+			width: 100%;
+			height: 100%;
+
+			img {
+				@include fit;
+			}
+		}
+
+		.text_box {
+			@include center;
+			@include media(height, 100);
+			@include media(gap, 12);
+			width: 100%;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background-color: rgba(255, 255, 255, 0.7);
+			flex-direction: column;
+
+			.date {
+				@include font(20, -1, normal);
+			}
+
+			.title {
+				@include font(20, -0.9, lighter);
+				@include media(padding, 0, 16);
+				@include ellipsis(214 - 32);
+			}
+
+			.after_box {
+				@include center;
+				@include media(gap, 4);
+			}
+
+			.sale {
+				@include center;
+				@include mediaBox(56, 24);
+				@include font(16, normal, bold);
+				@include media(border-radius, 8);
+				color: #fff;
+				background-color: $COLOR_DANGER;
+			}
+
+			.after_date {
+				@include font(16, normal, bold);
+			}
+		}
+
+		&:after {
+			content: '';
+			display: block;
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			mix-blend-mode: multiply;
+			opacity: 0.3;
+			background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3));
+		}
+	}
+
+	.liveon_animation_box {
+		@include center;
+		@include mediaBox(140, 40);
+		@include media(top, 12);
+		@include media(left, 12);
+		@include media(border-radius, 32);
+		@include media(gap, 4);
+		background-color: $COLOR_DANGER;
+		position: absolute;
+
+		[class*='animation_key_'] {
+			@include font(24, normal, bold);
+			color: #fff;
+
+			&.left_margin {
+				@include media(margin-left, 4);
+			}
+		}
+
+		$liveons: (
+			1: 600,
+			2: 500,
+			3: 400,
+			4: 300,
+			5: 200,
+			6: 100,
+		);
+
+		@keyframes liveon_animate {
+			0% {
+				opacity: 0;
+				transform: translateX(mediaVal(-300));
+				@media (min-width:#{$MAX_WIDTH}px) {
+					transform: translateX(-300px);
+				}
+			}
+			33% {
+				opacity: 1;
+				transform: translateX(0%);
+			}
+			66% {
+				opacity: 1;
+				transform: scale(1.25);
+			}
+			80% {
+				opacity: 0;
+				transform: translateX(0%);
+			}
+			100% {
+				opacity: 0;
+				transform: translateX(mediaVal(300));
+				@media (min-width:#{$MAX_WIDTH}px) {
+					transform: translateX(300px);
+				}
+			}
+		}
+
+		@each $key, $val in $liveons {
+			.animation_key_#{$key} {
+				animation: 3s ease-in-out #{$val}ms infinite normal none running liveon_animate;
+			}
+		}
+	}
+
+	.empty_item {
+		@include media(min-width, 24);
+		height: 100%;
+		display: block;
+	}
+}

@@ -1,0 +1,127 @@
+@import 'https://i-vory.net/ivory/static/font/pretendard/font.css';
+
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	box-sizing: border-box;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-tap-highlight-color: transparent;
+	font-family: inherit;
+	touch-action: pan-y;
+	color: $FONT;
+}
+
+html {
+	max-width: $MAX_WIDTH;
+	margin: 0 auto;
+	height: -webkit-fill-available;
+}
+
+body {
+	overflow: hidden;
+	height: viewHeight();
+	min-height: -webkit-fill-available;
+	position: relative;
+	z-index: 1;
+	font-family: ivory_pretendard;
+	background-color: $COLOR_GRAY_7;
+}
+
+a,
+button,
+input {
+	color: inherit;
+	background-color: transparent;
+	border: 0;
+	outline: 0;
+	box-shadow: none;
+	text-decoration: none;
+
+	&:active,
+	&:focus {
+		background-color: transparent;
+		border: 0;
+		outline: 0;
+		box-shadow: none;
+	}
+}
+
+textarea {
+	resize: none;
+
+	&:active,
+	&:focus {
+		background-color: transparent;
+		outline: 0;
+	}
+}
+
+.hide {
+	@include hide;
+}
+
+// custom
+.svg_wrap {
+	@include center;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	font-style: normal;
+
+	svg {
+		@include mediaCalc(width, 100%, '-', 2);
+		@include mediaCalc(height, 100%, '-', 2);
+		display: block;
+
+		* {
+			transition: fill 0.3s;
+		}
+	}
+}
+
+.page_container {
+	height: viewHeight();
+	display: flex;
+	flex-direction: column;
+	max-width: #{$MAX_WIDTH}px;
+	margin: 0 auto;
+	background-color: #fff;
+
+	.content_wrapper {
+		flex: 1;
+		overflow-y: auto;
+	}
+}
+
+.error_fallback {
+	@include center;
+	@include media(padding, 0, 40);
+	width: 100%;
+	height: 100%;
+	flex-direction: column;
+
+	h1 {
+		@include font(32, normal, bold);
+		@include media(margin-top, 24);
+	}
+
+	p {
+		@include media(margin-top, 9);
+		@include font(22, normal, bold);
+		color: $COLOR_GRAY_6;
+	}
+
+	button {
+		@include font(28, normal, bold);
+		@include media(padding-top, 33);
+		@include media(padding-bottom, 30);
+		@include media(margin-top, 146);
+		display: block;
+		width: 100%;
+		background-color: $COLOR_PRIMARY;
+		color: #fff;
+		text-align: center;
+	}
+}

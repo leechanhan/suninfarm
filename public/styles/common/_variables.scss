@@ -1,0 +1,220 @@
+// layout
+$MAX_WIDTH: 640;
+$MAX_VIEWHEIGHT: calc(var(--vh, 1vh) * 100);
+$HEADER_HEIGHT: 100;
+$FOOTER_HEIGHT: 250;
+$LINEHEIGHT: 1.5;
+$GNB_HEIGHT: 119;
+$FOOTER_BTN: 88;
+
+// colors
+$COLOR_PRIMARY: #68c0b5;
+$COLOR_PRIMARY_COLOR_LIGHT: #94e2d8;
+$COLOR_PRIMARY_COLOR_SHADOW: rgba(69, 151, 140, 0.3);
+$COLOR_PRIMARY_COLOR_DARK: #499690;
+$COLOR_SECONDARY_COLOR: #fb8713;
+$COLOR_THIRD_COLOR: #fc0d3e;
+$COLOR_DANGER: #e81212;
+$FONT: #333333;
+
+$COLOR_GRAY_1: #f6f6f6;
+$COLOR_GRAY_2: #efefef;
+$COLOR_GRAY_3: #e1e1e1;
+$COLOR_GRAY_4: #d1d1d1;
+$COLOR_GRAY_5: #b4b4b4;
+$COLOR_GRAY_6: #707070;
+$COLOR_GRAY_7: #1a1a1a;
+
+$POPUP_INDEX: 3000;
+$ALERT_INDEX: 4000;
+
+@function viewHeight() {
+	@return calc(var(--vh, 1vh) * 100);
+}
+@function mediaVal($val) {
+	@return calc(100vw * ($val / $MAX_WIDTH));
+}
+
+@mixin center($justify: center, $align: center) {
+	display: flex;
+	justify-content: $justify;
+	align-items: $align;
+}
+
+@mixin ellipsis($width, $value: '') {
+	@if ($width == 100%) {
+		max-width: 100%;
+	} @else {
+		@if ($value == '') {
+			@include media(max-width, $width);
+		} @else {
+			@include mediaCalc(max-width, $value, '-', $width);
+		}
+	}
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	vertical-align: bottom;
+}
+@mixin ellipsmulti($line: 2) {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: $line;
+	-webkit-box-orient: vertical;
+}
+
+@mixin fit($fit: cover) {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: $fit;
+}
+
+@mixin content($content: '') {
+	content: $content;
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+@mixin hide {
+	position: absolute;
+	font-size: 0 !important;
+	line-height: 0 !important;
+	letter-spacing: 0 !important;
+	opacity: 0 !important;
+	background-color: transparent !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	width: 0 !important;
+	height: 0 !important;
+	appearance: none !important;
+	overflow: hidden !important;
+	z-index: -999999 !important;
+	touch-action: none !important;
+}
+
+@mixin absolAlgin($position: absolute) {
+	position: $position;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+}
+
+@mixin font($fontSize, $letterSpacing, $fontWeight, $lineHeight: '', $important: '') {
+	@include media(font-size, $fontSize);
+	@if ($letterSpacing == normal) {
+		letter-spacing: normal #{$important};
+	} @else {
+		@include media(letter-spacing, $letterSpacing, $important);
+	}
+	font-weight: #{$fontWeight} #{$important};
+	@if ($lineHeight != '') {
+		@include media(line-height, $lineHeight, $important);
+	}
+}
+
+// margin | padding / border-radius 4value
+@mixin responsive-value($property, $value1, $value2: null, $value3: null, $value4: null, $maxWidth) {
+	@if ($value2 == null) {
+		#{$property}: calc(100vw * ($value1 / $maxWidth));
+		@media (min-width: #{$maxWidth}px) {
+			#{$property}: #{$value1}px;
+		}
+	} @else {
+		#{$property}: calc(100vw * ($value1 / $maxWidth))
+			#{if($value2 != 'auto', calc(100vw * ($value2 / $maxWidth)), 'auto')}
+			#{if($value3 != null, 'calc(100vw * (' + $value3 + ' / ' + $maxWidth + '))', '')}
+			#{if($value4 != null, 'calc(100vw * (' + $value4 + ' / ' + $maxWidth + '))', '')};
+		@media (min-width: #{$maxWidth}px) {
+			#{$property}: #{$value1}px #{if($value2 != 'auto', $value2 + 'px', 'auto')} #{if($value3 != null, $value3 + 'px', '')} #{if(
+					$value4 != null,
+					$value4 + 'px',
+					''
+				)};
+		}
+	}
+}
+
+// media query
+@mixin media($key, $val1: null, $val2: null, $val3: null, $val4: null, $important: '', $maxWidth: $MAX_WIDTH) {
+	@if ($key == border-radius) {
+		@if ($val2 == null) {
+			#{$key}: calc(100vw * ($val1 / $maxWidth)) #{$important};
+
+			@media (min-width: #{$maxWidth}px) {
+				#{$key}: #{$val1}px #{$important};
+			}
+		} @else {
+			border-radius: calc(100vw * ($val1 / $maxWidth))
+				calc(100vw * ($val2 / $maxWidth))
+				calc(100vw * ($val3 / $maxWidth))
+				calc(100vw * ($val4 / $maxWidth));
+
+			@media (min-width: #{$maxWidth}px) {
+				border-radius: #{$val1}px #{$val2}px #{$val3}px #{$val4}px;
+			}
+		}
+	} @else if($key == padding or $key == margin) {
+		@include responsive-value($key, $val1, $val2, $val3, $val4, $maxWidth);
+	} @else {
+		#{$key}: calc(100vw * ($val1 / $maxWidth)) #{$important};
+
+		@media (min-width: #{$maxWidth}px) {
+			#{$key}: #{$val1}px #{$important};
+		}
+	}
+}
+
+// calculation
+@mixin mediaCalc($key, $value1, $calc, $value2) {
+	#{$key}: calc(#{$value1} #{$calc} calc(100vw * (#{$value2} / #{$MAX_WIDTH})));
+
+	@media (min-width: #{$MAX_WIDTH}px) {
+		#{$key}: calc(#{$value1} #{$calc} #{$value2}px);
+	}
+}
+
+// box size
+@mixin mediaBox($width: auto, $height: auto) {
+	@include media(width, $width);
+	@include media(height, $height);
+}
+
+// box shadow media query
+@mixin boxshadow($x, $y, $blur, $spread: 0, $color) {
+	box-shadow: calc(100vw * ($x / $MAX_WIDTH)) calc(100vw * ($y / $MAX_WIDTH)) calc(100vw * ($blur / $MAX_WIDTH)) calc(100vw * ($spread / $MAX_WIDTH)) $color;
+
+	@media (min-width: #{$MAX_WIDTH}px) {
+		box-shadow: #{$x}px #{$y}px #{$blur}px #{$spread}px #{$color};
+	}
+}
+
+@mixin skeleton($position: relative) {
+	position: $position;
+	overflow: hidden;
+	background-color: #efefef;
+	z-index: 1;
+	-webkit-transform: translate3d(0, 0, 1px);
+	transform: translate3d(0, 0, 1px);
+
+	img {
+		position: relative;
+		z-index: 3;
+		-webkit-transform: translate3d(0, 0, 1px);
+		transform: translate3d(0, 0, 1px);
+	}
+
+	&:before {
+		@include content;
+		background-image: linear-gradient(to right, transparent, #fff, transparent);
+		animation: imgSkeleton 2s infinite;
+		z-index: 2;
+		-webkit-transform: translate3d(0, 0, 1px);
+		transform: translate3d(0, 0, 1px);
+	}
+}

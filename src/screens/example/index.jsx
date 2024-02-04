@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { SwitchCase } from '@toss/react';
-import Typical from '@screens/example/components/Typical';
+import { SwitchCase } from '@toss/react'; 
 import Zustand from '@screens/example/components/Zustand';
 import ReactQuery from '@screens/example/components/ReactQuery';
 
@@ -26,16 +25,7 @@ const ExampleScreen = () => {
 						{key}
 					</option>
 				))}
-			</select>
-			<SwitchCase
-				value={mode}
-				caseBy={{
-					[RENDER_MODE.useState]: <Typical />,
-					[RENDER_MODE.zustand]: <Zustand />,
-					[RENDER_MODE.reactQuery]: <ReactQuery />,
-				}}
-				defaultComponent={<p>오류가 발생하였습니다.</p>}
-			/>
+			</select> 
 			{/* eslint-disable-next-line react/no-unknown-property */}
 		</>
 	);

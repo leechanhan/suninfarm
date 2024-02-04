@@ -29,9 +29,7 @@ const ProfileDetail = ({ personId }) => {
 		CustomAlert.question({
 			html: `${profile.name}회원을 삭제하시겠습니까?`,
 			callback: () => {
-				ExampleService.deletePerson({ personId: profile.id }).then((res) => {
-					CustomAlert.success({ html: '삭제되었습니다.' });
-				});
+			 
 			},
 		});
 	};
@@ -40,9 +38,7 @@ const ProfileDetail = ({ personId }) => {
 		CustomAlert.question({
 			html: '등록하시겠습니까?',
 			callback: () => {
-				ExampleService.postPerson(request).then((res) => {
-					CustomAlert.success({ html: '등록되었습니다.' });
-				});
+			 
 			},
 		});
 	};
@@ -51,9 +47,7 @@ const ProfileDetail = ({ personId }) => {
 		CustomAlert.question({
 			html: `${profile.name}회원을 수정 하시겠습니까?`,
 			callback: () => {
-				ExampleService.putPerson({ ...request, personId: profile.id }).then(() => {
-					CustomAlert.success({ html: '변경되었습니다.' });
-				});
+		 
 			},
 		});
 	};
@@ -88,7 +82,7 @@ const ProfileDetail = ({ personId }) => {
 
 	const preloadProfile = () => {
 		startTransition(async () => {
-			const res = await ExampleService.fetchPerson({ personId });
+			const res = "";
 			setProfile(res.data);
 		});
 	};
@@ -233,7 +227,7 @@ const Typical = () => {
 
 	useEffect(() => {
 		startTransition(async () => {
-			const res = await ExampleService.fetchPeople();
+			const res = "await ExampleService.fetchPeople()";
 			setPeople(res?.data ?? []);
 		});
 	}, []);

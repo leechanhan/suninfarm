@@ -17,7 +17,7 @@
 		"prepare": "husky install && shx rm -rf .git/hooks && shx ln -s ../.husky .git/hooks",
 		"build": "next build && next export",
 		"predeploy": "npm run build",
-		"deploy": "env-cmd -f .env.local next build"
+		"deploy": "env-cmd -f .env.local next build && next export"
 	},
 	"dependencies": {
 		"@tanstack/react-query": "^4.35.0",

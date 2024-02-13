@@ -1,8 +1,9 @@
 import React from 'react';
 import Header메타설정 from '@component/etc/Header메타설정';
-
+import SubHeader from '@component/frame/Subheader';
 const Header = ({
 	title = '',
+	subtitle = null,
 	titleLogo = null,
 	classes = '',
 	description = '',
@@ -22,20 +23,17 @@ const Header = ({
 					{LeftButton && <LeftButton />}
 					{!onlyTitle && (
 						<h1 className="header_title">
-							{titleLogo !== null ? (
-								<img
-									src={process.env.NEXT_PUBLIC_BASE_PATH + titleLogo}
-									alt={title}
-								/>
-							) : (
-								<>{title}</>
-							)}
+							<img
+								src={process.env.NEXT_PUBLIC_BASE_PATH + '/images/png/img_logo_white.png'}
+								alt={title}
+							/>
 						</h1>
 					)}
 
 					{RightButton && <RightButton />}
 				</header>
 			)}
+			{subtitle && <SubHeader subtitle={subtitle} />}
 		</>
 	);
 };

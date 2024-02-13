@@ -6,44 +6,25 @@ import { IconGnbPcc } from '@component/icon/IconGnbPcc';
 import { IconGnbStore } from '@component/icon/IconGnbStore';
 import AndroidUtils from '@lib/utils/android';
 import NativeBridge from '@lib/mobile/bridge';
+import CustomAlert from '@lib/alert';
+import { useRouter } from 'next/router';
 
 const Nav하단메뉴 = () => {
-	const moveIvoryLink = (url = '', isOuterLink = false) => {
-		if (isOuterLink) {
-			location.href = url;
-		} else {
-			// location.href = process.env.NEXT_PUBLIC_DOMAIN + '' + url;
-			location.href = url;
-		}
+	const router = useRouter();
+	const handlerNavigation = (routerName) => {
+		router.push(routerName);
 	};
-	const ivoryOpenLinkExternally = (url, headerType) => {
-		const UserAgent = navigator.userAgent;
-		if (UserAgent.indexOf('ivory_3.0') === -1) {
-			location.href = url;
-			return;
-		}
 
-		if (AndroidUtils.isAndroidDevice()) {
-			NativeBridge.openNewLink(url, headerType);
-			window?.Android?.echossOpenLinkExternally(url, headerType);
-		} else {
-			const nativeParam = {};
-			nativeParam.url = url;
-			nativeParam.screenType = 'full'; /* modal or full*/
-			nativeParam.headerType = 'show'; /* hide or show */
-			nativeParam.naviType = 'hide'; /* hide or show */
-
-			window?.webkit?.messageHandlers?.openLinkExternally?.postMessage(nativeParam);
-		}
+	const handlerLogout = (url = '', isOuterLink = false) => {
+		CustomAlert.question({ html: '로그아웃 하시겠습니까?', callback: () => {} });
 	};
 
 	const icons = [
-		{ icon: <IconGnbHome />, text: '홈', func: () => moveIvoryLink('/') },
-		{ icon: <IconGnbPcc />, text: '서브테스트', func: () => moveIvoryLink('/test') }, // 서브헤더 테스트 페이지
-		// { icon: <IconGnbPcc />, text: '산후조리원', func: () => moveIvoryLink('/review/pccList.do') },
-		{ icon: <IconGnbCommunity />, text: '커뮤니티', func: () => moveIvoryLink('/community') },
-		{ icon: <IconGnbStore />, text: '스토어', func: () => ivoryOpenLinkExternally('https://m.i-vory.shop', 'hide') },
-		{ icon: <IconGnbMypage />, text: '마이페이지', func: () => moveIvoryLink('/customers/mypage.do') },
+		{ icon: <IconGnbHome />, text: '', func: () => handlerNavigation('/farm') },
+		{ icon: <IconGnbPcc />, text: '', func: () => handlerNavigation('/deviceSetting') },
+		{ icon: <IconGnbCommunity />, text: '', func: () => handlerNavigation('/') },
+		{ icon: <IconGnbStore />, text: '', func: () => handlerNavigation('/') },
+		{ icon: <IconGnbMypage />, text: '', func: () => handlerLogout() },
 	];
 	return (
 		<>

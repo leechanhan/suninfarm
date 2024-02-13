@@ -21,10 +21,14 @@
 			}
 
 			.icon_box {
-				@include media(width, 40);
-				@include media(height, 40);
+				@include media(width, 72);
+				@include media(height, 72);
 			}
 
+			img {
+				width: 100%;
+				height: 100%;
+			}
 			.icon_text {
 				@include font(16, 0.8, normal);
 				@include media(margin-top, 8);

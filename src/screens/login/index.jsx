@@ -24,7 +24,6 @@ const LoginScreen = () => {
 LoginScreen.Layout = Layout서브헤더영역;
 LoginScreen.headerOptions = {
 	title: '',
-	LeftButton: () => <></>,
 };
 LoginScreen.isGnb = false;
 

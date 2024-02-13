@@ -54,7 +54,7 @@
 
 		img {
 			display: block;
-			height: 40%;
+			height: 30%;
 			width: auto;
 		}
 	}
@@ -67,10 +67,13 @@
 		height: 100%;
 		z-index: 2;
 
-		&:first-of-type {
+		&:nth-of-type(1) {
 			left: 0;
 		}
 
+		&:nth-of-type(2) {
+			right: 44px;
+		}
 		&:last-of-type {
 			right: 0;
 		}
@@ -88,5 +91,18 @@
 			height: 100%;
 			position: relative;
 		}
+	}
+}
+.subheader_wrap{
+	display: flex;
+	flex-direction: row;
+	padding: 24px;
+	.button_right{
+		width: 24px;
+		margin-right: 4px;
+	}
+	.subtitle{
+		@include font(30, normal, normal);
+		color:#000; 
 	}
 }

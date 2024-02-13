@@ -26,7 +26,7 @@ const LoginForm = () => {
 				confirmButtonText: '확인',
 			}).then((res) => {});
 		} else {
-			router.push('/farmListScreen');
+			router.push('/farm');
 		}
 	};
 

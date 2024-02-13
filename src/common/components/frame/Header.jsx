@@ -11,6 +11,7 @@ const Header = ({
 	RightButton = null,
 	onlyTitle = false,
 	onlyMeta = false,
+	test,
 }) => {
 	return (
 		<>

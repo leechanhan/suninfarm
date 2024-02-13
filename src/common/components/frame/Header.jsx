@@ -1,6 +1,6 @@
 import React from 'react';
 import Header메타설정 from '@component/etc/Header메타설정';
-import SubHeader from '@component/frame/Subheader';
+import SubHeader from './SubHeader';
 const Header = ({
 	title = '',
 	subtitle = null,

@@ -30,7 +30,7 @@ const AlarmScreen = () => {
 					{alarmList.map((item, index) => {
 						return (
 							<li
-								className="alarm_list_wrap"
+								className="alarm_item_wrap"
 								key={index}
 							>
 								<img
@@ -38,19 +38,14 @@ const AlarmScreen = () => {
 									src={alarmTypeMap[item.alarmType]}
 								/>
 								{/* <span className='alarm_value'>{item.alarmType}</span>  */}
-								<span className="alarm_value">{item.value}</span>
-								<span className="alarm_value">{item.unit}</span>
-								{item.swichOn ? (
+								<div className="alarm_textbox_wrap">
+									<span className="alarm_value">{item.value}</span>
+									<span className="alarm_unit">{item.unit}</span>
 									<img
 										className="alarm_switch"
 										src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_horiz_checkbox_on.png`}
 									/>
-								) : (
-									<img
-										className="alarm_switch"
-										src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_horiz_checkbox_off.png`}
-									/>
-								)}
+								</div>
 							</li>
 						);
 					})}

@@ -22,8 +22,8 @@ const Nav하단메뉴 = () => {
 	const icons = [
 		{ icon: <IconGnbHome />, text: '', func: () => handlerNavigation('/farm') },
 		{ icon: <IconGnbPcc />, text: '', func: () => handlerNavigation('/deviceSetting') },
-		{ icon: <IconGnbCommunity />, text: '', func: () => handlerNavigation('/') },
-		{ icon: <IconGnbStore />, text: '', func: () => handlerNavigation('/') },
+		{ icon: <IconGnbCommunity />, text: '', func: () => handlerNavigation('/selectVegetable') },
+		{ icon: <IconGnbStore />, text: '', func: () => handlerNavigation('/gatewaySetting') },
 		{ icon: <IconGnbMypage />, text: '', func: () => handlerLogout() },
 	];
 	return (

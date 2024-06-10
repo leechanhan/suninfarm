@@ -31,57 +31,46 @@ const LoginForm = () => {
 	};
 
 	return (
-		<>
-			<div className="login_form_wrap">
+		<div className="login_wrap">
+			<div className="form_wrap">
 				<img
-					className="icon"
-					src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_human.png`}
+					className="logo"
+					src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/img_logo_small.png`}
 				/>
 				<input
+					className="form_wrap input"
 					type="text"
-					placeholder="아이디"
+					placeholder="ID"
 					value={id}
 					onChange={onChangeId}
 				/>
-				<img
-					className="icon"
-					src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_delete.png`}
-				/>
-			</div>
-			<div className="login_form_wrap">
-				<img
-					className="icon"
-					src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_key.png`}
-				/>
 				<input
+					className="form_wrap input"
 					type="password"
-					placeholder="비밀번호"
+					placeholder="PW"
 					value={pw}
 					onChange={onChangePw}
 				/>
-				<img
-					className="icon"
-					src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_delete.png`}
-				/>
-			</div>
-			<button
-				className="login_button"
-				onClick={() => handlerLogin(id, pw)}
-			>
-				로그인
-			</button>
-			<div className="login_bottom_menu">
-				<Checkbox
-					className="auto_login"
-					checked={service}
-					onChange={setService}
+				<div className="login_bottom_menu">
+					<Checkbox
+						className="auto_login"
+						checked={service}
+						onChange={setService}
+					>
+						로그인 상태유지
+					</Checkbox>
+					<p className="join">&nbsp;|&nbsp;</p>
+					<p className="join">아이디/비밀번호 찾기</p>
+				</div>
+				<button
+					className="login_button"
+					onClick={() => handlerLogin(id, pw)}
 				>
-					로그인 유지
-				</Checkbox>
-				<p className="join">회원가입</p>
-				<p>정보찾기</p>
+					로그인
+				</button>
+				<button className="join_button">회원가입</button>
 			</div>
-		</>
+		</div>
 	);
 };
 

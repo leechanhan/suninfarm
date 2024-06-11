@@ -1,0 +1,69 @@
+.white_header {
+	height: 72px;
+	margin-top: 16px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	button {
+		width: 54px;
+		height: 54px;
+		position: absolute;
+		left: 16px;
+	}
+	button:after {
+		background-image: url('/images/png/button_left.png');
+		background-color: #f00;
+		content: '';
+		display: block;
+		position: absolute;
+		width: 0.1em;
+		bottom: 0.25em;
+		border-radius: 0.05em;
+		background-color: #fff;
+		transform-origin: bottom center;
+	}
+	img {
+		width: 26px;
+		height: auto;
+		position: absolute;
+		left: 16px;
+	}
+	span {
+		@include font($HEADER_TITLE, normal, bold);
+	}
+}
+
+.agreeListWrap {
+	padding: 22px;
+	.agree {
+		padding: 16px;
+		height: 48px;
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+
+		img {
+			width: 18px;
+		}
+	}
+	.agree:first-of-type {
+		border: 1px solid #cfcfcf;
+		margin-bottom: 22px;
+	}
+}
+
+.agreeConfirm {
+	@include center;
+	margin-top: 100px;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 254px;
+	height: 40px;
+	border-radius: 16px;
+	background-color: #89c528;
+	@include font($FT_MD, normal, normal);
+	color: #fff;
+}

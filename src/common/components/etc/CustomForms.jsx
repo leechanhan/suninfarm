@@ -30,26 +30,26 @@ const Form체크박스 = ({ position = 'left', id = `temp_${new Date().getTime()
 		<div className="form_checkbox_wrapper">
 			{position === 'left' ? (
 				<>
-					<Label
-						id={id}
-						label={label}
-					/>
 					<Form
 						id={id}
 						value={value}
 						onChange={onChange}
+					/>
+					<Label
+						id={id}
+						label={label}
 					/>
 				</>
 			) : (
 				<>
+					<Label
+						id={id}
+						label={label}
+					/>
 					<Form
 						id={id}
 						value={value}
 						onChange={onChange}
-					/>
-					<Label
-						id={id}
-						label={label}
 					/>
 				</>
 			)}

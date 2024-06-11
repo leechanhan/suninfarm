@@ -30,6 +30,9 @@ const LoginForm = () => {
 		}
 	};
 
+	const openPage = (screenName) => {
+		router.push(screenName);
+	};
 	return (
 		<div className="login_wrap">
 			<div className="form_wrap">
@@ -68,7 +71,12 @@ const LoginForm = () => {
 				>
 					로그인
 				</button>
-				<button className="join_button">회원가입</button>
+				<button
+					className="join_button"
+					onClick={() => openPage('/agreement')}
+				>
+					회원가입
+				</button>
 			</div>
 		</div>
 	);

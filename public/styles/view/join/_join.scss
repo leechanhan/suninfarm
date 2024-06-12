@@ -11,18 +11,6 @@
 		position: absolute;
 		left: 16px;
 	}
-	button:after {
-		background-image: url('/images/png/button_left.png');
-		background-color: #f00;
-		content: '';
-		display: block;
-		position: absolute;
-		width: 0.1em;
-		bottom: 0.25em;
-		border-radius: 0.05em;
-		background-color: #fff;
-		transform-origin: bottom center;
-	}
 	img {
 		width: 26px;
 		height: auto;
@@ -47,6 +35,9 @@
 		img {
 			width: 18px;
 		}
+		label {
+			@include font($FT_MD1, normal, normal);
+		}
 	}
 	.agree:first-of-type {
 		border: 1px solid #cfcfcf;
@@ -64,6 +55,53 @@
 	height: 40px;
 	border-radius: 16px;
 	background-color: #89c528;
-	@include font($FT_MD, normal, normal);
+	@include font($FT_MD2, normal, normal);
 	color: #fff;
+}
+
+.logoColorWrap {
+	@include center;
+	@include media(margin-top, 160);
+	@include media(margin-bottom, 70);
+	img {
+		@include media(width, 328);
+	}
+}
+
+.formWrap {
+	background-color: rgba($color: #89c528, $alpha: 0.2);
+	border-radius: mediaVal(40);
+	@include media(margin, 56);
+	@include media(padding, 56);
+	height: auto;
+	.formTitle {
+		@include media($FT_MD1, normal, normal);
+		@include center;
+		@include media(margin-bottom, 36);
+	}
+	input {
+		width: 100%;
+		@include media(height, 80);
+		background-color: #fff;
+		border-radius: mediaVal(40);
+		color: #000;
+		@include media(padding, 30);
+		@include media(margin, 14, 0);
+		input::placeholder {
+			color: #d0d2d3;
+		}
+	}
+
+	button {
+		@include media(margin-top, 44);
+		@include media(width, 308);
+		@include media(height, 80);
+
+		width: 254px;
+		height: 40px;
+		border-radius: mediaVal(30);
+		background-color: #89c528;
+		color: #fff;
+		@include font($FT_MD2, normal, normal);
+	}
 }

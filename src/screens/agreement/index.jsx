@@ -2,6 +2,7 @@ import Layout기본헤더없음 from '@component/layout/Layout기본헤더없음
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import CustomForms from '@component/etc/CustomForms';
+import { openPage } from '@lib/hooks/common';
 const AgreementScreen = () => {
 	const router = useRouter();
 	const [agreeAll, setAgreeAll] = useState(false);
@@ -9,7 +10,7 @@ const AgreementScreen = () => {
 	const [agreePersnal, setAgreePersnal] = useState(false);
 	const [agreeLocateInfo, setAGreeLocateInfo] = useState(false);
 	const [agreeLocateService, setAgreeLocateService] = useState(false);
-	useEffect(() => {}, []);
+
 	return (
 		<div className="content_wrapper">
 			<div className="white_header">
@@ -17,7 +18,6 @@ const AgreementScreen = () => {
 					onClick={() => router.back()}
 					src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/button_left.png`}
 				/>
-
 				<span>이용약관</span>
 			</div>
 			<div className="agreeListWrap">
@@ -71,7 +71,12 @@ const AgreementScreen = () => {
 				</div>
 			</div>
 			<div></div>
-			<button className="agreeConfirm">확인</button>
+			<button
+				className="agreeConfirm"
+				onClick={() => openPage('/join', router)}
+			>
+				확인
+			</button>
 		</div>
 	);
 };

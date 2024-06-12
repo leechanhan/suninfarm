@@ -280,3 +280,7 @@ export const useAutosizeTextarea = (value, maxLine) => {
 
 	return ref;
 };
+
+export const openPage = (screenName, router) => {
+	router.push(screenName);
+};

@@ -3,11 +3,11 @@ import Checkbox from './Checkbox';
 import Swal from 'sweetalert2';
 import { getId } from 'react-uid/dist/es5/context';
 import { useRouter } from 'next/router';
-
+import { openPage } from '@lib/hooks/common';
 const LoginForm = () => {
 	const router = useRouter();
 	const [service, setService] = useState(false);
-	const [id, setId] = useState('Suninform');
+	const [id, setId] = useState('');
 	const [pw, setPw] = useState('');
 
 	const onChangeId = (e) => {
@@ -30,9 +30,6 @@ const LoginForm = () => {
 		}
 	};
 
-	const openPage = (screenName) => {
-		router.push(screenName);
-	};
 	return (
 		<div className="login_wrap">
 			<div className="form_wrap">
@@ -73,7 +70,7 @@ const LoginForm = () => {
 				</button>
 				<button
 					className="join_button"
-					onClick={() => openPage('/agreement')}
+					onClick={() => openPage('/agreement', router)}
 				>
 					회원가입
 				</button>

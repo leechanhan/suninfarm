@@ -1,7 +1,8 @@
 import Layout기본헤더없음 from '@component/layout/Layout기본헤더없음';
+import { openPage } from '@lib/hooks/common';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import CustomForms from '@component/etc/CustomForms';
+import Swal from 'sweetalert2';
 const JoinScreen = () => {
 	const router = useRouter();
 	const [agreeAll, setAgreeAll] = useState(false);
@@ -9,65 +10,78 @@ const JoinScreen = () => {
 	const [agreePersnal, setAgreePersnal] = useState(false);
 	const [agreeLocateInfo, setAGreeLocateInfo] = useState(false);
 	const [agreeLocateService, setAgreeLocateService] = useState(false);
+
+	const [formData, setFormData] = useState({
+		id: '',
+		pw: '',
+		name: '',
+		email: '',
+		phone: '',
+	});
+
+	const handleChange = (event) => {
+		const { name, value } = event.target;
+		console.log('join', name, value);
+		setFormData({
+			...formData,
+			[name]: value,
+		});
+	};
+
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		Swal.fire({
+			icon: 'success',
+			title: '안내',
+			text: `회원가입을 축하합니다.\n농장추가 화면으로 이동합니다.`,
+			confirmButtonText: '확인',
+		}).then((res) => {
+			openPage('/addFarm', router);
+		});
+	};
+
 	useEffect(() => {}, []);
 	return (
 		<div className="content_wrapper">
-			<div className="white_header">
-				<img src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/button_left.png`} />
-				<span>이용약관</span>
-			</div>
-			<div className="agreeListWrap">
-				<div className="agree">
-					<CustomForms.Form체크박스
-						label="전체 약관에 동의합니다."
-						id="agreeAll"
-						onChange={setAgreeAll}
-						value={!agreeAll}
-					/>
+			<form onSubmit={handleSubmit}>
+				<div className="logoColorWrap">
+					<img src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/img_logo_color_mid.png`} />
 				</div>
-				<div className="agree">
-					<CustomForms.Form체크박스
-						label="서비스 이용약관 (필수)"
-						id="agreeService"
-						onChange={setAgreePersnal}
-						value={!agreePersnal}
+				<div className="formWrap">
+					<span className="formTitle">회원가입</span>
+					<input
+						type="text"
+						placeholder="ID"
+						name="id"
+						onChange={handleChange}
 					/>
-
-					<img src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/button_right.png`} />
-				</div>
-				<div className="agree">
-					<CustomForms.Form체크박스
-						label="개인정보 처리방침 (필수)"
-						id="agreePersnal"
-						onChange={setAGreeLocateInfo}
-						value={!agreeLocateInfo}
+					<input
+						type="password"
+						placeholder="PW"
+						name="pw"
+						onChange={handleChange}
 					/>
-
-					<img src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/button_right.png`} />
-				</div>
-				<div className="agree">
-					<CustomForms.Form체크박스
-						label="위치정보 사업이용약관(필수)"
-						id="agreeLocateInfo"
-						onChange={setAgreeAll}
-						value={!agreeAll}
+					<input
+						type="text"
+						name="name"
+						placeholder="Name"
+						onChange={handleChange}
 					/>
-
-					<img src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/button_right.png`} />
-				</div>
-				<div className="agree">
-					<CustomForms.Form체크박스
-						label="위치기반서비스 이용약관(필수)"
-						id="agreeLocateService"
-						onChange={setAgreeLocateService}
-						value={!agreeLocateService}
+					<input
+						type="text"
+						name="email"
+						placeholder="E-mail"
+						onChange={handleChange}
 					/>
-
-					<img src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/button_right.png`} />
+					<input
+						type="text"
+						name="phone"
+						placeholder="Phone"
+						onChange={handleChange}
+					/>
+					<button type="submit">회원가입</button>
 				</div>
-			</div>
-			<div></div>
-			<button className="agreeConfirm">확인</button>
+			</form>
 		</div>
 	);
 };

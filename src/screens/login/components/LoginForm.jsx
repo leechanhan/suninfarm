@@ -4,6 +4,8 @@ import Swal from 'sweetalert2';
 import { getId } from 'react-uid/dist/es5/context';
 import { useRouter } from 'next/router';
 import { openPage } from '@lib/hooks/common';
+
+import CustomForms from '@component/etc/CustomForms';
 const LoginForm = () => {
 	const router = useRouter();
 	const [service, setService] = useState(false);
@@ -52,14 +54,13 @@ const LoginForm = () => {
 					onChange={onChangePw}
 				/>
 				<div className="login_bottom_menu">
-					<Checkbox
-						className="auto_login"
-						checked={service}
+					<CustomForms.Form체크박스
+						label="로그인 상태유지"
+						id=""
 						onChange={setService}
-					>
-						로그인 상태유지
-					</Checkbox>
-					<p className="join">&nbsp;|&nbsp;</p>
+						value={!service}
+					/>
+					<p className="join">&nbsp;&nbsp;|</p>
 					<p className="join">아이디/비밀번호 찾기</p>
 				</div>
 				<button

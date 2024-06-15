@@ -75,7 +75,7 @@
 	@include media(padding, 56);
 	height: auto;
 	.formTitle {
-		@include media($FT_MD1, normal, normal);
+		@include font($FT_MD1, normal, normal);
 		@include center;
 		@include media(margin-bottom, 36);
 	}

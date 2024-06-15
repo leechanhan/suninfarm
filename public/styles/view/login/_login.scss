@@ -1,11 +1,8 @@
 .intro_wrap {
 	width: 100%;
 	height: 100vh;
-
 	img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
+		@include center;
 	}
 }
 .login_wrap {
@@ -13,35 +10,35 @@
 	height: 100vh;
 	background-size: cover;
 	background-image: url('/images/png/img_intro_bg.jpg');
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
+	@include center;
 	.form_wrap {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		height: 384px;
-		width: 309px;
-		margin: 0 26px;
-		border-radius: 30px;
-		margin-bottom: 54px;
-		background-color: rgba($color: #ffffff, $alpha: 0.15);
+		@include media(height, 384);
+		@include media(width, 310);
+		@include media(margin, 0, 26);
+		@include media(border-radius, 20);
+		@include media(margin-bottom, 54);
+		border: 1px solid rgba($color: #ffffff, $alpha: 0.1);
+		background-color: rgba($color: #ffffff, $alpha: 0.1);
 		.logo {
-			width: 146px;
-			padding-bottom: 12px;
+			@include media(width, 146);
+			@include media(padding-bottom, 12);
 		}
 
 		&.input {
-			width: 254px;
-			height: 40px;
+			@include media(width, 254);
+			@include media(height, 40);
+
+			@include media(border-radius, 14);
+			@include media(padding, 0, 16);
+			@include media(margin, 6, 0);
+			@include center;
 			display: flex;
 			flex-direction: row;
-			background-color: #e3e3e3;
-			border-radius: 14px;
-			padding: 0px 16px;
-			margin: 6px 0px;
+			background-color: #fff;
 			align-items: center;
 			@include font(16, normal, normal);
 			input::placeholder {
@@ -53,34 +50,36 @@
 			display: flex;
 			flex-direction: row;
 			height: auto;
-			padding-top: 22px;
+			@include media(padding-top, 22);
 			align-items: center;
-			color: #fff;
-			@include font(11, normal, normal);
-			label {
+
+			label,
+			p {
+				@include font(11, normal, normal);
 				display: flex;
 				justify-content: center;
 				align-items: center;
+				color: #fff;
 				input {
-					margin-right: 4px;
+					@include media(margin, 4);
 				}
 			}
 		}
 		.login_button {
-			margin-top: 22px;
-			width: 254px;
-			height: 40px;
-			border-radius: 30px;
+			@include media(margin-top, 22);
+			@include media(width, 254);
+			@include media(height, 40);
+			@include media(border-radius, 30);
 			background-color: #89c528;
 			color: #fff;
 			@include font(15, normal, normal);
 		}
 
 		.join_button {
-			margin-top: 34px;
-			width: 254px;
-			height: 40px;
-			border-radius: 30px;
+			@include media(margin-top, 34);
+			@include media(width, 254);
+			@include media(height, 40);
+			@include media(border-radius, 30);
 			background-color: #047235;
 			color: #fff;
 			@include font(15, normal, normal);

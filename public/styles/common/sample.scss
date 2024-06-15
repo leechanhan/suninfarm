@@ -1,0 +1,40 @@
+/*
+align:
+@include center;
+
+font :
+@include font(16, normal, normal);
+
+size :  
+	@include font(width, );
+	@include font(height, );
+
+	@include media(margin, );
+	@include media(margin-top, 54);
+	@include media(margin-left, 54);
+	@include media(margin-right, 54);
+	@include media(margin-bottom, 54);
+
+	@include media(padding, );
+	@include media(padding-top, );
+	@include media(padding-right, );
+	@include media(padding-bottom, );
+	@include media(padding-right, );
+
+	@include media(border-radius, );
+	
+draw : 
+
+	border: 1px solid #89c528;
+
+
+button : 
+	@include media(padding-top, 22);
+	@include media(width,254 );
+	@include media(height,40 ); 
+	@include media(border-radius,30 );
+	background-color: #89c528;
+	color: #fff;
+	@include font(15, normal, normal);
+
+	*/

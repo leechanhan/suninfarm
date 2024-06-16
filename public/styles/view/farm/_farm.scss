@@ -3,29 +3,30 @@
 	flex-direction: column;
 	@include center;
 	&.img {
-		@include media(width, 332);
-		@include media(margin-top, 300);
-		@include media(margin-bottom, 48);
+		@include media(width, 166);
+		@include media(height, 166);
+		@include media(margin-top, 150);
+		@include media(margin-bottom, 32);
 	}
 	&.description {
-		@include font($FT_MD2, normal, normal);
+		@include font(16, normal, normal);
 	}
 	&.padding {
-		@include media(margin-bottom, 52);
+		@include media(margin-bottom, 32);
 	}
 	.addFarmBtn {
 		border-radius: mediaVal(30);
 		background-color: #89c528;
-		@include media(margin, 18, 34);
+		@include media(margin, 8, 12);
 		@include center;
 		&.img {
-			@include media(width, 26);
-			@include media(margin-right, -20);
+			@include media(width, 14);
+			@include media(margin-right, -2);
 		}
 
 		&.button {
 			color: #fff;
-			@include font($FT_MD2, normal, normal);
+			@include font(15, normal, normal);
 		}
 	}
 }

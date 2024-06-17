@@ -1,25 +1,20 @@
-import Layout기본헤더없음 from '@component/layout/Layout기본헤더없음';
+import Layout기본헤더 from '@component/layout/Layout기본헤더';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import CustomForms from '@component/etc/CustomForms';
 import { openPage } from '@lib/hooks/common';
+import Button뒤로가기 from '@component/frame/headerBtn/Button뒤로가기';
+import Button자유함수 from '@component/frame/headerBtn/Button자유함수';
 const AgreementScreen = () => {
 	const router = useRouter();
 	const [agreeAll, setAgreeAll] = useState(false);
 	const [agreeService, setAgreeService] = useState(false);
 	const [agreePersnal, setAgreePersnal] = useState(false);
-	const [agreeLocateInfo, setAGreeLocateInfo] = useState(false);
+	const [agreeLocateInfo, setAgreeLocateInfo] = useState(false);
 	const [agreeLocateService, setAgreeLocateService] = useState(false);
 
 	return (
 		<div className="content_wrapper">
-			<div className="white_header">
-				<img
-					onClick={() => router.back()}
-					src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/button_left.png`}
-				/>
-				<span>이용약관</span>
-			</div>
 			<div className="agreeListWrap">
 				<div className="agree">
 					<CustomForms.Form체크박스
@@ -33,8 +28,8 @@ const AgreementScreen = () => {
 					<CustomForms.Form체크박스
 						label="서비스 이용약관 (필수)"
 						id="agreeService"
-						onChange={setAgreePersnal}
-						value={!agreePersnal}
+						onChange={setAgreeService}
+						value={!agreeService}
 					/>
 
 					<img src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/button_right.png`} />
@@ -43,7 +38,7 @@ const AgreementScreen = () => {
 					<CustomForms.Form체크박스
 						label="개인정보 처리방침 (필수)"
 						id="agreePersnal"
-						onChange={setAGreeLocateInfo}
+						onChange={setAgreePersnal}
 						value={!agreeLocateInfo}
 					/>
 
@@ -53,8 +48,8 @@ const AgreementScreen = () => {
 					<CustomForms.Form체크박스
 						label="위치정보 사업이용약관(필수)"
 						id="agreeLocateInfo"
-						onChange={setAgreeAll}
-						value={!agreeAll}
+						onChange={setAgreeLocateInfo}
+						value={!agreeLocateInfo}
 					/>
 
 					<img src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/button_right.png`} />
@@ -81,9 +76,11 @@ const AgreementScreen = () => {
 	);
 };
 
-AgreementScreen.Layout = Layout기본헤더없음;
+AgreementScreen.Layout = Layout기본헤더;
 AgreementScreen.headerOptions = {
-	title: '',
+	title: '이용약관',
+	LeftButton: () => <Button뒤로가기 />,
+	// RightButton: () => <Button자유함수 imgpath={'/images/png/button_right.png'} />,
 };
 
 AgreementScreen.isGnb = false;

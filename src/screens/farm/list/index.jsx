@@ -6,12 +6,11 @@ import Swal from 'sweetalert2';
 import EmptyFarm from '../components/EmptyFarm';
 const FarmListScreen = () => {
 	const router = useRouter();
+	const [farmList, setFarmList] = useState([{ a: 'a' }]);
 	useEffect(() => {}, []);
 	return (
 		<div className="content_wrapper">
-			<div className="farmWrap">
-				<EmptyFarm />
-			</div>
+			<div className="farmWrap">{farmList && farmList.length > 0 ? <></> : <EmptyFarm />}</div>
 		</div>
 	);
 };

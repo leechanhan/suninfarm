@@ -3,7 +3,7 @@ import COLORS from '@constants/colors';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-const Button뒤로가기 = ({ className = '', fill = COLORS.GRAY7 }) => {
+const Button자유함수 = ({ className = '', fill = COLORS.GRAY7 }) => {
 	const router = useRouter();
 
 	return (
@@ -12,9 +12,11 @@ const Button뒤로가기 = ({ className = '', fill = COLORS.GRAY7 }) => {
 			className={`btn_back ${className}`}
 			onClick={() => router.back()}
 		>
-			<img src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/button_left.png`} />
+			<span className="icon_box">
+				<IconTriangleLeft fill={fill} />
+			</span>
 		</button>
 	);
 };
 
-export default Button뒤로가기;
+export default Button자유함수;

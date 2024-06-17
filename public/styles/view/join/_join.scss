@@ -1,107 +1,88 @@
-.white_header {
-	height: 72px;
-	margin-top: 16px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-	button {
-		width: 54px;
-		height: 54px;
-		position: absolute;
-		left: 16px;
-	}
-	img {
-		width: 26px;
-		height: auto;
-		position: absolute;
-		left: 16px;
-	}
-	span {
-		@include font($HEADER_TITLE, normal, bold);
-	}
-}
-
 .agreeListWrap {
-	padding: 22px;
+	@include media(padding, 22);
 	.agree {
-		padding: 16px;
-		height: 48px;
-		width: 100%;
+		@include media(height, 48);
+		@include media(padding, 16);
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
-
+		flex-direction: row;
 		img {
-			width: 18px;
+			@include media(width, 18);
 		}
 		label {
-			@include font($FT_MD1, normal, normal);
+			@include font(14, normal, normal);
 		}
 	}
 	.agree:first-of-type {
 		border: 1px solid #cfcfcf;
-		margin-bottom: 22px;
+		@include media(margin-bottom, 22);
 	}
 }
 
 .agreeConfirm {
 	@include center;
-	margin-top: 100px;
+	@include media(margin-top, 200);
 	position: absolute;
 	left: 50%;
 	transform: translateX(-50%);
-	width: 254px;
-	height: 40px;
-	border-radius: 16px;
+
+	@include media(width, 254);
+	@include media(height, 40);
+	@include media(border-radius, 16);
 	background-color: #89c528;
-	@include font($FT_MD2, normal, normal);
+	@include font(16, normal, normal);
 	color: #fff;
 }
 
 .logoColorWrap {
 	@include center;
-	@include media(margin-top, 160);
-	@include media(margin-bottom, 70);
+	@include media(margin-top, 80);
+	@include media(margin-bottom, 36);
 	img {
-		@include media(width, 328);
+		@include media(width, 164);
+		@include media(height, 48);
 	}
 }
 
-.formWrap {
+.form_wrap {
+	height: 100%;
+	@include media(padding, 28, 28, 48, 28);
+	@include media(margin, 0, 26);
+
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 	background-color: rgba($color: #89c528, $alpha: 0.2);
-	border-radius: mediaVal(40);
-	@include media(margin, 56);
-	@include media(padding, 56);
-	height: auto;
+	border-radius: mediaVal(20);
+
 	.formTitle {
-		@include font($FT_MD1, normal, normal);
+		@include font(16, normal, normal);
 		@include center;
-		@include media(margin-bottom, 36);
+		color: #595757;
+		@include media(margin-bottom, 20);
 	}
 	input {
 		width: 100%;
-		@include media(height, 80);
+		@include font(15, normal, normal);
+		@include media(padding, 8, 16);
+		@include media(margin, 6, 0);
+		@include media(height, 40);
+		border-radius: mediaVal(16);
 		background-color: #fff;
-		border-radius: mediaVal(40);
 		color: #000;
-		@include media(padding, 30);
-		@include media(margin, 14, 0);
 		input::placeholder {
-			color: #d0d2d3;
+			color: #959595;
 		}
 	}
 
 	button {
-		@include media(margin-top, 44);
-		@include media(width, 308);
-		@include media(height, 80);
-
-		width: 254px;
-		height: 40px;
-		border-radius: mediaVal(30);
+		@include media(margin-top, 58);
+		@include media(height, 40);
+		width: 100%;
+		border-radius: mediaVal(15);
 		background-color: #89c528;
 		color: #fff;
-		@include font($FT_MD2, normal, normal);
+		@include font(16, normal, normal);
 	}
 }

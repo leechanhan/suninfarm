@@ -36,7 +36,7 @@ const JoinScreen = () => {
 			text: `회원가입을 축하합니다.\n농장추가 화면으로 이동합니다.`,
 			confirmButtonText: '확인',
 		}).then((res) => {
-			openPage('/addFarm', router);
+			openPage('/farm/list', router);
 		});
 	};
 
@@ -47,7 +47,7 @@ const JoinScreen = () => {
 				<div className="logoColorWrap">
 					<img src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/img_logo_color_mid.png`} />
 				</div>
-				<div className="formWrap">
+				<div className="form_wrap">
 					<span className="formTitle">회원가입</span>
 					<input
 						type="text"

@@ -42,7 +42,7 @@ $ALERT_INDEX: 4000;
 	@return calc(var(--vh, 1vh) * 100);
 }
 @function mediaVal($val) {
-	@return calc(100vw * ($val / $MAX_WIDTH));
+	@return calc((100vw * ($val / $MAX_WIDTH)) * 2);
 }
 
 @function dpVal($val) {

@@ -2,31 +2,78 @@
 	display: flex;
 	flex-direction: column;
 	@include center;
-	&.img {
-		@include media(width, 166);
-		@include media(height, 166);
-		@include media(margin-top, 150);
-		@include media(margin-bottom, 32);
-	}
-	&.description {
-		@include font(16, normal, normal);
-	}
-	&.padding {
-		@include media(margin-bottom, 32);
-	}
-	.addFarmBtn {
-		border-radius: mediaVal(30);
-		background-color: #89c528;
-		@include media(margin, 8, 12);
-		@include center;
-		&.img {
-			@include media(width, 14);
-			@include media(margin-right, -2);
-		}
+}
 
-		&.button {
-			color: #fff;
-			@include font(15, normal, normal);
+.farm_list_Wrap {
+	width: 100%;
+	height: 100vh;
+	background-image: url('/images/png/img_farm_list_header_bg.jpg');
+	background-size: contain;
+	background-repeat: no-repeat;
+
+	.header {
+		@include center;
+		@include media(height, 116);
+
+		img {
+			@include media(width, 154);
+			@include media(height, 28);
 		}
+	}
+	.list {
+		@include media(padding, 30, 16);
+		background-color: #fff;
+		height: 100vh;
+		width: 100%;
+		border-top-left-radius: mediaVal(30);
+		border-top-right-radius: mediaVal(30);
+	}
+	.farm_empty_wrap {
+		@include center;
+		flex-direction: column;
+		&.img {
+			@include media(width, 166);
+			@include media(height, 166);
+			@include media(margin-top, 80);
+			@include media(margin-bottom, 32);
+		}
+		&.description {
+			@include font(16, normal, normal);
+		}
+		&.padding {
+			@include media(margin-bottom, 24);
+		}
+		.addFarmBtn {
+			border-radius: mediaVal(30);
+			background-color: #89c528;
+			@include media(margin, 8, 12);
+			@include center;
+			&.img {
+				@include media(width, 14);
+				@include media(margin-right, -2);
+			}
+
+			&.button {
+				color: #fff;
+				@include font(15, normal, normal);
+			}
+		}
+	}
+}
+.alarm_wrap {
+	background-color: #87cd76;
+	border-radius: mediaVal(20);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+
+	@include media(padding, 18, 30);
+	color: #fff;
+	span {
+		@include font(15, normal, normal);
+		color: #fff;
+	}
+	.alarm_title {
+		@include media(margin-bottom, 4);
 	}
 }

@@ -3,14 +3,14 @@ import { useRouter } from 'next/router';
 const EmptyFarm = () => {
 	const router = useRouter();
 	return (
-		<>
+		<div className="farm_empty_wrap">
 			<img
-				className="farmWrap img"
+				className="farm_empty_wrap img"
 				src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/img_add_farm.png`}
 			/>
-			<span className="farmWrap description">등록된 농장이 없습니다</span>
-			<span className="farmWrap description">농장을 추가하십시오</span>
-			<span className="farmWrap padding"></span>
+			<span className="farm_empty_wrap description">등록된 농장이 없습니다</span>
+			<span className="farm_empty_wrap description">농장을 추가하십시오</span>
+			<span className="farm_empty_wrap padding"></span>
 			<div className="addFarmBtn">
 				<img
 					className="addFarmBtn img"
@@ -24,7 +24,7 @@ const EmptyFarm = () => {
 					농장추가
 				</button>
 			</div>
-		</>
+		</div>
 	);
 };
 

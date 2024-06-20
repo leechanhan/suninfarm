@@ -8,7 +8,6 @@ import FarmAlarm from '../components/Alarm';
 import FarmInfo from '../components/FarmList';
 const FarmListScreen = () => {
 	const router = useRouter();
-	const [farmList, setFarmList] = useState();
 	useEffect(() => {}, []);
 	return (
 		<div className="content_wrapper">
@@ -23,8 +22,7 @@ const FarmListScreen = () => {
 					</div>
 					<div className="list">
 						<FarmAlarm />
-
-						{farmList && farmList.length > 0 ? <FarmInfo /> : <EmptyFarm />}
+						<FarmInfo />
 					</div>
 				</div>
 			</div>

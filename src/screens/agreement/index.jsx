@@ -65,13 +65,14 @@ const AgreementScreen = () => {
 					<img src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/button_right.png`} />
 				</div>
 			</div>
-			<div></div>
-			<button
-				className="agreeConfirm"
-				onClick={() => openPage('/join', router)}
-			>
-				확인
-			</button>
+			<div className="agree_confirm_wrap">
+				<button
+					className="agree_btn"
+					onClick={() => openPage('/join', router)}
+				>
+					확인
+				</button>
+			</div>
 		</div>
 	);
 };

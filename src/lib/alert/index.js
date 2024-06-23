@@ -17,6 +17,8 @@ export default class CustomAlert {
 			icon: 'success',
 			html: options.html ?? '',
 			confirmButtonText: options.confirmButtonText ?? '확인',
+			showCancelButton: options.showCancelButton ?? false,
+			cancelButtonText: options.cancelButtonText ?? '취소',
 			allowOutsideClick: options.allowOutsideClick ?? true,
 			target: options.target ?? '#alert',
 		}).then((result) => {

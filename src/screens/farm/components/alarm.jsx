@@ -1,4 +1,3 @@
-import { openPage } from '@lib/hooks/common';
 import { useRouter } from 'next/router';
 const FarmAlarm = () => {
 	const router = useRouter();

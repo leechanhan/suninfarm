@@ -19,19 +19,23 @@
 	}
 }
 
-.agreeConfirm {
-	@include center;
-	@include media(margin-top, 200);
-	position: absolute;
-	left: 50%;
-	transform: translateX(-50%);
+.agree_confirm_wrap {
+	width: 100%;
+	@include media(height, 240);
+	.agree_btn {
+		@include center;
+		@include media(margin-top, 120);
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
 
-	@include media(width, 254);
-	@include media(height, 40);
-	@include media(border-radius, 16);
-	background-color: #89c528;
-	@include font(16, normal, normal);
-	color: #fff;
+		@include media(width, 254);
+		@include media(height, 40);
+		@include media(border-radius, 16);
+		background-color: #89c528;
+		@include font(16, normal, normal);
+		color: #fff;
+	}
 }
 
 .logoColorWrap {

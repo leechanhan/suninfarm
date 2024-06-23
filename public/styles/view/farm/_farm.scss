@@ -43,30 +43,38 @@
 		&.padding {
 			@include media(margin-bottom, 24);
 		}
-		.addFarmBtn {
-			border-radius: mediaVal(30);
-			background-color: #89c528;
-			@include media(margin, 8, 12);
-			@include center;
-			&.img {
-				@include media(width, 14);
-				@include media(margin-right, -2);
-			}
+	}
+}
+.add_farm_btn_wrap {
+	@include media(padding-top, 16);
+	@include center;
+	width: 100%;
 
-			&.button {
-				color: #fff;
-				@include font(15, normal, normal);
-			}
+	.addFarmBtn {
+		@include media(margin, 4, 20);
+		@include center;
+		@include media(width, 120);
+		@include media(height, 40);
+		border-radius: mediaVal(30);
+		background-color: #89c528;
+		img {
+			@include media(width, 14);
+			@include media(margin-right, 8);
+		}
+
+		button {
+			color: #fff;
+			@include font(15, normal, normal);
 		}
 	}
 }
+
 .alarm_wrap {
-	background-color: #87cd76;
 	border-radius: mediaVal(20);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-
+	background-color: #87cd76;
 	@include media(padding, 18, 30);
 	color: #fff;
 	span {
@@ -78,62 +86,210 @@
 	}
 }
 
-.farminfo_item {
-	display: flex;
-	width: 100%;
-	@include media(height, 118);
-	flex-direction: row;
-	background-color: #d9d9d9;
-	border-radius: mediaVal(20);
-	@include media(margin, 16, 0);
+.farminfo_wrap {
+	.title {
+		color: #595757;
 
-	.farminfo_img_wrap {
-		@include media(width, 120);
-		@include media(padding, 16);
-		@include center;
-		img {
-			width: 100%;
-		}
+		@include media(padding, 24, 0, 4, 14);
+		@include font(16, normal, bold);
 	}
-	.framinfo_text_wrap {
+	.farminfo_item {
 		display: flex;
-		flex-direction: column;
 		width: 100%;
 		@include media(height, 118);
+		flex-direction: row;
+		background-color: #d9d9d9;
+		border-radius: mediaVal(20);
+		@include media(margin, 6, 0);
 
-		.framinfo_title_wrap {
-			width: 100%;
-			display: flex;
-			flex-direction: row;
-			justify-content: flex-start;
-			align-items: center;
-
-			@include media(height, 46);
-
-			.title {
-				@include font(20, normal, boldl);
-				@include media(padding-right, 8);
-			}
-			.icon_weather {
-				@include media(width, 25);
-				@include media(height, 25);
+		.farminfo_img_wrap {
+			@include media(width, 120);
+			@include media(padding, 16);
+			@include center;
+			img {
+				width: 100%;
 			}
 		}
-	}
-	.framinfo_data_wrap {
-		@include font(16, normal, normal);
-		@include media(height, 72);
-		@include center;
-		justify-content: space-between;
-		.data_column {
+		.framinfo_text_wrap {
 			display: flex;
 			flex-direction: column;
-			flex: 1;
-			@include font(24, normal, normal);
+			@include media(width, 120);
+			@include media(height, 118);
+			@include media(width, 210);
+			.framinfo_title_wrap {
+				width: 100%;
+				display: flex;
+				flex-direction: row;
+				justify-content: flex-start;
+				align-items: center;
+
+				@include media(height, 46);
+
+				.title {
+					@include font(20, normal, boldl);
+					@include media(padding-right, 8);
+					color: #fff;
+				}
+				.icon_weather {
+					@include media(width, 25);
+					@include media(height, 25);
+				}
+			}
 		}
-		img {
-			@include media(width, 25);
-			height: auto;
+		.framinfo_data_wrap {
+			@include font(16, normal, normal);
+			@include media(height, 72);
+			@include media(padding, 8, 0);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+
+			.img_wrap {
+				@include media(height, 30);
+				width: 100%;
+				@include center;
+				// justify-content: space-between;
+				.img_row {
+					flex: 1;
+					display: flex;
+					justify-content: flex-start;
+
+					.img_no1 {
+						@include media(width, 14);
+						height: auto;
+						margin-left: mediaVal(8);
+					}
+					.img_no2 {
+						@include media(width, 16);
+						height: auto;
+						margin-left: mediaVal(8);
+					}
+					.img_no3 {
+						@include media(width, 26);
+						height: auto;
+						margin-left: mediaVal(8);
+					}
+					.img_no4 {
+						@include media(width, 30);
+						height: auto;
+						margin-left: mediaVal(8);
+					}
+				}
+			}
+
+			.text_wrap {
+				@include media(height, 32);
+				width: 100%;
+				@include center;
+				.text_row {
+					flex: 1;
+					display: flex;
+					justify-content: flex-start;
+					.data_value {
+						color: #fff;
+						@include font(22, normal, normal);
+					}
+					.unit {
+						color: #fff;
+						@include font(12, normal, normal);
+					}
+				}
+			}
 		}
 	}
+}
+
+.logoColorWrap {
+	@include center;
+	@include media(margin-top, 80);
+	@include media(margin-bottom, 36);
+	img {
+		@include media(width, 164);
+		@include media(height, 48);
+	}
+}
+
+.add_farm_wrap {
+	background-color: #f0f4f7;
+	height: 100vh;
+	.add_form_wrap {
+		height: 100%;
+		@include media(padding, 0, 34);
+		@include media(margin, 0);
+
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		border-radius: mediaVal(20);
+		.logo {
+			@include center;
+			@include media(margin-top, 104);
+			img {
+				@include media(width, 164);
+				@include media(height, 48);
+			}
+		}
+		.formTitle {
+			@include font(18, normal, normal);
+			@include center;
+			color: #595757;
+			@include media(margin-bottom, 12);
+
+			&:nth-of-type(0) {
+				@include media(margin-top, 48);
+			}
+
+			&:nth-of-type(1) {
+				@include media(margin-top, 28);
+			}
+		}
+		input {
+			width: 100%;
+			@include font(15, normal, normal);
+			@include media(padding, 8, 16);
+			@include media(margin, 6, 0);
+			@include media(height, 40);
+			border-radius: mediaVal(16);
+			background-color: #fff;
+			color: #000;
+			input::placeholder {
+				color: #959595;
+			}
+		}
+	}
+
+	.submit_wrap {
+		display: flex;
+		@include media(width, 245);
+		button {
+			flex: 1;
+			@include media(margin-top, 32);
+			@include media(height, 40);
+			@include media(width, 128);
+			border-radius: mediaVal(15);
+
+			color: #fff;
+			@include font(16, normal, normal);
+
+			&:last-of-type {
+				background-color: #89c528;
+				@include media(margin-left, 8);
+			}
+
+			&:first-child {
+				background-color: #cfcfcf;
+				@include media(margin-right, 8);
+			}
+		}
+	}
+}
+
+.select_vagetable {
+	width: 100%;
+	@include media(height, 40);
+	@include media(border-radius, 30);
+	background-color: #89c528;
+	color: #fff;
+	@include font(15, normal, normal);
 }

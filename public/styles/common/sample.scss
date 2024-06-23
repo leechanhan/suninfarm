@@ -37,4 +37,11 @@ button :
 	color: #fff;
 	@include font(15, normal, normal);
 
+
+	img
+	<img
+		className=""
+		src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/img_logo_only.png`}
+		alt=""
+	/>
 	*/

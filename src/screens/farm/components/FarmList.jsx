@@ -100,7 +100,10 @@ const FarmInfo = () => {
 							setFarmList([
 								{ farmMainIcon: '딸기', farmTitle: '딸기 농장', farmWeather: '좋음', temper: 18, moisture: 32, co2: 120, par: 140 },
 								{ farmMainIcon: '토마토', farmTitle: '토마토 농장', farmWeather: '좋음', temper: 25, moisture: 40, co2: 220, par: 230 },
-								{ farmMainIcon: '피망', farmTitle: '피망 농장', farmWeather: '나쁨', temper: 22, moisture: 30, co2: 322, par: 300 },
+								{ farmMainIcon: '파프리카', farmTitle: '파프리카 농장', farmWeather: '나쁨', temper: 22, moisture: 30, co2: 322, par: 312 },
+								{ farmMainIcon: '당근', farmTitle: '당근 농장', farmWeather: '나쁨', temper: 26, moisture: 40, co2: 342, par: 360 },
+								{ farmMainIcon: '포도', farmTitle: '포도 농장', farmWeather: '나쁨', temper: 28, moisture: 70, co2: 352, par: 360 },
+								{ farmMainIcon: '가지', farmTitle: '가지 농장', farmWeather: '나쁨', temper: 29, moisture: 60, co2: 372, par: 200 },
 							])
 						}
 					>
@@ -109,7 +112,7 @@ const FarmInfo = () => {
 					<EmptyFarm />
 				</>
 			)}
-			<div class="add_farm_btn_wrap">
+			<div className="add_farm_btn_wrap">
 				<div className="addFarmBtn">
 					<img
 						className=" img"

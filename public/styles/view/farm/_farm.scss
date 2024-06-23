@@ -284,11 +284,19 @@
 	}
 }
 
-.select_vagetable {
+.select_vagetable_btn {
 	width: 100%;
 	@include media(height, 40);
 	@include media(border-radius, 30);
 	background-color: #89c528;
 	color: #fff;
 	@include font(15, normal, normal);
+}
+
+.select_vegetable_popup {
+	.title {
+		@include font(14, normal, bold);
+		@include media(margin, 6, 0);
+		color: #646e82;
+	}
 }

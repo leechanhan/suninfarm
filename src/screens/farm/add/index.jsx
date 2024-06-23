@@ -34,13 +34,10 @@ const AddFarmScreen = () => {
 	};
 
 	const onClosePopup = () => {
-		console.log('123');
 		setIsPopupOpen(false);
 	};
 
 	const handleSubmit = (event) => {
-		event.preventDefault();
-
 		CustomAlert.question({
 			html: `${formData.farm_nm} 농장 추가가 되었습니다.\nAI가 추천하는 ${formData.farm_nm} 데이터를 사용할까요?`,
 			callback: () => {
@@ -95,7 +92,7 @@ const AddFarmScreen = () => {
 				<div className="add_form_wrap">
 					<span className="formTitle">재배 작물 선택</span>
 					<button
-						className="select_vagetable"
+						className="select_vagetable_btn"
 						onClick={() => setIsPopupOpen(true)}
 					>
 						작물을 선택하세요
@@ -105,18 +102,13 @@ const AddFarmScreen = () => {
 				<div className="add_form_wrap">
 					<div className="submit_wrap">
 						<button>취 소</button>
-						<button
-							onClick={() => {
-								handleSubmit;
-							}}
-						>
-							확 인
-						</button>
+						<button onClick={() => handleSubmit()}>확 인</button>
 					</div>
 				</div>
 				<SelectVegetablePopup
 					isOpen={isPopupOpen}
-					onClose={onClosePopup}
+					onClose={() => <Button팝업종료 popupClose={onClosePopup} />}
+					title={'재배 작물 선택'}
 				>
 					<h2>Popup Content</h2>
 					<p>This is the content of the popup.</p>

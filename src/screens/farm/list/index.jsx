@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import EmptyFarm from '../components/EmptyFarm';
-import FarmAlarm from '../components/Alarm';
+import FarmAlarm from '../components/FarmAlarm';
 import FarmInfo from '../components/FarmList';
 const FarmListScreen = () => {
 	const router = useRouter();

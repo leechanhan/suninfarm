@@ -4,8 +4,9 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import CustomAlert from '@lib/alert';
 import SelectVegetablePopup from '@component/popup/SelectVegetable';
-
 import Button팝업종료 from '@component/frame/headerBtn/Button팝업종료';
+import VegetableList from '../components/VegetableList';
+
 const AddFarmScreen = () => {
 	const router = useRouter();
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -110,8 +111,7 @@ const AddFarmScreen = () => {
 					onClose={() => <Button팝업종료 popupClose={onClosePopup} />}
 					title={'재배 작물 선택'}
 				>
-					<h2>Popup Content</h2>
-					<p>This is the content of the popup.</p>
+					<VegetableList />
 				</SelectVegetablePopup>
 			</div>
 		</div>

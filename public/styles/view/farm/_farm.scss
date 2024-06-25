@@ -316,6 +316,9 @@
 		display: flex;
 		flex-wrap: wrap;
 		.vegetable_item {
+			&:active {
+				background-color: rgba($color: #89c528, $alpha: 0.2);
+			}
 			@include media(height, 130);
 			@include media(width, 130);
 			flex: 1 1 46%; /* Take 50% of the container's width */

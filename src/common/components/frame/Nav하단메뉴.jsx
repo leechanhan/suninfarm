@@ -20,11 +20,11 @@ const Nav하단메뉴 = () => {
 	};
 
 	const icons = [
-		{ icon: <IconGnbHome />, text: '', func: () => handlerNavigation('/farm') },
-		{ icon: <IconGnbPcc />, text: '', func: () => handlerNavigation('/deviceSetting') },
-		{ icon: <IconGnbCommunity />, text: '', func: () => handlerNavigation('/selectVegetable') },
-		{ icon: <IconGnbStore />, text: '', func: () => handlerNavigation('/gatewaySetting') },
-		{ icon: <IconGnbMypage />, text: '', func: () => handlerLogout() },
+		{ icon: <IconGnbHome />, text: '홈', func: () => handlerNavigation('/farm/detail') },
+		{ icon: <IconGnbPcc />, text: '농장선택', func: () => handlerNavigation('/farm/list') },
+		{ icon: <IconGnbCommunity />, text: '조명제어', func: () => handlerNavigation('/light/list') },
+		{ icon: <IconGnbStore />, text: '기록', func: () => handlerNavigation('/history/list') },
+		{ icon: <IconGnbMypage />, text: '기타제어', func: () => handlerNavigation('/setting/list') },
 	];
 	return (
 		<>

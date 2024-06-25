@@ -1,4 +1,25 @@
 .page_container > .header {
+	&.main_header {
+		background-image: url('/images/png/header/img_main_header_bg.png');
+		background-size: contain;
+		background-repeat: no-repeat;
+		@include media(padding-top, 0);
+		@include media(height, 100);
+		button {
+			@include media(width, 54);
+			@include media(height, 54);
+			&:nth-of-type(1) {
+				@include media(padding-left, 24);
+			}
+
+			&:nth-of-type(2) {
+				@include media(padding-right, 24);
+			}
+		}
+		.logo {
+			@include media(width, 120);
+		}
+	}
 	display: flex;
 	justify-content: space-between;
 	flex-direction: row;
@@ -63,11 +84,11 @@
 		@include media(height, 54);
 		@include media(padding, 4);
 		&:nth-of-type(1) {
-			left: 0;
+			@include media(left, 14);
 		}
 
 		&:nth-of-type(2) {
-			right: 44px;
+			@include media(right, 24);
 		}
 		&:last-of-type {
 			right: 0;

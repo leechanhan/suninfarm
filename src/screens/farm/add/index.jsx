@@ -10,20 +10,21 @@ import VegetableList from '../components/VegetableList';
 const AddFarmScreen = () => {
 	const router = useRouter();
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
-	const [agreeAll, setAgreeAll] = useState(false);
-	const [agreeService, setAgreeService] = useState(false);
-	const [agreePersnal, setAgreePersnal] = useState(false);
-	const [agreeLocateInfo, setAGreeLocateInfo] = useState(false);
-	const [agreeLocateService, setAgreeLocateService] = useState(false);
-
+	const [selectedItem, setSelectedItem] = useState(null);
 	const [formData, setFormData] = useState({
 		id: '',
 		mac: '',
 		farm_nm: '',
 		ssid: '',
 		pw: '',
-		vebetable: '',
+		selectVegetable: '',
 	});
+
+	const saveVegetable = (item) => {
+		setSelectedItem(item);
+		onClosePopup();
+		console.log(item);
+	};
 
 	const handleChange = (event) => {
 		const { name, value } = event.target;
@@ -96,7 +97,7 @@ const AddFarmScreen = () => {
 						className="select_vagetable_btn"
 						onClick={() => setIsPopupOpen(true)}
 					>
-						작물을 선택하세요
+						{selectedItem == null ? '작물을 선택하세요.' : selectedItem.name}
 					</button>
 				</div>
 
@@ -111,7 +112,10 @@ const AddFarmScreen = () => {
 					onClose={() => <Button팝업종료 popupClose={onClosePopup} />}
 					title={'재배 작물 선택'}
 				>
-					<VegetableList />
+					<VegetableList
+						onSelectItem={saveVegetable}
+						onClose={() => <Button팝업종료 popupClose={onClosePopup} />}
+					/>
 				</SelectVegetablePopup>
 			</div>
 		</div>

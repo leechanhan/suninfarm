@@ -4,13 +4,159 @@ import { openPage } from '@lib/hooks/common';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
+import Header from '@component/frame/Header';
+import Button뒤로가기 from '@component/frame/headerBtn/Button뒤로가기';
+import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
 
-const FarmDetailScreen = () => {
+const FarmDetailScreen = ({ farmName = '딸기농장' }) => {
 	const router = useRouter();
 	useEffect(() => {}, []);
+	const percentage = 66;
 	return (
 		<div className="content_wrapper">
-			<div className="page_content"></div>
+			<div className="page_container_gray">
+				<Header
+					classes="nonPadding bg_gray"
+					title={farmName}
+					LeftButton={() => <Button뒤로가기 />}
+				/>
+				<div className="farm_detail_wrap">
+					<div className="weather_wrap">
+						<div className="weather_img_wrap">
+							<img
+								src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/weather/good.png`}
+								alt=""
+							/>
+						</div>
+						<div className="weather_text_wrap">
+							<div className="location_wrap">
+								<img
+									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_location.png`}
+									alt=""
+								/>
+								<span>경기도 남양주시 진철읍</span>
+							</div>
+							<div className="temper_wrap">
+								<span>24º / 18º</span>
+							</div>
+							<div className="moisture_wrap">
+								<span>강수량 : 0mm, 습도 : 70%</span>
+							</div>
+						</div>
+					</div>
+					<div className="farm_data_wrap">
+						<span className="subtitle">딸기 농장 현재 상태 &#62;</span>
+						<ul className="data_wrap">
+							<li className="data_item">
+								<img
+									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_temper.png`}
+									alt=""
+								/>
+								<span className="blue">18º</span>
+							</li>
+							<li className="data_item">
+								<img
+									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_moisture.png`}
+									alt=""
+								/>
+								<span className="green">18º</span>
+							</li>
+							<li className="data_item">
+								<img
+									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_co2.png`}
+									alt=""
+								/>
+								<span className="pink">18º</span>
+							</li>
+						</ul>
+						<ul className="data_wrap">
+							<li className="data_item">
+								<img
+									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_par.png`}
+									alt=""
+								/>
+								<span className="blue">18º</span>
+							</li>
+							<li className="data_item">
+								<img
+									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_ec.png`}
+									alt=""
+								/>
+								<span className="green">18º</span>
+							</li>
+							<li className="data_item">
+								<img
+									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_ph.png`}
+									alt=""
+								/>
+								<span className="pink">18º</span>
+							</li>
+						</ul>
+					</div>
+
+					<div className="farm_light_wrap">
+						<span className="subtitle">농장 안 조명 상태 &#62;</span>
+						<ul className="data_wrap">
+							<li className="data_item">
+								<CircularProgressbarWithChildren
+									value={percentage}
+									styles={buildStyles({
+										textColor: '#3e98c7',
+										pathColor: '#3e98c7',
+										trailColor: '#d6d6d6',
+									})}
+								>
+									<div style={{ fontSize: 24, marginTop: -5 }}>
+										<strong>{`${percentage}%`}</strong>
+									</div>
+								</CircularProgressbarWithChildren>
+							</li>
+							<li className="data_item">
+								<CircularProgressbarWithChildren
+									value={percentage}
+									styles={buildStyles({
+										textColor: '#3e98c7',
+										pathColor: '#3e98c7',
+										trailColor: '#d6d6d6',
+									})}
+								>
+									<div style={{ fontSize: 24, marginTop: -5 }}>
+										<strong>{`${percentage}%`}</strong>
+									</div>
+								</CircularProgressbarWithChildren>
+							</li>
+							<li className="data_item">
+								<CircularProgressbarWithChildren
+									value={percentage}
+									styles={buildStyles({
+										textColor: '#3e98c7',
+										pathColor: '#3e98c7',
+										trailColor: '#d6d6d6',
+									})}
+								>
+									<div style={{ fontSize: 24, marginTop: -5 }}>
+										<strong>{`${percentage}%`}</strong>
+									</div>
+								</CircularProgressbarWithChildren>
+							</li>
+						</ul>
+
+						{/* <div class="light_circle_wrap">
+							<div style={{ width: 100, height: 100 }}>
+								<CircularProgressbar
+									value={percentage}
+									text={`${percentage}%`}
+									styles={buildStyles({
+										textColor: '#3e98c7',
+										pathColor: '#3e98c7',
+										trailColor: '#d6d6d6',
+									})}
+								/>
+							</div>
+						</div> */}
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 };

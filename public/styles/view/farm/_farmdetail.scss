@@ -1,0 +1,130 @@
+.farm_detail_wrap {
+	.weather_wrap {
+		display: flex;
+		width: 100%;
+		@include media(height, 128);
+
+		.weather_img_wrap {
+			@include center;
+			@include media(padding, 16);
+			@include media(width, 144);
+		}
+		.weather_text_wrap {
+			@include media(padding, 8);
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: flex-start;
+			.location_wrap {
+				border-radius: mediaVal(20);
+				@include media(padding, 6, 16);
+				background-color: rgba($color: #646e82, $alpha: 0.15);
+				width: auto;
+				display: flex;
+				align-items: center;
+				justify-items: flex-start;
+				@include media(height, 26);
+				img {
+					@include media(width, 16);
+					@include media(padding-right, 4);
+				}
+				span {
+					@include font(13, normal, normal);
+					color: #646e82;
+				}
+			}
+			.temper_wrap {
+				width: 100%;
+				display: flex;
+				align-items: center;
+				@include media(height, 54);
+				span {
+					@include font(48, normal, normal);
+					color: #646e82;
+				}
+			}
+			.moisture_wrap {
+				width: 100%;
+				display: flex;
+				align-items: center;
+				@include media(height, 26);
+				span {
+					@include font(14, normal, normal);
+					color: #646e82;
+				}
+			}
+		}
+	}
+
+	.farm_data_wrap {
+		@include media(margin, 12, 0);
+		@include media(padding, 0, 20);
+		display: flex;
+		flex-direction: column;
+		.subtitle {
+			color: #646e82;
+			@include media(margin, 8, 24);
+			@include font(14, normal, bold);
+		}
+		.data_wrap {
+			width: 100%;
+			display: flex;
+			flex-wrap: nowrap;
+			.data_item {
+				flex: 1;
+				@include media(margin, 4);
+				background-color: #fff;
+				border-radius: mediaVal(20);
+				@include media(height, 100);
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				img {
+					@include media(height, 28);
+					width: auto;
+				}
+				span {
+					@include font(36, normal, normal);
+				}
+				.blue {
+					color: #60c6ff;
+				}
+				.green {
+					color: #87cd76;
+				}
+				.pink {
+					color: #ff91cc;
+				}
+			}
+		}
+	}
+	.farm_light_wrap {
+		@include media(margin, 12, 0);
+		@include media(padding, 0, 20);
+		display: flex;
+		flex-direction: column;
+		.subtitle {
+			color: #646e82;
+			@include media(margin, 8, 24);
+			@include font(14, normal, bold);
+		}
+		.data_wrap {
+			background-color: #fff;
+			border-radius: mediaVal(20);
+			width: 100%;
+			display: flex;
+			flex-wrap: nowrap;
+			.data_item {
+				flex: 1;
+				@include media(margin, 8);
+				@include media(height, 100);
+
+				span {
+					@include font(36, normal, normal);
+				}
+			}
+		}
+	}
+}

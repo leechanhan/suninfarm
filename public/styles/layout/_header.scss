@@ -1,4 +1,12 @@
-.page_container > .header {
+.page_container > .header,
+.page_container_gray > .header {
+	&.nonPadding {
+		padding: 0 !important;
+	}
+
+	&.bg_gray {
+		background-color: #f0f4f7 !important;
+	}
 	&.main_header {
 		background-image: url('/images/png/header/img_main_header_bg.png');
 		background-size: contain;
@@ -68,7 +76,7 @@
 	.header_title {
 		@include font(22, normal, bold);
 		position: relative;
-		background-color: #fff;
+		// background-color: #fff;
 		color: #646e82;
 		z-index: 1;
 		margin-right: auto;

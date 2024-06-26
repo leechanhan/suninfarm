@@ -1,10 +1,11 @@
 import Button뒤로가기 from '@component/frame/headerBtn/Button뒤로가기';
-import Layout서브헤더영역 from '@component/layout/Layout서브헤더영역';
+import Layout메인헤더 from '@component/layout/Layout메인헤더';
 import Menu from '@component/frame/headerBtn/Menu';
 import Swal from 'sweetalert2';
 import CustomAlert from '@lib/alert';
 import { useState } from 'react';
-const DeviceSetting = () => {
+import Header from '@component/frame/Header';
+const DeviceListScreen = ({ farmName = '딸기농장' }) => {
 	const handlerTest = () => {
 		Swal.fire({
 			icon: 'warning',
@@ -35,8 +36,59 @@ const DeviceSetting = () => {
 	};
 	return (
 		<div className="content_wrapper">
-			<div className="page_content">
-				<h3 className="device_list_title">등록 디바이스</h3>
+			<div className="page_container_gray">
+				<Header
+					classes="nonPadding bg_gray"
+					title={farmName}
+					LeftButton={() => <Button뒤로가기 />}
+				/>
+				<div className="device_info_wrap">
+					<div className="device_title"></div>
+					<ul className="device_list_wrap">
+						{registedDevices.map((item, index) => {
+							return (
+								<li
+									className="device_list_wrap"
+									key={index}
+								>
+									<span className="device_name">{item.devName}</span>
+									<span className="device_serial">{item.devSerial}</span>
+									<span onClick={() => handlerDeleteDevice(item.devName)}>
+										<img
+											className="icon"
+											src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_delete.png`}
+										/>{' '}
+									</span>
+								</li>
+							);
+						})}
+					</ul>
+				</div>
+
+				<div className="device_list_wrap">
+					<div className="device_title"></div>
+					<ul className="device_info_wrap">
+						{unRegistedDevices.map((item, index) => {
+							return (
+								<li
+									className="device_list_wrap"
+									key={index}
+								>
+									<span className="device_name">{item.devName}</span>
+									<span className="device_serial">{item.devSerial}</span>
+									<span onClick={() => handlerDeleteDevice(item.devName)}>
+										<img
+											className="icon"
+											src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_delete.png`}
+										/>{' '}
+									</span>
+								</li>
+							);
+						})}
+					</ul>
+				</div>
+
+				{/* <h3 className="device_list_title">등록 디바이스</h3>
 				<ul className="device_wrap">
 					{registedDevices.map((item, index) => {
 						return (
@@ -75,18 +127,12 @@ const DeviceSetting = () => {
 							</li>
 						);
 					})}
-				</ul>
+				</ul> */}
 			</div>
 		</div>
 	);
 };
 
-DeviceSetting.Layout = Layout서브헤더영역;
-DeviceSetting.headerOptions = {
-	subtitle: '장치 관리',
-	LeftButton: () => <Menu />,
-};
-DeviceSetting.isGnb = true;
-DeviceSetting.subtitle = true;
-
-export default DeviceSetting;
+DeviceListScreen.Layout = Layout메인헤더;
+DeviceListScreen.isGnb = true;
+export default DeviceListScreen;

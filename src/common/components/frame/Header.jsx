@@ -6,7 +6,7 @@ const Header = ({ title = '', classes = '', LeftButton = null, RightButton = nul
 				<>
 					<header className={`header ${classes}`}>
 						{LeftButton && <LeftButton />}
-						<h1 className="header_title">{/* <>{title}</> */}</h1>
+						<h1 className="header_title">{title}</h1>
 						{RightButton && <RightButton />}
 					</header>
 				</>

@@ -3,7 +3,7 @@
 	background-color: #fff;
 
 	.page_content {
-		@include media(padding, 40);
+		@include media(padding, 24);
 		flex-direction: column;
 		width: 100%;
 		min-height: 100%;

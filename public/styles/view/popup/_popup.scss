@@ -31,7 +31,7 @@
 }
 
 .sidebar_wrap {
-	@include media(width, 214);
+	@include media(width, 200);
 	background-color: #f2f4f6;
 	height: 100vh;
 	display: flex;
@@ -49,10 +49,12 @@
 		}
 	}
 	.farm_name_wrap {
-		background-color: #89c528;
-		@include media(padding, 8, 24);
-		border-radius: mediaVal(20);
+		@include media(margin-bottom, 16);
 		span {
+			border-radius: mediaVal(20);
+			@include media(padding, 6, 20);
+
+			background-color: #89c528;
 			color: #fff;
 			@include font(18, normal, bold);
 		}

@@ -1,0 +1,59 @@
+.history_info_wrap {
+	border-radius: mediaVal(20);
+	@include media(padding, 20);
+	background-color: #fff;
+	width: 100%;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	@include media(margin-bottom, 12);
+	.history_title_wrap {
+		@include media(padding, 12);
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		span {
+			@include media(padding, 4, 12);
+			@include font(15, normal, bold);
+			color: #646e82;
+			&:nth-of-type(2) {
+				border-radius: mediaVal(20);
+				margin-left: auto;
+				background-color: $PINK;
+				color: #fff;
+			}
+			&:nth-of-type(3) {
+				@include media(margin-left, 8);
+				border-radius: mediaVal(20);
+				background-color: $BLUE;
+				color: #fff;
+			}
+		}
+	}
+	.history_list_wrap {
+		display: flex;
+		flex-direction: column;
+
+		.history_item {
+			border-radius: mediaVal(20);
+			@include media(height, 40);
+			@include media(padding, 8, 16);
+			@include media(margin, 4, 0);
+			background-color: #f1f8ff;
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+			align-items: center;
+
+			.history_name {
+				@include font(15, normal, normal);
+				color: $FONT;
+			}
+
+			.history_serial {
+				@include font(14, normal, normal);
+				color: $FONT;
+			}
+		}
+	}
+}

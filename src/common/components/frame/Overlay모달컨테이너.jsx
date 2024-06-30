@@ -16,7 +16,7 @@ const animationTypes = {
 	},
 	slideRight: {
 		opacity: [0, 1],
-		transform: ['translateX(-100%)', 'translateX(mediaVal(120))'],
+		transform: ['translateX(-80%)', 'translateX(-40%)'],
 	},
 };
 
@@ -75,7 +75,7 @@ const Overlay모달컨테이너 = forwardRef(({ isVisible, className, id, childr
 				/>
 
 				<div
-					className="portal_content_box"
+					className="portal_content_box_left"
 					ref={refContent}
 				>
 					{isVisible && children}

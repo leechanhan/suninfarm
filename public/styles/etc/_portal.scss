@@ -17,6 +17,14 @@
 		overflow-y: auto;
 	}
 
+	.portal_content_box_left {
+		display: flex;
+		justify-content: flex-start;
+		z-index: $POPUP_INDEX + 2;
+		max-width: #{$MAX_WIDTH}px;
+		position: relative;
+	}
+
 	.portal_content_box {
 		@include center;
 		z-index: $POPUP_INDEX + 2;

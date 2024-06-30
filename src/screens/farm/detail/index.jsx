@@ -49,6 +49,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장' }) => {
 						<ul className="data_wrap">
 							<li className="data_item">
 								<img
+									className="mid"
 									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_temper.png`}
 									alt=""
 								/>
@@ -56,6 +57,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장' }) => {
 							</li>
 							<li className="data_item">
 								<img
+									className="mid"
 									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_moisture.png`}
 									alt=""
 								/>
@@ -63,6 +65,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장' }) => {
 							</li>
 							<li className="data_item">
 								<img
+									className="sm"
 									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_co2.png`}
 									alt=""
 								/>
@@ -72,6 +75,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장' }) => {
 						<ul className="data_wrap">
 							<li className="data_item">
 								<img
+									className="xm"
 									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_par.png`}
 									alt=""
 								/>
@@ -79,6 +83,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장' }) => {
 							</li>
 							<li className="data_item">
 								<img
+									className="mid"
 									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_ec.png`}
 									alt=""
 								/>
@@ -86,6 +91,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장' }) => {
 							</li>
 							<li className="data_item">
 								<img
+									className="sm"
 									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_ph.png`}
 									alt=""
 								/>
@@ -96,7 +102,10 @@ const FarmDetailScreen = ({ farmName = '딸기농장' }) => {
 
 					<div className="farm_light_wrap">
 						<span className="subtitle">농장 안 조명 상태 &#62;</span>
-						<ul className="data_wrap">
+						<ul
+							className="data_wrap"
+							onClick={() => openPage('/light/list', router)}
+						>
 							<li className="data_item">
 								<CircularProgressbarWithChildren
 									value={percentage}

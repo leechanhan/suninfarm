@@ -81,10 +81,20 @@
 				flex-direction: column;
 				justify-content: center;
 				align-items: center;
-				img {
+				.xm {
+					@include media(height, 24);
+					@include media(padding-bottom, 6);
+					width: auto;
+				}
+				.sm {
+					@include media(height, 24);
+					width: auto;
+				}
+				.mid {
 					@include media(height, 28);
 					width: auto;
 				}
+
 				span {
 					@include font(36, normal, normal);
 				}

@@ -10,6 +10,7 @@ import campaignHandlers from './campaign';
 import taedamHandlers from './taedam';
 import counselingHandlers from './counseling';
 import gatewayHandlers from './gateway';
+import memberHandlers from './member';
 
 const mockHandlers = combineMockHandlers(
 	mainHandlers,
@@ -20,6 +21,7 @@ const mockHandlers = combineMockHandlers(
 	gatewayHandlers,
 	taedamHandlers,
 	counselingHandlers,
+	memberHandlers,
 );
 export const mockWorker = setupWorker(...mockHandlers);
 export const mockServer = setupServer(...mockHandlers);

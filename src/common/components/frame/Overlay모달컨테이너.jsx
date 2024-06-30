@@ -14,6 +14,10 @@ const animationTypes = {
 		opacity: [0, 1],
 		transform: ['translateX(100%)', 'translateX(0%)'],
 	},
+	slideRight: {
+		opacity: [0, 1],
+		transform: ['translateX(-100%)', 'translateX(mediaVal(120))'],
+	},
 };
 
 const Overlay모달컨테이너 = forwardRef(({ isVisible, className, id, children, aniType = 'fadeIn', onClose }, ref) => {

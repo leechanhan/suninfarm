@@ -64,7 +64,7 @@
 		flex-direction: column;
 		.subtitle {
 			color: #646e82;
-			@include media(margin, 8, 24);
+			@include media(margin, 8, 16);
 			@include font(14, normal, bold);
 		}
 		.data_wrap {

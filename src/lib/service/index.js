@@ -28,6 +28,7 @@ export class HttpManager {
 	 * @param error
 	 */
 	static clientException(error) {
+		console.log('data ', error);
 		CustomLogger.info('error:', error);
 		Promise.reject(error);
 	}
@@ -39,6 +40,7 @@ export class HttpManager {
 	 */
 	static preHandle(response) {
 		const { data, status } = response;
+		console.log('data ', data, status);
 		HttpManager.searchError(data, status);
 		return response?.data?.result;
 	}
@@ -50,27 +52,28 @@ export class HttpManager {
 	 */
 	static searchError(data, status) {
 		const { resCd, resMsg, error, result } = data;
-		if (status !== 200) {
-			throw new CustomError(isDev() ? error + '' + status : '오류가 발생했습니다.');
-		}
+		console.log('data ', data, status);
+		// if (status !== 200) {
+		// 	throw new CustomError(isDev() ? error + '' + status : '오류가 발생했습니다.');
+		// }
 
-		if (Number(resCd) !== 0) {
-			throw new CustomError(isDev() ? resMsg : '오류가 발생했습니다.');
-		}
+		// if (Number(resCd) !== 0) {
+		// 	throw new CustomError(isDev() ? resMsg : '오류가 발생했습니다.');
+		// }
 
-		if (resCd.toString() === CustomError.RESULT_CODE.FAILED_LOGIN) {
-			throw new CustomError(CustomError.ERROR_MSG.FAILED_LOGIN, false, () => (location.href = '/login.do'));
-		} else if (resCd.toString() !== HTTP.RESULT_CODE.SUCCESS) {
-			throw new CustomError(resMsg, false);
-		}
+		// if (resCd.toString() === CustomError.RESULT_CODE.FAILED_LOGIN) {
+		// 	throw new CustomError(CustomError.ERROR_MSG.FAILED_LOGIN, false, () => (location.href = '/login.do'));
+		// } else if (resCd.toString() !== HTTP.RESULT_CODE.SUCCESS) {
+		// 	throw new CustomError(resMsg, false);
+		// }
 
-		if (result && result?.actFlag === FLAGS.ACT_FLAG.ERROR) {
-			throw new CustomError(result.resMsg);
-		}
+		// if (result && result?.actFlag === FLAGS.ACT_FLAG.ERROR) {
+		// 	throw new CustomError(result.resMsg);
+		// }
 
-		if (result && result?.actFlag === FLAGS.ACT_FLAG.WARNING) {
-			CustomLogger.error(result?.resMsg);
-		}
+		// if (result && result?.actFlag === FLAGS.ACT_FLAG.WARNING) {
+		// 	CustomLogger.error(result?.resMsg);
+		//}
 	}
 
 	//인터셉터 바인드
@@ -96,6 +99,7 @@ export class HttpManager {
 	static send = ({ customAxios = GeneralAxios, method = HTTP.METHOD.GET, url, data = {}, useCache = false, useLoading = false }) => {
 		const config = { url, method };
 
+		console.log(`send api `, url, method);
 		//todo 로딩 스피너 개선 예정 mutation api만 스피너 돌도록
 		if (useLoading) {
 			// eslint-disable-next-line react-hooks/rules-of-hooks

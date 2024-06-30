@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Checkbox from './Checkbox';
 import Swal from 'sweetalert2';
 import { getId } from 'react-uid/dist/es5/context';
 import { useRouter } from 'next/router';
 import { openPage } from '@lib/hooks/common';
-
+import MemberQuery from '@queries/member';
 import CustomForms from '@component/etc/CustomForms';
+import QueryBoundary from '@component/boundary/QueryBoundary';
+import MemberService from '@service/MemberService';
+
 const LoginForm = () => {
 	const router = useRouter();
 	const [service, setService] = useState(false);
@@ -19,8 +22,12 @@ const LoginForm = () => {
 	const onChangePw = (e) => {
 		setPw(e.target.value);
 	};
-	const handlerLogin = (id, pw) => {
-		if (id === '' || pw === '') {
+
+	useEffect(() => {
+		// 	const { data: result } = MemberQuery.getLogin({ usr_id: 'test', usr_pw: '1234' }, { suspense: true });
+	});
+	const handlerLogin = (e, usr_id, usr_pw) => {
+		if (usr_id === '' || usr_pw === '') {
 			Swal.fire({
 				icon: 'warning',
 				title: '안내',
@@ -28,10 +35,42 @@ const LoginForm = () => {
 				confirmButtonText: '확인',
 			}).then((res) => {});
 		} else {
-			router.push('/farm');
+			MemberService.getLogin({ usr_id, usr_pw })
+				.then((res) => {
+					console.log(`res`, res);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
 		}
-	};
+		// };
 
+		// const handlerLogin2 = async () => {
+		// 	try {
+		// 		const response = await axios
+		// 			.post('http://ec2-3-39-131-167.ap-northeast-2.compute.amazonaws.com:8800/login', { usr_id: 'test', usr_pw: '1234' })
+		// 			.then((response) => {
+		// 				console.log('Response:', response.data);
+		// 			})
+		// 			.catch((error) => {
+		// 				console.error('Error:', error);
+		// 			});
+
+		// 		console.log('Data:', response.data);
+		// 	} catch (error) {
+		// 		if (error.response) {
+		// 			// 서버가 응답을 줬지만 2xx 응답이 아닌 경우
+		// 			console.error('Response Error:', error.response.data);
+		// 		} else if (error.request) {
+		// 			// 서버가 응답을 못 준 경우
+		// 			console.error('Request Error:', error.request);
+		// 		} else {
+		// 			// 요청을 보내기 전에 발생한 오류
+		// 			console.error('Error:', error.message);
+		// 		}
+		// 	}
+		//
+	};
 	return (
 		<div className="login_wrap">
 			<div className="form_wrap">
@@ -65,7 +104,7 @@ const LoginForm = () => {
 				</div>
 				<button
 					className="login_button"
-					onClick={() => handlerLogin(id, pw)}
+					onClick={(e) => handlerLogin(e, id, pw)}
 				>
 					로그인
 				</button>

@@ -3,6 +3,9 @@ import CustomError from '@lib/error';
 
 export class QueryKeys {
 	//ROOT
+
+	static MANGOIS_QUERY_GROUP_ = ['MANGOIS_QUERY_GROUP_'];
+
 	static IVORY_QUERY_GROUP = ['IVORY_QUERY_GROUP'];
 
 	//CAMPAIGN CONTROLLER API

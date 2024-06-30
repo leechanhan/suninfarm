@@ -112,6 +112,10 @@ const ReviewQueryHandler = {
 		const { pick_pdt_list = [] } = await ReviewService.fetchPickProductList({ pickSeqNo });
 		return pick_pdt_list;
 	},
+	test: async ({ pickSeqNo }) => {
+		const { pick_pdt_list = [] } = await ReviewService.fetchPickProductList({ pickSeqNo });
+		return pick_pdt_list;
+	},
 };
 
 export default ReviewQuery;

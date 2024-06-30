@@ -6,8 +6,10 @@ import Swal from 'sweetalert2';
 import EmptyFarm from '../components/EmptyFarm';
 import FarmAlarm from '../components/FarmAlarm';
 import FarmInfo from '../components/FarmList';
+import QueryBoundary from '@component/boundary/QueryBoundary';
 const FarmListScreen = () => {
 	const router = useRouter();
+	const [farmList, setFarmList] = useState([]);
 	useEffect(() => {}, []);
 	return (
 		<div className="content_wrapper">
@@ -22,7 +24,9 @@ const FarmListScreen = () => {
 					</div>
 					<div className="list">
 						<FarmAlarm />
-						<FarmInfo />
+						<QueryBoundary Skeleton={() => <>로딩중...</>}>
+							<FarmInfo farmList={farmList} />
+						</QueryBoundary>
 					</div>
 				</div>
 			</div>

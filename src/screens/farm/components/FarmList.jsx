@@ -3,10 +3,10 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import EmptyFarm from './EmptyFarm';
 import { vegetableMap, weatherMap } from '@constants/static';
-const FarmInfo = () => {
+const FarmInfo = ({ farmList = [] }) => {
 	const router = useRouter();
-	const [farmList, setFarmList] = useState([]);
 	useEffect(() => {}, [farmList]);
+
 	return (
 		<>
 			{farmList && farmList.length > 0 ? (
@@ -96,16 +96,16 @@ const FarmInfo = () => {
 					<button
 						style={{ backgroundColor: '#fff', color: '#f00', fontSize: 20, padding: 12 }}
 						className="addFarmBtn button"
-						onClick={() =>
-							setFarmList([
-								{ farmMainIcon: '딸기', farmTitle: '딸기 농장', farmWeather: '좋음', temper: 18, moisture: 32, co2: 120, par: 140 },
-								{ farmMainIcon: '토마토', farmTitle: '토마토 농장', farmWeather: '좋음', temper: 25, moisture: 40, co2: 220, par: 230 },
-								{ farmMainIcon: '파프리카', farmTitle: '파프리카 농장', farmWeather: '나쁨', temper: 22, moisture: 30, co2: 322, par: 312 },
-								{ farmMainIcon: '당근', farmTitle: '당근 농장', farmWeather: '나쁨', temper: 26, moisture: 40, co2: 342, par: 360 },
-								{ farmMainIcon: '포도', farmTitle: '포도 농장', farmWeather: '나쁨', temper: 28, moisture: 70, co2: 352, par: 360 },
-								{ farmMainIcon: '가지', farmTitle: '가지 농장', farmWeather: '나쁨', temper: 29, moisture: 60, co2: 372, par: 200 },
-							])
-						}
+						// onClick={() =>
+						// 	setFarmList([
+						// 		{ farmMainIcon: '딸기', farmTitle: '딸기 농장', farmWeather: '좋음', temper: 18, moisture: 32, co2: 120, par: 140 },
+						// 		{ farmMainIcon: '토마토', farmTitle: '토마토 농장', farmWeather: '좋음', temper: 25, moisture: 40, co2: 220, par: 230 },
+						// 		{ farmMainIcon: '파프리카', farmTitle: '파프리카 농장', farmWeather: '나쁨', temper: 22, moisture: 30, co2: 322, par: 312 },
+						// 		{ farmMainIcon: '당근', farmTitle: '당근 농장', farmWeather: '나쁨', temper: 26, moisture: 40, co2: 342, par: 360 },
+						// 		{ farmMainIcon: '포도', farmTitle: '포도 농장', farmWeather: '나쁨', temper: 28, moisture: 70, co2: 352, par: 360 },
+						// 		{ farmMainIcon: '가지', farmTitle: '가지 농장', farmWeather: '나쁨', temper: 29, moisture: 60, co2: 372, par: 200 },
+						// 	])
+						// }
 					>
 						[TEST] 농장 생성하기 [TEST]
 					</button>

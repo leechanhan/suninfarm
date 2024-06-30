@@ -29,3 +29,45 @@
 	font-size: 20px;
 	cursor: pointer;
 }
+
+.sidebar_wrap {
+	@include media(width, 214);
+	background-color: #f2f4f6;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	@include media(padding, 28);
+	justify-content: flex-start;
+
+	.logo_wrap {
+		@include media(width, 120);
+		@include media(padding-bottom, 26);
+		@include media(padding-top, 128);
+		img {
+			width: 100%;
+			height: auto;
+		}
+	}
+	.farm_name_wrap {
+		background-color: #89c528;
+		@include media(padding, 8, 24);
+		border-radius: mediaVal(20);
+		span {
+			color: #fff;
+			@include font(18, normal, bold);
+		}
+	}
+	.menu_list_wrap {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+
+		li {
+			@include media(padding, 16, 0);
+			span {
+				color: #595757;
+				@include font(14, normal, normal);
+			}
+		}
+	}
+}

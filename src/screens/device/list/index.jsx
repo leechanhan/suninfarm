@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import CustomAlert from '@lib/alert';
 import { useState } from 'react';
 import Header from '@component/frame/Header';
+import CustomForms from '@component/etc/CustomForms';
 const DeviceListScreen = ({ farmName = '딸기농장' }) => {
 	const handlerTest = () => {
 		Swal.fire({
@@ -14,6 +15,9 @@ const DeviceListScreen = ({ farmName = '딸기농장' }) => {
 			confirmButtonText: '확인',
 		}).then((res) => {});
 	};
+
+	const [checkDevice, setCheckDevice] = useState(false);
+
 	const [registedDevices, setRegistedDevices] = useState([
 		{ devName: '1열 좌측', devSerial: '1324234F324234234D' },
 		{ devName: '1열 우측', devSerial: '5524AA4F324234234D' },
@@ -43,91 +47,48 @@ const DeviceListScreen = ({ farmName = '딸기농장' }) => {
 					LeftButton={() => <Button뒤로가기 />}
 				/>
 				<div className="device_info_wrap">
-					<div className="device_title"></div>
+					<div className="device_title">등록 디바이스</div>
 					<ul className="device_list_wrap">
 						{registedDevices.map((item, index) => {
 							return (
 								<li
-									className="device_list_wrap"
+									className="device_item"
 									key={index}
 								>
 									<span className="device_name">{item.devName}</span>
 									<span className="device_serial">{item.devSerial}</span>
-									<span onClick={() => handlerDeleteDevice(item.devName)}>
-										<img
-											className="icon"
-											src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_delete.png`}
-										/>{' '}
-									</span>
+									<CustomForms.Form체크박스
+										id="agreeService"
+										onChange={setCheckDevice}
+										value={!checkDevice}
+									/>
 								</li>
 							);
 						})}
 					</ul>
 				</div>
 
-				<div className="device_list_wrap">
-					<div className="device_title"></div>
-					<ul className="device_info_wrap">
+				<div className="device_info_wrap">
+					<div className="device_title">등록 디바이스</div>
+					<ul className="device_list_wrap">
 						{unRegistedDevices.map((item, index) => {
 							return (
 								<li
-									className="device_list_wrap"
+									className="device_item"
 									key={index}
 								>
 									<span className="device_name">{item.devName}</span>
 									<span className="device_serial">{item.devSerial}</span>
-									<span onClick={() => handlerDeleteDevice(item.devName)}>
-										<img
-											className="icon"
-											src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_delete.png`}
-										/>{' '}
-									</span>
+									<CustomForms.Form체크박스
+										id="agreeService"
+										onChange={setCheckDevice}
+										value={!checkDevice}
+									/>
 								</li>
 							);
 						})}
 					</ul>
 				</div>
-
-				{/* <h3 className="device_list_title">등록 디바이스</h3>
-				<ul className="device_wrap">
-					{registedDevices.map((item, index) => {
-						return (
-							<li
-								className="device_list_wrap"
-								key={index}
-							>
-								<span className="device_name">{item.devName}</span>
-								<span className="device_serial">{item.devSerial}</span>
-								<span onClick={() => handlerDeleteDevice(item.devName)}>
-									<img
-										className="icon"
-										src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_delete.png`}
-									/>{' '}
-								</span>
-							</li>
-						);
-					})}
-				</ul>
-				<h3 className="device_list_title">미등록 디바이스</h3>
-				<ul>
-					{unRegistedDevices.map((item, index) => {
-						return (
-							<li
-								className="device_list_wrap"
-								key={index}
-							>
-								<span className="device_name">{item.devName}</span>
-								<span className="device_serial">{item.devSerial}</span>
-								<span onClick={() => handlerRegisterDevice(item.devName)}>
-									<img
-										className="icon"
-										src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_checked.png`}
-									/>{' '}
-								</span>
-							</li>
-						);
-					})}
-				</ul> */}
 			</div>
 		</div>
 	);

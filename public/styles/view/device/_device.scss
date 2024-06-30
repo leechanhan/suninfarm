@@ -1,37 +1,182 @@
 .device_info_wrap {
-	background-color: #fff;
 	border-radius: mediaVal(20);
+	@include media(padding, 20);
+	background-color: #fff;
 	width: 100%;
 	height: auto;
 	display: flex;
 	flex-direction: column;
-
+	@include media(margin-bottom, 12);
 	.device_title {
+		@include media(padding, 12);
 		@include font(14, normal, bold);
 		color: #646e82;
 	}
 	.device_list_wrap {
 		display: flex;
 		flex-direction: column;
-		background-color: #f1f8ff;
-		@include media(height, 45);
-		@include media(padding, 6, 16);
 
 		.device_item {
+			border-radius: mediaVal(20);
+			@include media(height, 40);
+			@include media(padding, 8, 16);
+			@include media(margin, 4, 0);
+			background-color: #f1f8ff;
 			display: flex;
 			flex-direction: row;
 			justify-content: space-between;
 			align-items: center;
 
-			.title {
-				@include font(16, normal, normal);
+			.device_name {
+				@include font(15, normal, normal);
 				color: $FONT;
 			}
 
-			.serial {
-				@include font(15, normal, normal);
+			.device_serial {
+				@include font(14, normal, normal);
 				color: $FONT;
 			}
 		}
 	}
+}
+
+.light_info_wrap {
+	border-radius: mediaVal(20);
+	@include media(padding, 20);
+	background-color: #fff;
+	width: 100%;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	@include media(margin-bottom, 12);
+	.light_title {
+		@include media(padding, 12);
+		@include font(15, normal, bold);
+		color: #646e82;
+	}
+	.light_list_wrap {
+		display: flex;
+		flex-direction: column;
+
+		.light_item {
+			@include media(margin, 12, 0);
+			display: flex;
+			flex-direction: column;
+			.light_value {
+				@include media(padding-left, 52);
+				@include font(15, normal, bold);
+				color: $FONT;
+			}
+			.ui_wrap {
+				width: 100%;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				justify-content: space-between;
+				@include media(height, 40);
+				@include font(14, normal, bold);
+
+				.light_progress {
+					width: 100%;
+					border-radius: mediaVal(20);
+					@include media(height, 8);
+					@include media(margin, 0, 8, 0, 8);
+					-webkit-appearance: none;
+					appearance: none;
+					background: #ddd;
+
+					&::-webkit-slider-thumb {
+						-webkit-appearance: none;
+						appearance: none;
+						@include media(width, 32);
+						@include media(height, 32);
+						cursor: pointer;
+						background-size: cover;
+					}
+
+					&.total::-webkit-slider-thumb {
+						background-image: url('/images/png/light/icon_light_total.png'); /* Placeholder for sun icon */
+					}
+					&.white::-webkit-slider-thumb {
+						background-image: url('/images/png/light/icon_light_white.png'); /* Placeholder for sun icon */
+					}
+					&.red::-webkit-slider-thumb {
+						background-image: url('/images/png/light/icon_light_red.png'); /* Placeholder for sun icon */
+					}
+					&.blue::-webkit-slider-thumb {
+						background-image: url('/images/png/light/icon_light_blue.png'); /* Placeholder for sun icon */
+					}
+				}
+
+				.label_total {
+					color: $GREEN;
+					@include media(width, 48);
+				}
+
+				.label_white {
+					color: $ORANGE;
+					@include media(width, 46);
+					@include media(padding-left, 8);
+				}
+
+				.label_red {
+					color: $PINK;
+					@include media(width, 46);
+					@include media(padding-left, 8);
+				}
+
+				.label_blue {
+					color: $BLUE;
+					@include media(width, 46);
+					@include media(padding-left, 8);
+				}
+				.icon_light_gray {
+					@include media(width, 22);
+					@include media(height, 22);
+				}
+			}
+		}
+	}
+
+	.light_divider {
+		@include media(height, 1);
+		background-color: #b7b7b7;
+		width: 74%;
+		margin-left: 18%;
+	}
+}
+
+.slider {
+	flex-grow: 1;
+	-webkit-appearance: none;
+	appearance: none;
+	width: 100%;
+	height: 8px;
+	background: #ddd;
+	outline: none;
+	opacity: 0.7;
+	transition: opacity 0.2s;
+	margin: 0 10px;
+}
+.slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 20px;
+	height: 20px;
+	background: green;
+	cursor: pointer;
+	border-radius: 50%;
+	background-image: url('/images/png/light/icon_light_total.png'); /* Placeholder for sun icon */
+
+	background-size: cover;
+}
+.slider::-moz-range-thumb {
+	width: 20px;
+	height: 20px;
+	background: green;
+	cursor: pointer;
+	border-radius: 50%;
+	background-image: url('/images/png/light/icon_light_total.png'); /* Placeholder for sun icon */
+
+	background-size: cover;
 }

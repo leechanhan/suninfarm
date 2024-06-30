@@ -16,7 +16,7 @@ export const GeneralAxios = axios.create({
 	contentType: 'application/json; charset=UTF-8;',
 	baseURL: `${process.env.NEXT_PUBLIC_API_PATH}`,
 	validateStatus: false,
-	headers: { 'Content-Encoding': 'gzip', ...devHeaders },
+	timeout: 5000,
 });
 
 //파일 업로드용

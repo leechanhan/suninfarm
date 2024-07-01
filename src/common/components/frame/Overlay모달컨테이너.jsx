@@ -16,7 +16,7 @@ const animationTypes = {
 	},
 	slideRight: {
 		opacity: [0, 1],
-		transform: ['translateX(-80%)', 'translateX(-40%)'],
+		transform: ['translateX(-80%)', 'translateX(-50%)'],
 	},
 };
 

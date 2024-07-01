@@ -1,6 +1,19 @@
-import React from 'react';
+import CustomAlert from '@lib/alert';
+import { openPage } from '@lib/hooks/common';
+import { useRouter } from 'next/router';
 
-const Layout사이드바 = ({ children, title, titleLogo, LeftButton, RightButton, subtitle, isGnb }) => {
+const Layout사이드바 = ({ onClose }) => {
+	const router = useRouter();
+	const handleLogout = (event) => {
+		onClose();
+		CustomAlert.question({
+			html: `로그아웃 하시겠습니까?`,
+			callback: () => {
+				openPage('/', router);
+			},
+		});
+	};
+
 	return (
 		<>
 			<div className="sidebar_wrap">
@@ -23,7 +36,7 @@ const Layout사이드바 = ({ children, title, titleLogo, LeftButton, RightButto
 					<li>
 						<span>농장 추가</span>
 					</li>
-					<li>
+					<li onClick={handleLogout}>
 						<span>로그아웃</span>
 					</li>
 				</ul>

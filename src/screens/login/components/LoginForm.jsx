@@ -30,7 +30,7 @@ const LoginForm = () => {
 	const handlerLogin = async (e, usr_id, usr_pw) => {
 		try {
 			const response = await axios
-				.post('http://ec2-3-39-131-167.ap-northeast-2.compute.amazonaws.com:8800/login', { usr_id: 'test', usr_pw: '1234' })
+				.post('http://ec2-3-39-131-167.ap-northeast-2.compute.amazonaws.com:8800/gwlist')
 				.then((response) => {
 					console.log('Response:', response.data);
 				})
@@ -38,7 +38,7 @@ const LoginForm = () => {
 					console.error('Error:', error);
 				});
 
-			console.log('Data:', response.data);
+			//	console.log('Data:', response.data);
 		} catch (error) {
 			if (error.response) {
 				// 서버가 응답을 줬지만 2xx 응답이 아닌 경우
@@ -102,7 +102,7 @@ const LoginForm = () => {
 			<div className="form_wrap">
 				<img
 					className="logo"
-					src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/img_logo_small.png`}
+					src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/img_logo_mid.png`}
 				/>
 				<input
 					className="form_wrap input"

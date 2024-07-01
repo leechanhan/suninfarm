@@ -10,7 +10,7 @@ const IntroScreen = () => {
 	}, []);
 	return (
 		<div className="intro_wrap">
-			<img src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/img_intro.png`} />
+			<img src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/img_logo_mid.png`} />
 		</div>
 	);
 };

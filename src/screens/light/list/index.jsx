@@ -21,8 +21,6 @@ const LightListScreen = ({ _lightList = [], farmName = '딸기농장' }) => {
 	const handleChangeProgressValue = (key, value) => {
 		// console.log('123');
 		setValues((prevValues) => {
-			console.log('log', key, value);
-
 			const newValues = new Map(prevValues);
 			if (!newValues.has(key)) {
 				newValues.set(key, value);

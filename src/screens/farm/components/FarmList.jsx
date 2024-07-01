@@ -29,7 +29,7 @@ const FarmInfo = ({ farmList = [] }) => {
 								</div>
 								<div className="framinfo_text_wrap">
 									<div className="framinfo_title_wrap">
-										<span className="title">{item.farmTitle}</span>
+										<span className="farm_title">{item.farmTitle}</span>
 										<img
 											className="icon_weather"
 											src={weatherMap[item.farmWeather]}

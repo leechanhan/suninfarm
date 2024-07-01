@@ -1,0 +1,73 @@
+.setting_info_wrap {
+	border-radius: mediaVal(20);
+	@include media(padding, 20);
+	background-color: #fff;
+	width: 100%;
+	height: auto;
+	display: flex;
+	flex-direction: column;
+	@include media(margin-bottom, 12);
+	.setting_tab_indicator_wrap {
+		@include media(padding, 12);
+		display: flex;
+		flex-direction: row;
+		overflow-x: auto; /* 가로 스크롤 가능 */
+		white-space: nowrap; /* 자식 요소들이 세로로 래핑되지 않도록 함 */
+		justify-content: flex-start;
+		span {
+			@include media(padding, 8, 16);
+			@include font(14, normal, normal);
+			@include media(margin-right, 8);
+			width: auto;
+			border-radius: mediaVal(20);
+			background-color: $COLOR_GRAY_3;
+			color: $FONT;
+			&.active {
+				color: #fff;
+				background-color: $GREEN;
+				@include font(14, normal, bold);
+			}
+		}
+	}
+
+	.setting_tab_wrap {
+		@include media(margin, 12, 0);
+		.setting_title_wrap {
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			align-items: center;
+			@include media(padding-top, 16);
+			@include media(height, 46);
+
+			.setting_title {
+				@include font(15, normal, bold);
+				@include media(padding-left, 16);
+				color: $FONT;
+			}
+		}
+		.water_time_wrap {
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			justify-content: flex-start;
+
+			.water_time_item {
+				flex: 1;
+				width: 50%;
+				border-radius: mediaVal(10);
+				background-color: #f2f4f6;
+				@include media(margin, 6);
+				@include media(padding, 16);
+				box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.15);
+				.area {
+					@include font(12, normal, normal);
+				}
+				.time {
+					@include font(24, normal, normal);
+				}
+			}
+		}
+	}
+}

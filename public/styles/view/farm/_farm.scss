@@ -87,9 +87,8 @@
 }
 
 .farminfo_wrap {
-	.title {
+	.farminfo_list .title {
 		color: #595757;
-
 		@include media(padding, 24, 0, 4, 14);
 		@include font(16, normal, bold);
 	}
@@ -122,11 +121,11 @@
 				flex-direction: row;
 				justify-content: flex-start;
 				align-items: center;
-
+				@include media(padding-top, 16);
 				@include media(height, 46);
 
-				.title {
-					@include font(20, normal, boldl);
+				.farm_title {
+					@include font(20, normal, bold);
 					@include media(padding-right, 8);
 					color: #fff;
 				}

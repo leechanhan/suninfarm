@@ -19,7 +19,7 @@ const Layout메인헤더 = ({ children, title, isGnb }) => {
 				onClose={close}
 				aniType="slideRight"
 			>
-				<Layout사이드바 />
+				<Layout사이드바 onClose={close} />
 			</Overlay모달컨테이너>
 
 			<div className={`page_container ${isGnb ? 'is_gnb' : ''}`}>

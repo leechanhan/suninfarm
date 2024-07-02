@@ -8,61 +8,38 @@ import AndroidUtils from '@lib/utils/android';
 import NativeBridge from '@lib/mobile/bridge';
 import CustomAlert from '@lib/alert';
 import { useRouter } from 'next/router';
-import next from 'next';
-
-const Nav하단메뉴 = () => {
-	const [iconActiveArray, setIconActiveArray] = useState({
-		'/farm/detail': false,
-		'/farm/list': false,
-		'/light/list': false,
-		'/history/list': false,
-		'/setting/list': false,
-	});
-
+import CookieUtils from '@lib/utils/cookie';
+const Nav하단메뉴 = ({ pageName }) => {
+	const [iconArray, setIconArray] = useState({ 홈: false, 농장선택: false, 조명제어: false, 기록: false, 기타제어: false });
 	const router = useRouter();
-	const handlerNavigation = (routerName) => {
-		const nowPath = router.pathname;
-		const nextPath = routerName;
-
-		if (nowPath === nextPath) {
-			return false;
-		}
-
-		setIconActiveArray((prev) => ({
-			...prev,
-			[routerName]: !prev[routerName],
-			[nowPath]: !prev[routerName],
-		}));
-		//console.log(router.pathname);
-		//console.log(routerName);
+	const handlerNavigation = (routerName, name) => {
+		console.log('1234', routerName, name);
 
 		router.push(routerName);
-	};
-	useEffect(() => {
-		//console.log('123', iconActiveArray);
-	}, [iconActiveArray]);
-	// /farm/detail
-	// /light/list
-	// /farm/list
-	// /farm/detail
-	// /setting/list
 
-	const handlerLogout = (url = '', isOuterLink = false) => {
-		CustomAlert.question({ html: '로그아웃 하시겠습니까?', callback: () => {} });
+		setIconArray((prevState) => ({ ...prevState, name: true }));
 	};
+
+	useEffect(() => {
+		// setIconArray({ 홈: false, 농장선택: false, 조명제어: false, 기록: false, 기타제어: false });
+		// console.log(pageName);
+		// const newArray = [...iconArray];
+		// newArray[pageName] = true;
+		// setIconArray(newArray);
+	}, [iconArray]);
 
 	const icons = [
-		{ icon: <IconGnbHome activeVal={iconActiveArray} />, text: '홈', func: () => handlerNavigation('/farm/detail') },
-		{ icon: <IconGnbPcc activeVal={iconActiveArray} />, text: '농장선택', func: () => handlerNavigation('/farm/list') },
-		{ icon: <IconGnbCommunity activeVal={iconActiveArray} />, text: '조명제어', func: () => handlerNavigation('/light/list') },
-		{ icon: <IconGnbStore activeVal={iconActiveArray} />, text: '기록', func: () => handlerNavigation('/history/list') },
-		{ icon: <IconGnbMypage activeVal={iconActiveArray} />, text: '기타제어', func: () => handlerNavigation('/setting/list') },
+		{ icon: <IconGnbHome />, text: '홈', func: () => handlerNavigation('/farm/detail') },
+		{ icon: <IconGnbPcc />, text: '농장선택', func: () => handlerNavigation('/farm/list') },
+		{ icon: <IconGnbCommunity />, text: '조명제어', func: () => handlerNavigation('/light/list') },
+		{ icon: <IconGnbStore />, text: '기록', func: () => handlerNavigation('/history/list') },
+		{ icon: <IconGnbMypage />, text: '기타제어', func: () => handlerNavigation('/setting/list') },
 	];
 	return (
 		<>
 			<nav className="gnb_container">
 				<ul>
-					{icons.map((icon) => {
+					{/* {icons.map((icon) => {
 						return (
 							<li key={icon.text}>
 								<button
@@ -70,11 +47,101 @@ const Nav하단메뉴 = () => {
 									onClick={icon.func}
 								>
 									<div className="icon_box">{icon.icon}</div>
-									<span className="icon_text">{icon.text}</span>
+								<span className={iconArray['홈'] ? 'icon_text_active' : 'icon_text'}>{icon.text}</span>
 								</button>
 							</li>
 						);
-					})}
+					})} */}
+					<li key={'홈'}>
+						<button
+							type="button"
+							onClick={() => handlerNavigation('/farm/detail', '홈')}
+						>
+							<div className="icon_box">
+								<img
+									className="icon mid"
+									src={
+										iconArray['홈']
+											? `${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/gnb/icon_nav_color_home.png`
+											: `${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/gnb/icon_nav_home.png`
+									}
+								/>
+							</div>
+							<span className={iconArray['홈'] ? 'icon_text_active' : 'icon_text'}>{'홈'}</span>
+						</button>
+					</li>
+					<li key={'농장선택'}>
+						<button
+							type="button"
+							onClick={() => handlerNavigation('/farm/list', '농장선택')}
+						>
+							<div className="icon_box">
+								<img
+									className="icon mid"
+									src={
+										iconArray['농장선택']
+											? `${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/gnb/icon_nav_select_color_farm.png`
+											: `${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/gnb/icon_nav_select_farm.png`
+									}
+								/>
+							</div>
+							<span className={iconArray['농장선택'] ? 'icon_text_active' : 'icon_text'}>{'농장선택'}</span>
+						</button>
+					</li>
+					<li key={'조명제어'}>
+						<button
+							type="button"
+							onClick={() => handlerNavigation('/light/list', '조명제어')}
+						>
+							<div className="icon_box">
+								<img
+									className="icon mid"
+									src={
+										iconArray['조명제어']
+											? `${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/gnb/icon_nav_color_light.png`
+											: `${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/gnb/icon_nav_light.png`
+									}
+								/>
+							</div>
+							<span className={iconArray['조명제어'] ? 'icon_text_active' : 'icon_text'}>{'조명제어'}</span>
+						</button>
+					</li>
+					<li key={'기록'}>
+						<button
+							type="button"
+							onClick={() => handlerNavigation('/history/list', '기록')}
+						>
+							<div className="icon_box">
+								<img
+									className="icon mid"
+									src={
+										iconArray['기록']
+											? `${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/gnb/icon_nav_color_history.png`
+											: `${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/gnb/icon_nav_history.png`
+									}
+								/>
+							</div>
+							<span className={iconArray['기록'] ? 'icon_text_active' : 'icon_text'}>{'기록'}</span>
+						</button>
+					</li>
+					<li key={'기타제어'}>
+						<button
+							type="button"
+							onClick={() => handlerNavigation('/setting/list', '기타제어')}
+						>
+							<div className="icon_box">
+								<img
+									className="icon mid"
+									src={
+										iconArray['기타제어']
+											? `${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/gnb/icon_nav_color_setting.png`
+											: `${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/gnb/icon_nav_setting.png`
+									}
+								/>
+							</div>
+							<span className={iconArray['기타제어'] ? 'icon_text_active' : 'icon_text'}>{'기타제어'}</span>
+						</button>
+					</li>
 				</ul>
 			</nav>
 		</>

@@ -100,10 +100,9 @@ const AddFarmScreen = () => {
 						{selectedItem == null ? '작물을 선택하세요.' : selectedItem.name}
 					</button>
 				</div>
-
 				<div className="add_form_wrap">
 					<div className="submit_wrap">
-						<button>취 소</button>
+						<button onClick={() => router.back()}>취 소</button>
 						<button onClick={() => handleSubmit()}>확 인</button>
 					</div>
 				</div>

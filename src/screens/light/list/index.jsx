@@ -64,7 +64,6 @@ const LightListScreen = ({ _lightList = [], farmName = '딸기농장' }) => {
 			handleChangeProgressValue(item.ctr_ieee + 'ctr_ch1val', item.ctr_ch1val);
 			handleChangeProgressValue(item.ctr_ieee + 'ctr_ch2val', item.ctr_ch2val);
 			handleChangeProgressValue(item.ctr_ieee + 'ctr_ch3val', item.ctr_ch3val);
-			console.log(item.ctr_ieee);
 		});
 	}, [lightList]);
 	return (
@@ -183,4 +182,5 @@ const LightListScreen = ({ _lightList = [], farmName = '딸기농장' }) => {
 
 LightListScreen.Layout = Layout메인헤더;
 LightListScreen.isGnb = true;
+LightListScreen.pageName = '조명제어';
 export default LightListScreen;

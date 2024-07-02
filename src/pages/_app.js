@@ -9,13 +9,14 @@ export default function App({ Component, pageProps }) {
 	// 	return null;
 	// }
 
-	const { Layout = Layout기본헤더없음, headerOptions = {}, footerOptions = {}, isGnb = false } = Component;
+	const { Layout = Layout기본헤더없음, headerOptions = {}, footerOptions = {}, isGnb = false, pageName = '홈' } = Component;
 	return (
 		<IndexWrapper>
 			<Layout
 				{...headerOptions}
 				{...footerOptions}
 				isGnb={isGnb}
+				pageName={pageName}
 			>
 				<Component {...pageProps} />
 			</Layout>

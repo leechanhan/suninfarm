@@ -9,7 +9,7 @@ const Layout사이드바 = ({ onClose }) => {
 		CustomAlert.question({
 			html: `로그아웃 하시겠습니까?`,
 			callback: () => {
-				openPage('/', router);
+				openPage('/login', router);
 			},
 		});
 	};
@@ -27,13 +27,13 @@ const Layout사이드바 = ({ onClose }) => {
 					<span>딸기농장</span>
 				</div>
 				<ul className="menu_list_wrap">
-					<li>
+					<li onClick={() => router.push('/farm/detail')}>
 						<span>재배 작물 선택</span>
 					</li>
-					<li>
+					<li onClick={() => router.push('/device/list')}>
 						<span>디바이스 등록</span>
 					</li>
-					<li>
+					<li onClick={() => router.push('/farm/add')}>
 						<span>농장 추가</span>
 					</li>
 					<li onClick={handleLogout}>

@@ -117,4 +117,5 @@ const HistoryScreen = ({ farmName = '딸기농장' }) => {
 
 HistoryScreen.Layout = Layout메인헤더;
 HistoryScreen.isGnb = true;
+HistoryScreen.pageName = '기록';
 export default HistoryScreen;

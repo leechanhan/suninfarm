@@ -41,6 +41,11 @@
 				@include media(margin-top, 4);
 				color: #959595;
 			}
+			.icon_text_active {
+				@include font(12, 0.8, normal);
+				@include media(margin-top, 4);
+				color: $GREEN;
+			}
 		}
 	}
 }

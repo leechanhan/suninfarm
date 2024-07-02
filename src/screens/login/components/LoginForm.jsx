@@ -9,6 +9,7 @@ import CustomForms from '@component/etc/CustomForms';
 import QueryBoundary from '@component/boundary/QueryBoundary';
 import MemberService from '@service/MemberService';
 import axios from 'axios';
+import CookieUtils from '@lib/utils/cookie';
 const LoginForm = () => {
 	const router = useRouter();
 	const [service, setService] = useState(false);
@@ -28,74 +29,26 @@ const LoginForm = () => {
 	});
 
 	const handlerLogin = async (e, usr_id, usr_pw) => {
-		try {
-			const response = await axios
-				.post('http://ec2-3-39-131-167.ap-northeast-2.compute.amazonaws.com:8800/gwlist')
-				.then((response) => {
-					console.log('Response:', response.data);
+		e.preventDefault();
+		if (usr_id === '' || usr_pw === '') {
+			Swal.fire({
+				icon: 'warning',
+				title: '안내',
+				text: `아이디 혹은 비밀번호를 입력해주세요`,
+				confirmButtonText: '확인',
+			}).then((res) => {});
+		} else {
+			MemberService.getLogin({ usr_id, usr_pw })
+				.then((res) => {
+					console.log(`res`, res);
+					CookieUtils.setCookie('usr_id', usr_id, 365);
 				})
-				.catch((error) => {
-					console.error('Error:', error);
+				.catch((err) => {
+					console.log(err);
+					CookieUtils.setCookie('usr_id', usr_id, 365);
+					router.push('/farm/list');
 				});
-
-			//	console.log('Data:', response.data);
-		} catch (error) {
-			if (error.response) {
-				// 서버가 응답을 줬지만 2xx 응답이 아닌 경우
-				console.error('Response Error:', error.response.data);
-			} else if (error.request) {
-				// 서버가 응답을 못 준 경우
-				console.error('Request Error:', error.request);
-			} else {
-				// 요청을 보내기 전에 발생한 오류
-				console.error('Error:', error.message);
-			}
 		}
-		// if (usr_id === '' || usr_pw === '') {
-		// 	Swal.fire({
-		// 		icon: 'warning',
-		// 		title: '안내',
-		// 		text: `아이디 혹은 비밀번호를 입력해주세요`,
-		// 		confirmButtonText: '확인',
-		// 	}).then((res) => {});
-		// } else {
-		// 	MemberService.getLogin({ usr_id, usr_pw })
-		// 		.then((res) => {
-		// 			console.log(`res`, res);
-		// 		})
-		// 		.catch((err) => {
-		// 			console.log(err);
-		// 			router.push('/farm/list');
-		// 		});
-		// }
-
-		// };
-
-		// const handlerLogin2 = async () => {
-		// 	try {
-		// 		const response = await axios
-		// 			.post('http://ec2-3-39-131-167.ap-northeast-2.compute.amazonaws.com:8800/login', { usr_id: 'test', usr_pw: '1234' })
-		// 			.then((response) => {
-		// 				console.log('Response:', response.data);
-		// 			})
-		// 			.catch((error) => {
-		// 				console.error('Error:', error);
-		// 			});
-
-		// 		console.log('Data:', response.data);
-		// 	} catch (error) {
-		// 		if (error.response) {
-		// 			// 서버가 응답을 줬지만 2xx 응답이 아닌 경우
-		// 			console.error('Response Error:', error.response.data);
-		// 		} else if (error.request) {
-		// 			// 서버가 응답을 못 준 경우
-		// 			console.error('Request Error:', error.request);
-		// 		} else {
-		// 			// 요청을 보내기 전에 발생한 오류
-		// 			console.error('Error:', error.message);
-		// 		}
-		// 	}
-		//
 	};
 	return (
 		<div className="login_wrap">

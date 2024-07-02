@@ -30,14 +30,16 @@ const JoinScreen = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		Swal.fire({
-			icon: 'success',
-			title: '안내',
-			text: `회원가입을 축하합니다.\n농장추가 화면으로 이동합니다.`,
-			confirmButtonText: '확인',
-		}).then((res) => {
-			openPage('/farm/list', router);
-		});
+
+		formData.id ===
+			Swal.fire({
+				icon: 'success',
+				title: '안내',
+				text: `회원가입을 축하합니다.\n농장추가 화면으로 이동합니다.`,
+				confirmButtonText: '확인',
+			}).then((res) => {
+				openPage('/farm/list', router);
+			});
 	};
 
 	useEffect(() => {}, []);
@@ -50,30 +52,35 @@ const JoinScreen = () => {
 				<div className="form_wrap">
 					<span className="formTitle">회원가입</span>
 					<input
+						required
 						type="text"
 						placeholder="ID"
 						name="id"
 						onChange={handleChange}
 					/>
 					<input
+						required
 						type="password"
 						placeholder="PW"
 						name="pw"
 						onChange={handleChange}
 					/>
 					<input
+						required
 						type="text"
 						name="name"
 						placeholder="Name"
 						onChange={handleChange}
 					/>
 					<input
+						required
 						type="text"
 						name="email"
 						placeholder="E-mail"
 						onChange={handleChange}
 					/>
 					<input
+						required
 						type="text"
 						name="phone"
 						placeholder="Phone"

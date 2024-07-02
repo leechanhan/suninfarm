@@ -65,4 +65,5 @@ const SettingScreen = ({ farmName = '딸기농장' }) => {
 
 SettingScreen.Layout = Layout메인헤더;
 SettingScreen.isGnb = true;
+SettingScreen.pageName = '기타제어';
 export default SettingScreen;

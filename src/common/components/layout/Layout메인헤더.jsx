@@ -6,7 +6,7 @@ import Button알림 from '@component/frame/headerBtn/Button알림';
 import useRouteOverlay from '@hooks/useRouteOverlay';
 import Overlay모달컨테이너 from '../frame/Overlay모달컨테이너';
 import Layout사이드바 from '../layout/Layout사이드바';
-const Layout메인헤더 = ({ children, title, isGnb }) => {
+const Layout메인헤더 = ({ children, title, isGnb, pageName }) => {
 	const openSidebar = () => {
 		setIsShowModalOn(true);
 	};
@@ -33,7 +33,7 @@ const Layout메인헤더 = ({ children, title, isGnb }) => {
 					<Button알림 />
 				</header>
 				{children}
-				{isGnb && <Nav하단메뉴 />}
+				{isGnb && <Nav하단메뉴 pageName={pageName} />}
 			</div>
 		</>
 	);

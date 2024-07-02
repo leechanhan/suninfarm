@@ -176,4 +176,5 @@ FarmDetailScreen.headerOptions = {
 };
 
 FarmDetailScreen.isGnb = true;
+FarmDetailScreen.pageName = '홈';
 export default FarmDetailScreen;

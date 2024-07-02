@@ -96,4 +96,5 @@ const DeviceListScreen = ({ farmName = '딸기농장' }) => {
 
 DeviceListScreen.Layout = Layout메인헤더;
 DeviceListScreen.isGnb = true;
+DeviceListScreen.pageName = '조명제어';
 export default DeviceListScreen;

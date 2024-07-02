@@ -61,6 +61,7 @@ AlarmScreen.headerOptions = {
 	LeftButton: () => <Menu />,
 };
 AlarmScreen.isGnb = true;
+AlarmScreen.pageName = '알림';
 AlarmScreen.subtitle = true;
 
 export default AlarmScreen;

@@ -177,6 +177,7 @@ export default class ServiceManager {
 			useCache,
 			useLoading,
 		};
+		console.log(requestOption);
 
 		return isFileUpload ? HttpManager.sendFile(requestOption) : HttpManager.send(requestOption);
 	}

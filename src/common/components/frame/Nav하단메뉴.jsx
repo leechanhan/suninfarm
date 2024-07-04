@@ -11,30 +11,25 @@ import { useRouter } from 'next/router';
 import CookieUtils from '@lib/utils/cookie';
 const Nav하단메뉴 = ({ pageName }) => {
 	const [iconArray, setIconArray] = useState({ 홈: false, 농장선택: false, 조명제어: false, 기록: false, 기타제어: false });
+	const [prevActivePage, setPrevActivePage] = useState('홈');
 	const router = useRouter();
+
 	const handlerNavigation = (routerName, name) => {
-		console.log('1234', routerName, name);
-
 		router.push(routerName);
-
-		setIconArray((prevState) => ({ ...prevState, name: true }));
+		const prevPage = prevActivePage;
+		setIconArray((prevState) => ({ ...prevState, [prevPage]: false }));
+		setPrevActivePage(name);
+		setIconArray((prevState) => ({ ...prevState, [name]: true }));
+		console.log(iconArray);
 	};
 
 	useEffect(() => {
-		// setIconArray({ 홈: false, 농장선택: false, 조명제어: false, 기록: false, 기타제어: false });
-		// console.log(pageName);
-		// const newArray = [...iconArray];
-		// newArray[pageName] = true;
-		// setIconArray(newArray);
-	}, [iconArray]);
+		console.log(iconArray);
+		if (pageName !== '') {
+			setIconArray((prevState) => ({ ...prevState, [pageName]: true }));
+		}
+	}, []);
 
-	const icons = [
-		{ icon: <IconGnbHome />, text: '홈', func: () => handlerNavigation('/farm/detail') },
-		{ icon: <IconGnbPcc />, text: '농장선택', func: () => handlerNavigation('/farm/list') },
-		{ icon: <IconGnbCommunity />, text: '조명제어', func: () => handlerNavigation('/light/list') },
-		{ icon: <IconGnbStore />, text: '기록', func: () => handlerNavigation('/history/list') },
-		{ icon: <IconGnbMypage />, text: '기타제어', func: () => handlerNavigation('/setting/list') },
-	];
 	return (
 		<>
 			<nav className="gnb_container">

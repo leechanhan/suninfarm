@@ -38,6 +38,25 @@ const DeviceListScreen = ({ farmName = '딸기농장' }) => {
 	const handlerRegisterDevice = (name) => {
 		CustomAlert.info({ html: `${name}을 등록하시겠습니까?`, callback: () => {} });
 	};
+
+	// 	<input
+	// 	type="checkbox"
+	// 	checked={item.checked}
+	// 	onChange={() => handleCheckboxChange(item.id)}
+	//   />
+	//   {item.label}
+
+	// 체크박스 상태를 업데이트하는 함수
+	// const handleCheckboxChange = (id) => {
+	// 	const newItems = items.map((item) => {
+	// 		if (item.id === id) {
+	// 			return { ...item, checked: !item.checked };
+	// 		}
+	// 		return item;
+	// 	});
+	// 	setItems(newItems);
+	// };
+
 	return (
 		<div className="content_wrapper">
 			<div className="page_container_gray">

@@ -13,6 +13,18 @@ const AgreementScreen = () => {
 	const [agreeLocateInfo, setAgreeLocateInfo] = useState(false);
 	const [agreeLocateService, setAgreeLocateService] = useState(false);
 
+	const handlerAgreeAll = (agree) => {
+		setAgreeAll(agree);
+		setAgreeService(agree);
+		setAgreePersnal(agree);
+		setAgreeLocateInfo(agree);
+		setAgreeLocateService(agree);
+	};
+
+	const handlerJoin = () => {
+		openPage('/join', router);
+	};
+
 	return (
 		<div className="content_wrapper">
 			<div className="agreeListWrap">
@@ -20,16 +32,16 @@ const AgreementScreen = () => {
 					<CustomForms.Form체크박스
 						label="전체 약관에 동의합니다."
 						id="agreeAll"
-						onChange={setAgreeAll}
-						value={!agreeAll}
+						value={agreeAll}
+						onChange={() => handlerAgreeAll(!agreeAll)}
 					/>
 				</div>
 				<div className="agree">
 					<CustomForms.Form체크박스
 						label="서비스 이용약관 (필수)"
 						id="agreeService"
-						onChange={setAgreeService}
-						value={!agreeService}
+						value={agreeService}
+						onChange={() => setAgreeService(!agreeService)}
 					/>
 
 					<img src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/button_right.png`} />
@@ -38,8 +50,8 @@ const AgreementScreen = () => {
 					<CustomForms.Form체크박스
 						label="개인정보 처리방침 (필수)"
 						id="agreePersnal"
-						onChange={setAgreePersnal}
-						value={!agreeLocateInfo}
+						value={agreePersnal}
+						onChange={() => setAgreePersnal(!agreePersnal)}
 					/>
 
 					<img src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/button_right.png`} />
@@ -48,8 +60,8 @@ const AgreementScreen = () => {
 					<CustomForms.Form체크박스
 						label="위치정보 사업이용약관(필수)"
 						id="agreeLocateInfo"
-						onChange={setAgreeLocateInfo}
-						value={!agreeLocateInfo}
+						value={agreeLocateInfo}
+						onChange={() => setAgreeLocateInfo(!agreeLocateInfo)}
 					/>
 
 					<img src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/button_right.png`} />
@@ -58,8 +70,8 @@ const AgreementScreen = () => {
 					<CustomForms.Form체크박스
 						label="위치기반서비스 이용약관(필수)"
 						id="agreeLocateService"
-						onChange={setAgreeLocateService}
-						value={!agreeLocateService}
+						value={agreeLocateService}
+						onChange={() => setAgreeLocateService(!agreeLocateService)}
 					/>
 
 					<img src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/button_right.png`} />
@@ -68,7 +80,7 @@ const AgreementScreen = () => {
 			<div className="agree_confirm_wrap">
 				<button
 					className="agree_btn"
-					onClick={() => openPage('/join', router)}
+					onClick={() => handlerJoin()}
 				>
 					확인
 				</button>

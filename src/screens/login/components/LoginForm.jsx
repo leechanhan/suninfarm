@@ -74,9 +74,9 @@ const LoginForm = () => {
 				<div className="login_bottom_menu">
 					<CustomForms.Form체크박스
 						label="로그인 상태유지"
-						id=""
-						onChange={setService}
-						value={!service}
+						id="auto_login"
+						value={service}
+						onChange={() => setService(!service)}
 					/>
 					<p className="join">&nbsp;&nbsp;|</p>
 					<p className="join">아이디/비밀번호 찾기</p>

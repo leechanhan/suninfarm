@@ -27,7 +27,7 @@ const Layout사이드바 = ({ onClose }) => {
 					<span>딸기농장</span>
 				</div>
 				<ul className="menu_list_wrap">
-					<li onClick={() => router.push('/farm/detail')}>
+					<li onClick={() => router.push('/farm/detail?selectVegetable=Y')}>
 						<span>재배 작물 선택</span>
 					</li>
 					<li onClick={() => router.push('/device/list')}>

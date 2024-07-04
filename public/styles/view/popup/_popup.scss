@@ -36,7 +36,7 @@
 	height: 100vh;
 	display: flex;
 	flex-direction: column;
-	@include media(padding, 28);
+	@include media(padding, 40);
 	justify-content: flex-start;
 
 	.logo_wrap {

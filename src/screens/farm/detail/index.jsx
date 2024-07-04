@@ -5,13 +5,35 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 import Header from '@component/frame/Header';
+
 import Button뒤로가기 from '@component/frame/headerBtn/Button뒤로가기';
 import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
 
+import SelectVegetablePopup from '@component/popup/SelectVegetable';
+import Button팝업종료 from '@component/frame/headerBtn/Button팝업종료';
+import VegetableList from '../components/VegetableList';
+
 const FarmDetailScreen = ({ farmName = '딸기농장' }) => {
 	const router = useRouter();
-	useEffect(() => {}, []);
-	const percentage = 66;
+	const [isPopupOpen, setIsPopupOpen] = useState(false);
+	useEffect(() => {
+		const isVisible = new URLSearchParams(window.location.search).get('selectVegetable');
+		if (isVisible === 'Y') {
+			setIsPopupOpen(true);
+		}
+	}, []);
+
+	const onClosePopup = () => {
+		setIsPopupOpen(false);
+	};
+
+	const saveVegetable = (item) => {
+		//setSelectedItem(item);
+		onClosePopup();
+		console.log(item);
+	};
+
+	const percentage = 60;
 	return (
 		<div className="content_wrapper">
 			<div className="page_container_gray">
@@ -149,7 +171,16 @@ const FarmDetailScreen = ({ farmName = '딸기농장' }) => {
 								</CircularProgressbarWithChildren>
 							</li>
 						</ul>
-
+						<SelectVegetablePopup
+							isOpen={isPopupOpen}
+							onClose={() => <Button팝업종료 popupClose={onClosePopup} />}
+							title={'재배 작물 선택'}
+						>
+							<VegetableList
+								onSelectItem={saveVegetable}
+								onClose={() => <Button팝업종료 popupClose={onClosePopup} />}
+							/>
+						</SelectVegetablePopup>
 						{/* <div class="light_circle_wrap">
 							<div style={{ width: 100, height: 100 }}>
 								<CircularProgressbar

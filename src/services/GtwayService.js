@@ -1,5 +1,7 @@
 import ServiceManager from '@lib/service';
 import { HTTP } from '@lib/constant';
+import UiUtils from '@lib/utils/date';
+UiUtils;
 
 class GatewayService extends ServiceManager {
 	static REQUEST_MAPPING = '';
@@ -7,8 +9,8 @@ class GatewayService extends ServiceManager {
 		리스트: 'gwlist',
 	};
 
-	static getGatewayList({ usr_id }) {
-		return this.createRequest(this.URLS.리스트, HTTP.METHOD.POST, { usr_id });
+	static getGatewayList() {
+		return this.createRequest(this.URLS.리스트, HTTP.METHOD.POST, {});
 	}
 }
 

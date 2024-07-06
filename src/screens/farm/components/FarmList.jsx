@@ -17,22 +17,24 @@ const FarmInfo = ({ farmList = [] }) => {
 							<li
 								onClick={() => openPage('/farm/detail', router)}
 								className="farminfo_item"
-								style={{ backgroundColor: vegetableMap[item.farmMainIcon].activeColor }}
+								// style={{ backgroundColor: vegetableMap[item.farmMainIcon].activeColor }}
 								key={idx}
 							>
 								<div className="farminfo_img_wrap">
 									<img
 										className=""
-										src={vegetableMap[item.farmMainIcon].imgPath}
+										// src={vegetableMap[item.farmMainIcon].imgPath}
+
 										alt=""
 									/>
 								</div>
 								<div className="framinfo_text_wrap">
 									<div className="framinfo_title_wrap">
-										<span className="farm_title">{item.farmTitle}</span>
+										<span className="farm_title">{item.gtw_name}</span>
 										<img
 											className="icon_weather"
-											src={weatherMap[item.farmWeather]}
+											// src={weatherMap[item.farmWeather]}
+											src={weatherMap['좋음']}
 											alt=""
 										/>
 									</div>
@@ -70,19 +72,19 @@ const FarmInfo = ({ farmList = [] }) => {
 										</div>
 										<div className="text_wrap">
 											<div className="text_row">
-												<span className="data_value">{item.temper}</span>
+												<span className="data_value">{parseInt(item.rcd_itemp)}</span>
 												<span className="unit">º</span>
 											</div>
 
 											<div className="text_row">
-												<span className="data_value">{item.moisture}</span>
+												<span className="data_value">{parseInt(item.rcd_ihumi)}</span>
 												<span className="unit">%</span>
 											</div>
 											<div className="text_row">
-												<span className="data_value">{item.co2}</span>
+												<span className="data_value">{parseInt(item.rcd_co2)}</span>
 											</div>
 											<div className="text_row">
-												<span className="data_value">{item.par}</span>
+												<span className="data_value">{parseInt(item.rcd_par)}</span>
 											</div>
 										</div>
 									</div>

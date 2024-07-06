@@ -8,6 +8,7 @@ import { HTTP } from '@lib/constant';
 import { useGlobalStoreAction } from '@store/global';
 import fp from 'lodash/fp';
 import { isDev } from '@lib/function/util';
+import CookieUtils from '@lib/utils/cookie';
 
 export class HttpManager {
 	static REQUEST = 'request';
@@ -105,7 +106,11 @@ export class HttpManager {
 			// eslint-disable-next-line react-hooks/rules-of-hooks
 			useGlobalStoreAction().showLoading();
 		}
-
+		const userid = CookieUtils.getCookie('usr_id');
+		if (userid === '' || userid == null) {
+			throw new CustomError(isDev() ? 'resMsg' : '로그인이 필요합니다.');
+		}
+		data.usr_id = userid;
 		if (method === HTTP.METHOD.GET) {
 			config.params = data;
 			config.data = {};
@@ -113,6 +118,7 @@ export class HttpManager {
 			config.data = data;
 		}
 
+		console.log('api send : ', config.data);
 		config.cache = useCache;
 
 		return customAxios(config);

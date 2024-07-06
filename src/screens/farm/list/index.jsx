@@ -7,6 +7,10 @@ import EmptyFarm from '../components/EmptyFarm';
 import FarmAlarm from '../components/FarmAlarm';
 import FarmInfo from '../components/FarmList';
 import QueryBoundary from '@component/boundary/QueryBoundary';
+import GatewayService from '@service/GtwayService';
+import gateway from '../../../mocks/gateway';
+import GATEWAY from '../../../mocks/getewaymock';
+import { vegetableMap, weatherMap } from '@constants/static';
 const FarmListScreen = () => {
 	const router = useRouter();
 	const [farmList, setFarmList] = useState([
@@ -18,7 +22,18 @@ const FarmListScreen = () => {
 		// { farmMainIcon: '포도', farmTitle: '포도 농장', farmWeather: '나쁨', temper: 28, moisture: 70, co2: 352, par: 360 },
 	]);
 
-	useEffect(() => {}, []);
+	useEffect(() => {
+		GatewayService.getGatewayList()
+			.then((res) => {
+				// setFarmList(res);
+				console.log(`getaway getGatewayList`, GATEWAY.list);
+			})
+			.catch((err) => {
+				console.log(`getaway getGatewayList`, err);
+				setFarmList(GATEWAY.list.gtw_list.gtw_item);
+				console.log(`getaway getGatewayList`, GATEWAY.list);
+			});
+	}, []);
 	return (
 		<div className="content_wrapper">
 			<div className="farmWrap">

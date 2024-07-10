@@ -158,7 +158,7 @@ export default class ServiceManager {
 		if (url !== 'login' && userid === '') {
 			throw new CustomError(CustomError.ERROR_MSG.FAILED_LOGIN, false, () => (location.href = '/login'));
 		}
-		let params = url !== 'login?' ? { ...data, usr_id: userid } : data;
+		let params = url === 'login?' || url === 'joinus?' ? data : { ...data, usr_id: userid };
 		const queryString = Object.entries(params)
 			.map(([key, value]) => value && key + '=' + value)
 			.filter((v) => v)

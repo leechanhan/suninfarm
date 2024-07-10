@@ -27,8 +27,13 @@ const AddFarmScreen = () => {
 
 	const saveVegetable = (item) => {
 		setSelectedItem(item);
+		console.log('saveVegetable', item.name, item.no);
+		setFormData({
+			...formData,
+			['gtw_crop']: item.no,
+		});
+
 		onClosePopup();
-		console.log(item);
 	};
 
 	const handleChange = (event) => {
@@ -46,8 +51,6 @@ const AddFarmScreen = () => {
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-
-		console.log('11');
 
 		if (selectedItem == null) {
 			CustomAlert.error({
@@ -108,7 +111,7 @@ const AddFarmScreen = () => {
 					/>
 					<input
 						required
-						type="password"
+						type="text"
 						placeholder="MAC"
 						name="gtw_mac"
 						onChange={handleChange}

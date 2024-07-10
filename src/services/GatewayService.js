@@ -2,9 +2,9 @@ import ServiceManager from '@lib/service';
 import { HTTP } from '@lib/constant';
 
 class GatewayService extends ServiceManager {
-	static REQUEST_MAPPING = '/gateway/';
+	static REQUEST_MAPPING = '';
 	static URLS = {
-		아라쇼_방송_일정: 'live/nextLive.json',
+		삭제: 'delgw?',
 		추가: 'addgw?',
 	};
 
@@ -12,8 +12,8 @@ class GatewayService extends ServiceManager {
 		return this.createRequest(this.URLS.추가, HTTP.METHOD.GET, data);
 	}
 
-	static fetchBebeTip() {
-		return this.createGatewayRequest(this.URLS.베베팁, HTTP.METHOD.GET, { viewGbnCd: 0 });
+	static deleteGateway(data) {
+		return this.createRequest(this.URLS.삭제, HTTP.METHOD.GET, data);
 	}
 }
 

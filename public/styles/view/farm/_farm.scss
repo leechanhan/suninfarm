@@ -108,8 +108,17 @@
 			@include media(width, 120);
 			@include media(padding, 16);
 			@include center;
-			img {
+			position: relative;
+			.vegetable_img {
 				width: 100%;
+			}
+
+			.icon_ai {
+				position: absolute;
+				@include media(left, 8);
+				@include media(top, 8);
+				@include media(width, 32);
+				@include media(height, 32);
 			}
 		}
 		.framinfo_text_wrap {
@@ -121,6 +130,7 @@
 			.framinfo_title_wrap {
 				width: 100%;
 				display: flex;
+				position: relative;
 				flex-direction: row;
 				justify-content: flex-start;
 				align-items: center;
@@ -137,12 +147,13 @@
 					@include media(height, 26);
 					@include media(margin-right, 8);
 				}
-				.icon_ai {
+				.button_delete {
 					margin-left: auto;
-
-					@include media(width, 26);
-					@include media(height, 26);
-					@include media(margin-right, 16);
+					@include media(margin-right, 8);
+					img {
+						@include media(width, 30);
+						@include media(height, 30);
+					}
 				}
 			}
 		}

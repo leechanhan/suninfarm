@@ -3,10 +3,38 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import EmptyFarm from './EmptyFarm';
 import { vegetableMap, weatherMap } from '@constants/static';
+import GatewayService from '@service/GatewayService';
+import CustomAlert from '@lib/alert';
 const FarmInfo = ({ farmList = [] }) => {
 	const router = useRouter();
 	useEffect(() => {}, [farmList]);
 
+	const deleteGateway = (event, gtw_id, gtw_name) => {
+		event.stopPropagation();
+		CustomAlert.question({
+			html: `${gtw_name}를 삭제하시겠습니까?.`,
+			callback: () => {
+				GatewayService.deleteGateway({ gtw_id: Number(gtw_id) })
+					.then((res) => {
+						console.log(`gateway delete`, res);
+						if (res.result !== 'success') {
+							CustomAlert.error({
+								html: res?.reason,
+								callback: () => {},
+							});
+						} else {
+							CustomAlert.success({
+								html: `${gtw_name}가 정상적으로 삭제되었습니다.`,
+								callback: () => {},
+							});
+						}
+					})
+					.catch((err) => {
+						console.log(`gateway delete`, err);
+					});
+			},
+		});
+	};
 	return (
 		<>
 			{farmList && farmList.length > 0 ? (
@@ -17,15 +45,20 @@ const FarmInfo = ({ farmList = [] }) => {
 							<li
 								onClick={() => openPage(`/farm/detail?gtw_id=${item.gtw_id}`, router)}
 								className="farminfo_item"
-								// style={{ backgroundColor: vegetableMap[item.farmMainIcon].activeColor }}
+								style={{ backgroundColor: vegetableMap[item?.gtw_crop]?.activeColor ?? '#FF6563' }}
 								key={idx}
 							>
 								<div className="farminfo_img_wrap">
 									<img
-										className=""
+										className="vegetable_img"
 										src={
 											vegetableMap[item?.gtw_crop]?.imgPath ?? `${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/vegetable/icon_berry.png`
 										}
+										alt=""
+									/>
+									<img
+										className="icon_ai"
+										src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_ai.png`}
 										alt=""
 									/>
 								</div>
@@ -38,11 +71,17 @@ const FarmInfo = ({ farmList = [] }) => {
 											src={weatherMap['좋음']}
 											alt=""
 										/>
-										<img
-											className="icon_ai"
-											src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_ai.png`}
-											alt=""
-										/>
+										<button
+											className="button_delete"
+											type="button"
+											onClick={(e) => deleteGateway(e, item.gtw_id, item.gtw_name)}
+										>
+											<img
+												className="button_delete"
+												src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/button_delete.png`}
+												alt=""
+											/>
+										</button>
 									</div>
 									<div className="framinfo_data_wrap">
 										<div className="img_wrap">

@@ -3,18 +3,16 @@ import COLORS from '@constants/colors';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-const Button자유함수 = ({ className = '', fill = COLORS.GRAY7 }) => {
+const Button자유함수 = ({ className = '', imgPath = '/images/png/button_plus', routerPath = '/farm/list' }) => {
 	const router = useRouter();
 
 	return (
 		<button
 			type="button"
 			className={`btn_back ${className}`}
-			onClick={() => router.back()}
+			onClick={() => router.push(routerPath)}
 		>
-			<span className="icon_box">
-				<IconTriangleLeft fill={fill} />
-			</span>
+			<img src={`${process.env.NEXT_PUBLIC_BASE_PATH}${imgPath}`} />
 		</button>
 	);
 };

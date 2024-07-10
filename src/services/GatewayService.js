@@ -5,11 +5,11 @@ class GatewayService extends ServiceManager {
 	static REQUEST_MAPPING = '/gateway/';
 	static URLS = {
 		아라쇼_방송_일정: 'live/nextLive.json',
-		베베팁: 'tip/getTipList.json',
+		추가: 'addgw?',
 	};
 
-	static fetchLiveShowBroadcastSchedules() {
-		return this.createGatewayRequest(this.URLS.아라쇼_방송_일정, HTTP.METHOD.GET, {});
+	static postGateway(data) {
+		return this.createRequest(this.URLS.추가, HTTP.METHOD.GET, data);
 	}
 
 	static fetchBebeTip() {

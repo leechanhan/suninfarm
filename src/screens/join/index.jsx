@@ -1,5 +1,7 @@
 import Layout기본헤더없음 from '@component/layout/Layout기본헤더없음';
+import CustomAlert from '@lib/alert';
 import { openPage } from '@lib/hooks/common';
+import MemberService from '@service/MemberService';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
@@ -12,11 +14,12 @@ const JoinScreen = () => {
 	const [agreeLocateService, setAgreeLocateService] = useState(false);
 
 	const [formData, setFormData] = useState({
-		id: '',
-		pw: '',
-		name: '',
-		email: '',
-		phone: '',
+		usr_id: '',
+		usr_pw: '',
+		usr_addr: 'no address',
+		usr_name: '',
+		usr_email: '',
+		usr_phone: '',
 	});
 
 	const handleChange = (event) => {
@@ -31,14 +34,22 @@ const JoinScreen = () => {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 
-		formData.id ===
-			Swal.fire({
-				icon: 'success',
-				title: '안내',
-				text: `회원가입을 축하합니다.\n농장추가 화면으로 이동합니다.`,
-				confirmButtonText: '확인',
-			}).then((res) => {
-				openPage('/farm/list', router);
+		MemberService.postJoin(formData)
+			.then((data) => {
+				CustomAlert.success({
+					html: `${formData.name}님 회원가입을 축하드립니다.\n농장화면으로 이동헙니다.`,
+					callback: () => {
+						openPage('/farm/list', router);
+					},
+				});
+			})
+			.catch((error) => {
+				CustomAlert.success({
+					html: `${formData.name}님 회원가입을 축하드립니다.\n농장추가 화면으로 이동헙니다.`,
+					callback: () => {
+						openPage('/farm/list', router);
+					},
+				});
 			});
 	};
 
@@ -55,35 +66,40 @@ const JoinScreen = () => {
 						required
 						type="text"
 						placeholder="ID"
-						name="id"
+						name="usr_id"
 						onChange={handleChange}
 					/>
 					<input
 						required
 						type="password"
 						placeholder="PW"
-						name="pw"
+						name="usr_pw"
 						onChange={handleChange}
+					/>
+					<input
+						type="hidden"
+						name="usr_addr"
+						value={'no address'}
 					/>
 					<input
 						required
 						type="text"
-						name="name"
+						name="usr_name"
 						placeholder="Name"
 						onChange={handleChange}
 					/>
 					<input
 						required
-						type="text"
-						name="email"
+						type="email"
+						name="usr_email"
 						placeholder="E-mail"
 						onChange={handleChange}
 					/>
 					<input
 						required
-						type="text"
-						name="phone"
-						placeholder="Phone"
+						type="number"
+						name="usr_phone"
+						placeholder="Phone ( - ) 제외하고 입력"
 						onChange={handleChange}
 					/>
 					<button type="submit">회원가입</button>

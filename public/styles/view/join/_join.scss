@@ -9,8 +9,12 @@
 		img {
 			@include media(width, 18);
 		}
-		label {
-			@include font(14, normal, normal);
+		.essential {
+			color: #f00;
+			margin-right: auto;
+			margin-left: 2px;
+			@include center;
+			@include font(15, normal, normal);
 		}
 	}
 	.agree:first-of-type {

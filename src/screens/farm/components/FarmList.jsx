@@ -15,7 +15,7 @@ const FarmInfo = ({ farmList = [] }) => {
 						<p className="title">나의 농장</p>
 						{farmList.map((item, idx) => (
 							<li
-								onClick={() => openPage('/farm/detail', router)}
+								onClick={() => openPage(`/farm/detail?gtw_id=${item.gtw_id}`, router)}
 								className="farminfo_item"
 								// style={{ backgroundColor: vegetableMap[item.farmMainIcon].activeColor }}
 								key={idx}
@@ -23,8 +23,9 @@ const FarmInfo = ({ farmList = [] }) => {
 								<div className="farminfo_img_wrap">
 									<img
 										className=""
-										// src={vegetableMap[item.farmMainIcon].imgPath}
-
+										src={
+											vegetableMap[item?.gtw_crop]?.imgPath ?? `${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/vegetable/icon_berry.png`
+										}
 										alt=""
 									/>
 								</div>
@@ -35,6 +36,11 @@ const FarmInfo = ({ farmList = [] }) => {
 											className="icon_weather"
 											// src={weatherMap[item.farmWeather]}
 											src={weatherMap['좋음']}
+											alt=""
+										/>
+										<img
+											className="icon_ai"
+											src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_ai.png`}
 											alt=""
 										/>
 									</div>

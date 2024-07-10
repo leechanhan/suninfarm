@@ -7,7 +7,12 @@
 		.weather_img_wrap {
 			@include center;
 			@include media(padding, 16);
-			@include media(width, 144);
+			@include media(width, 240);
+
+			img {
+				width: 100%;
+				object-fit: cover;
+			}
 		}
 		.weather_text_wrap {
 			@include media(padding, 8);
@@ -125,14 +130,15 @@
 			border-radius: mediaVal(20);
 			width: 100%;
 			display: flex;
-			flex-wrap: nowrap;
+			flex-wrap: wrap;
 			.data_item {
-				flex: 1;
-				@include media(margin, 8);
-				@include media(height, 100);
-
-				span {
-					@include font(36, normal, normal);
+				@include media(padding, 8);
+				width: 33%;
+				// @include media(margin, 8);
+				// @include media(height, 100);
+				.info_wrap {
+					@include font(22, normal, normal);
+					@include media(margin-top, -8);
 				}
 			}
 		}

@@ -5,8 +5,8 @@ import Layout메인헤더 from '@component/layout/Layout메인헤더';
 import CustomAlert from '@lib/alert';
 import { openPage } from '@lib/hooks/common';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-
+import { useEffect, useState, useCallback } from 'react';
+import { debounce } from 'lodash';
 import Swal from 'sweetalert2';
 const LightListScreen = ({ _lightList = [], farmName = '딸기농장' }) => {
 	const [checkDevice, setCheckDevice] = useState(false);
@@ -18,19 +18,43 @@ const LightListScreen = ({ _lightList = [], farmName = '딸기농장' }) => {
 
 	const [values, setValues] = useState(new Map());
 
-	const handleChangeProgressValue = (key, value) => {
-		// console.log('123');
+	const updateLightDiming = useCallback(
+		debounce((newValue) => {
+			// axios
+			// 	.get(`http://example.com/api?value=${newValue}`)
+			// 	.then((response) => {
+			// 		console.log(response.data);
+			// 	})
+			// 	.catch((error) => {
+			// 		console.error('API request failed', error);
+			// 	});
+		}, 300),
+		[],
+	);
+
+	const handleChangeProgressValue = (ieee, key, value) => {
+		const lightKey = ieee + key;
 		setValues((prevValues) => {
 			const newValues = new Map(prevValues);
-			if (!newValues.has(key)) {
-				newValues.set(key, value);
+			if (!newValues.has(lightKey)) {
+				newValues.set(lightKey, value);
 			}
-			newValues.set(key, Number(value));
+			newValues.set(lightKey, Number(value));
 			return newValues;
 		});
-	};
-	const handleDragEndProgress = (key, value) => {
-		console.log('312');
+		console.log('123');
+
+		if (key === 'master') {
+			setValues((prevValues) => {
+				const newValues = new Map(prevValues);
+
+				newValues.set(`${ieee}ctr_ch1val`, Number(value));
+				newValues.set(`${ieee}ctr_ch2val`, Number(value));
+				newValues.set(`${ieee}ctr_ch3val`, Number(value));
+				return newValues;
+			});
+		}
+		//	updateLightDiming(newValue);
 	};
 
 	const [lightList, setLightList] = useState([
@@ -59,11 +83,10 @@ const LightListScreen = ({ _lightList = [], farmName = '딸기농장' }) => {
 
 	useEffect(() => {
 		lightList.forEach((item) => {
-			handleChangeProgressValue(item.ctr_ieee + 'master', 0);
-
-			handleChangeProgressValue(item.ctr_ieee + 'ctr_ch1val', item.ctr_ch1val);
-			handleChangeProgressValue(item.ctr_ieee + 'ctr_ch2val', item.ctr_ch2val);
-			handleChangeProgressValue(item.ctr_ieee + 'ctr_ch3val', item.ctr_ch3val);
+			handleChangeProgressValue(item.ctr_ieee, 'master', 50);
+			handleChangeProgressValue(item.ctr_ieee, 'ctr_ch1val', item.ctr_ch1val);
+			handleChangeProgressValue(item.ctr_ieee, 'ctr_ch2val', item.ctr_ch2val);
+			handleChangeProgressValue(item.ctr_ieee, 'ctr_ch3val', item.ctr_ch3val);
 		});
 	}, [lightList]);
 	return (
@@ -95,7 +118,7 @@ const LightListScreen = ({ _lightList = [], farmName = '딸기농장' }) => {
 											min="0"
 											max="100"
 											value={values.get(item.ctr_ieee + 'master')}
-											onChange={(e) => handleChangeProgressValue(item.ctr_ieee + 'master', e.target.value)}
+											onChange={(e) => handleChangeProgressValue(item.ctr_ieee, 'master', e.target.value)}
 										/>
 										<img
 											className="icon_light_gray"
@@ -118,7 +141,7 @@ const LightListScreen = ({ _lightList = [], farmName = '딸기농장' }) => {
 											min="0"
 											max="100"
 											value={values.get(item.ctr_ieee + 'ctr_ch1val')}
-											onChange={(e) => handleChangeProgressValue(item.ctr_ieee + 'ctr_ch1val', e.target.value)}
+											onChange={(e) => handleChangeProgressValue(item.ctr_ieee, 'ctr_ch1val', e.target.value)}
 										/>
 										<img
 											className="icon_light_gray"
@@ -140,7 +163,7 @@ const LightListScreen = ({ _lightList = [], farmName = '딸기농장' }) => {
 											min="0"
 											max="100"
 											value={values.get(item.ctr_ieee + 'ctr_ch2val')}
-											onChange={(e) => handleChangeProgressValue(item.ctr_ieee + 'ctr_ch2val', e.target.value)}
+											onChange={(e) => handleChangeProgressValue(item.ctr_ieee, 'ctr_ch2val', e.target.value)}
 										/>
 										<img
 											className="icon_light_gray"
@@ -162,7 +185,7 @@ const LightListScreen = ({ _lightList = [], farmName = '딸기농장' }) => {
 											min="0"
 											max="100"
 											value={values.get(item.ctr_ieee + 'ctr_ch3val')}
-											onChange={(e) => handleChangeProgressValue(item.ctr_ieee + 'ctr_ch3val', e.target.value)}
+											onChange={(e) => handleChangeProgressValue(item.ctr_ieee, 'ctr_ch3val', e.target.value)}
 										/>
 										<img
 											className="icon_light_gray"

@@ -5,6 +5,8 @@ import CustomForms from '@component/etc/CustomForms';
 import { openPage } from '@lib/hooks/common';
 import Button뒤로가기 from '@component/frame/headerBtn/Button뒤로가기';
 import Button자유함수 from '@component/frame/headerBtn/Button자유함수';
+import CustomAlert from '@lib/alert';
+
 const AgreementScreen = () => {
 	const router = useRouter();
 	const [agreeAll, setAgreeAll] = useState(false);
@@ -22,7 +24,14 @@ const AgreementScreen = () => {
 	};
 
 	const handlerJoin = () => {
-		openPage('/join', router);
+		if (agreeService && agreePersnal && agreeLocateInfo && agreeLocateService) {
+			openPage('/join', router);
+		} else {
+			CustomAlert.error({
+				html: '이용약관에 동의해주세요.',
+				callback: () => {},
+			});
+		}
 	};
 
 	return (
@@ -38,42 +47,43 @@ const AgreementScreen = () => {
 				</div>
 				<div className="agree">
 					<CustomForms.Form체크박스
-						label="서비스 이용약관 (필수)"
+						label="서비스 이용약관"
 						id="agreeService"
 						value={agreeService}
 						onChange={() => setAgreeService(!agreeService)}
 					/>
+					<span className="essential"> (필수)</span>
 
 					<img src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/button_right.png`} />
 				</div>
 				<div className="agree">
 					<CustomForms.Form체크박스
-						label="개인정보 처리방침 (필수)"
+						label="개인정보 처리방침"
 						id="agreePersnal"
 						value={agreePersnal}
 						onChange={() => setAgreePersnal(!agreePersnal)}
 					/>
-
+					<span className="essential"> (필수)</span>
 					<img src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/button_right.png`} />
 				</div>
 				<div className="agree">
 					<CustomForms.Form체크박스
-						label="위치정보 사업이용약관(필수)"
+						label="위치정보 사업이용약관"
 						id="agreeLocateInfo"
 						value={agreeLocateInfo}
 						onChange={() => setAgreeLocateInfo(!agreeLocateInfo)}
 					/>
-
+					<span className="essential"> (필수)</span>
 					<img src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/button_right.png`} />
 				</div>
 				<div className="agree">
 					<CustomForms.Form체크박스
-						label="위치기반서비스 이용약관(필수)"
+						label="위치기반서비스 이용약관"
 						id="agreeLocateService"
 						value={agreeLocateService}
 						onChange={() => setAgreeLocateService(!agreeLocateService)}
 					/>
-
+					<span className="essential"> (필수)</span>
 					<img src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/button_right.png`} />
 				</div>
 			</div>

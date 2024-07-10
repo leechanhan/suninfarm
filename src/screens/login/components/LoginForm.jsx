@@ -10,6 +10,8 @@ import QueryBoundary from '@component/boundary/QueryBoundary';
 import MemberService from '@service/MemberService';
 import axios from 'axios';
 import CookieUtils from '@lib/utils/cookie';
+import CustomAlert from '@lib/alert';
+
 const LoginForm = () => {
 	const router = useRouter();
 	const [service, setService] = useState(false);
@@ -41,12 +43,19 @@ const LoginForm = () => {
 			MemberService.getLogin({ usr_id, usr_pw })
 				.then((res) => {
 					console.log(`res`, res);
-					CookieUtils.setCookie('usr_id', usr_id, 365);
+					if (res.result !== 'success') {
+						CustomAlert.error({
+							html: res?.reason,
+							callback: () => {},
+						});
+					} else {
+						CookieUtils.setCookie('usr_id', usr_id, 365);
+						router.push('/farm/list');
+					}
 				})
 				.catch((err) => {
 					console.log(err);
 					CookieUtils.setCookie('usr_id', usr_id, 365);
-					router.push('/farm/list');
 				});
 		}
 	};

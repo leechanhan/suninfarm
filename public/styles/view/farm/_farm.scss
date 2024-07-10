@@ -101,6 +101,9 @@
 		border-radius: mediaVal(20);
 		@include media(margin, 6, 0);
 
+		&:active {
+			background-color: #faaed7;
+		}
 		.farminfo_img_wrap {
 			@include media(width, 120);
 			@include media(padding, 16);
@@ -130,8 +133,16 @@
 					color: #fff;
 				}
 				.icon_weather {
-					@include media(width, 25);
-					@include media(height, 25);
+					@include media(width, 26);
+					@include media(height, 26);
+					@include media(margin-right, 8);
+				}
+				.icon_ai {
+					margin-left: auto;
+
+					@include media(width, 26);
+					@include media(height, 26);
+					@include media(margin-right, 16);
 				}
 			}
 		}
@@ -228,6 +239,9 @@
 				@include media(height, 48);
 			}
 		}
+		.userId {
+			color: #726e6e;
+		}
 		.formTitle {
 			@include font(18, normal, normal);
 			@include center;
@@ -289,7 +303,8 @@
 	@include media(border-radius, 30);
 	background-color: #89c528;
 	color: #fff;
-	@include font(15, normal, normal);
+	@include font(15, normal, bold);
+	@include center;
 }
 
 .select_vegetable_popup {

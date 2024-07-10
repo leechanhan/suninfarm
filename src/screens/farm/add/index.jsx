@@ -6,18 +6,23 @@ import CustomAlert from '@lib/alert';
 import SelectVegetablePopup from '@component/popup/SelectVegetable';
 import Button팝업종료 from '@component/frame/headerBtn/Button팝업종료';
 import VegetableList from '../components/VegetableList';
-
+import CookieUtils from '@lib/utils/cookie';
+import GatewayService from '@service/GatewayService';
+import { vegetableArray } from '@constants/static';
+vegetableArray;
 const AddFarmScreen = () => {
 	const router = useRouter();
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [selectedItem, setSelectedItem] = useState(null);
+	const [userId, setUserId] = useState('ID');
 	const [formData, setFormData] = useState({
-		id: '',
-		mac: '',
-		farm_nm: '',
-		ssid: '',
-		pw: '',
-		selectVegetable: '',
+		usr_id: '',
+		gtw_mac: '',
+		gtw_name: '',
+		gtw_addr: '',
+		gtw_ssid: '',
+		gtw_pw: '',
+		gtw_crop: '',
 	});
 
 	const saveVegetable = (item) => {
@@ -40,70 +45,125 @@ const AddFarmScreen = () => {
 	};
 
 	const handleSubmit = (event) => {
-		CustomAlert.question({
-			html: `${formData.farm_nm} 농장 추가가 되었습니다.\nAI가 추천하는 ${formData.farm_nm} 데이터를 사용할까요?`,
-			callback: () => {
-				openPage('/farm/list', router);
-			},
-		});
+		event.preventDefault();
+
+		console.log('11');
+
+		if (selectedItem == null) {
+			CustomAlert.error({
+				html: `재배 작물을 선택해 해주세요.`,
+				callback: () => {
+					setIsPopupOpen(true);
+				},
+			});
+			return;
+		}
+		GatewayService.postGateway(formData)
+			.then((res) => {
+				CustomAlert.success({
+					html: `${formData.gtw_name} 농장 추가가 되었습니다.\nAI가 추천하는 데이터를 사용할까요?`,
+					callback: () => {
+						openPage('/farm/list', router);
+					},
+				});
+			})
+			.catch((err) => {
+				CustomAlert.question({
+					html: `${formData.gtw_name} 농장 추가가 되었습니다.\nAI가 추천하는 데이터를 사용할까요?`,
+					callback: () => {
+						openPage('/farm/list', router);
+					},
+				});
+				console.log('gateway add err', err);
+			});
 	};
 
-	useEffect(() => {}, []);
+	useEffect(() => {
+		const userId = CookieUtils.getCookie('usr_id');
+		setUserId(userId);
+		setFormData({
+			...formData,
+			['usr_id']: userId,
+		});
+	}, []);
 	return (
 		<div className="content_wrapper">
-			<div className="add_farm_wrap">
+			<form
+				onSubmit={handleSubmit}
+				className="add_farm_wrap"
+			>
 				<div className="add_form_wrap">
 					<div className="logo">
 						<img src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/img_logo_color_mid.png`} />
 					</div>
 					<span className="formTitle">Gateway 설정 정보</span>
 					<input
+						required
+						className="userId"
 						type="text"
 						placeholder="ID"
-						name="id"
-						onChange={handleChange}
+						name="usr_id"
+						readOnly
+						value={userId}
 					/>
 					<input
+						required
 						type="password"
 						placeholder="MAC"
-						name="mac"
+						name="gtw_mac"
 						onChange={handleChange}
 					/>
 					<input
+						required
 						type="text"
 						placeholder="농장 이름 등록"
-						name="farm_nm"
+						name="gtw_name"
 						onChange={handleChange}
+					/>
+					<input
+						required
+						type="text"
+						placeholder="농장 주소 등록"
+						name="gtw_addr"
+						onChange={handleChange}
+					/>
+					<input
+						type="hidden"
+						required
+						name="gtw_crop"
+						value={selectedItem?.no}
 					/>
 				</div>
 				<div className="add_form_wrap">
 					<span className="formTitle">WI-FI 설정 정보</span>
 					<input
+						required
 						type="text"
 						placeholder="SSID"
-						name="ssid"
+						name="gtw_ssid"
 						onChange={handleChange}
 					/>
 					<input
+						required
 						type="password"
 						placeholder="PW"
-						name="pw"
+						name="gtw_pw"
 						onChange={handleChange}
 					/>
 				</div>
 				<div className="add_form_wrap">
 					<span className="formTitle">재배 작물 선택</span>
-					<button
+					<span
 						className="select_vagetable_btn"
 						onClick={() => setIsPopupOpen(true)}
 					>
 						{selectedItem == null ? '작물을 선택하세요.' : selectedItem.name}
-					</button>
+					</span>
 				</div>
 				<div className="add_form_wrap">
 					<div className="submit_wrap">
 						<button onClick={() => router.back()}>취 소</button>
-						<button onClick={() => handleSubmit()}>확 인</button>
+						<button type="submit">확 인</button>
 					</div>
 				</div>
 				<SelectVegetablePopup
@@ -116,7 +176,7 @@ const AddFarmScreen = () => {
 						onClose={() => <Button팝업종료 popupClose={onClosePopup} />}
 					/>
 				</SelectVegetablePopup>
-			</div>
+			</form>
 		</div>
 	);
 };

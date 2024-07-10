@@ -12,16 +12,31 @@ import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-pro
 import SelectVegetablePopup from '@component/popup/SelectVegetable';
 import Button팝업종료 from '@component/frame/headerBtn/Button팝업종료';
 import VegetableList from '../components/VegetableList';
+import GatewayService from '@service/GtwayService';
 
-const FarmDetailScreen = ({ farmName = '딸기농장' }) => {
+const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 	const router = useRouter();
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
+	const [farmDetailInfo, setFarmDetailInfo] = useState({});
 	useEffect(() => {
 		const isVisible = new URLSearchParams(window.location.search).get('selectVegetable');
 		if (isVisible === 'Y') {
 			setIsPopupOpen(true);
 		}
+
+		const gtw_id = new URLSearchParams(window.location.search).get('gtw_id') ?? '';
+		if (gtw_id !== '') {
+			GatewayService.getGatewayDetail({ gtw_id })
+				.then((res) => {
+					setFarmDetailInfo(res);
+				})
+				.catch((err) => {
+					console.log('geteway home err', err);
+				});
+		}
 	}, []);
+
+	useEffect(() => {}, []);
 
 	const onClosePopup = () => {
 		setIsPopupOpen(false);
@@ -56,13 +71,17 @@ const FarmDetailScreen = ({ farmName = '딸기농장' }) => {
 									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_location.png`}
 									alt=""
 								/>
-								<span>경기도 남양주시 진철읍</span>
+								<span>{farmDetailInfo.location}</span>
 							</div>
 							<div className="temper_wrap">
-								<span>24º / 18º</span>
+								<span>
+									{farmDetailInfo.maxTemper}º / {farmDetailInfo.minTempre}º
+								</span>
 							</div>
 							<div className="moisture_wrap">
-								<span>강수량 : 0mm, 습도 : 70%</span>
+								<span>
+									강수량 : {farmDetailInfo.rain}mm, 습도 : {farmDetailInfo.moisture}%
+								</span>
 							</div>
 						</div>
 					</div>
@@ -75,7 +94,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장' }) => {
 									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_temper.png`}
 									alt=""
 								/>
-								<span className="blue">18º</span>
+								<span className="blue">{farmDetailInfo.temper}º</span>
 							</li>
 							<li className="data_item">
 								<img
@@ -83,7 +102,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장' }) => {
 									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_moisture.png`}
 									alt=""
 								/>
-								<span className="green">18º</span>
+								<span className="green">{farmDetailInfo.moisture}%</span>
 							</li>
 							<li className="data_item">
 								<img
@@ -91,7 +110,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장' }) => {
 									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_co2.png`}
 									alt=""
 								/>
-								<span className="pink">18º</span>
+								<span className="pink">{farmDetailInfo.co2}</span>
 							</li>
 						</ul>
 						<ul className="data_wrap">
@@ -101,7 +120,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장' }) => {
 									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_par.png`}
 									alt=""
 								/>
-								<span className="blue">18º</span>
+								<span className="blue">{farmDetailInfo.par}</span>
 							</li>
 							<li className="data_item">
 								<img
@@ -109,7 +128,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장' }) => {
 									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_ec.png`}
 									alt=""
 								/>
-								<span className="green">18º</span>
+								<span className="green">{farmDetailInfo.ec}</span>
 							</li>
 							<li className="data_item">
 								<img
@@ -117,7 +136,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장' }) => {
 									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_ph.png`}
 									alt=""
 								/>
-								<span className="pink">18º</span>
+								<span className="pink">{farmDetailInfo.ph}</span>
 							</li>
 						</ul>
 					</div>
@@ -128,7 +147,26 @@ const FarmDetailScreen = ({ farmName = '딸기농장' }) => {
 							className="data_wrap"
 							onClick={() => openPage('/light/list', router)}
 						>
-							<li className="data_item">
+							{/* {farmDetailInfo?.lightList?.map((item, index) => (
+								<li
+									className="data_item"
+									key={index}
+								>
+									<CircularProgressbarWithChildren
+										value={item.percent ?? 0}
+										styles={buildStyles({
+											textColor: '#3e98c7',
+											pathColor: '#3e98c7',
+											trailColor: '#d6d6d6',
+										})}
+									>
+										<div className="info_wrap">
+											<strong>{`${item.percent}%`}</strong>
+										</div>
+									</CircularProgressbarWithChildren>
+								</li>
+							))} */}
+							{/* <li className="data_item">
 								<CircularProgressbarWithChildren
 									value={percentage}
 									styles={buildStyles({
@@ -137,7 +175,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장' }) => {
 										trailColor: '#d6d6d6',
 									})}
 								>
-									<div style={{ fontSize: 24, marginTop: -5 }}>
+									<div className="info_wrap">
 										<strong>{`${percentage}%`}</strong>
 									</div>
 								</CircularProgressbarWithChildren>
@@ -151,7 +189,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장' }) => {
 										trailColor: '#d6d6d6',
 									})}
 								>
-									<div style={{ fontSize: 24, marginTop: -5 }}>
+									<div className="info_wrap">
 										<strong>{`${percentage}%`}</strong>
 									</div>
 								</CircularProgressbarWithChildren>
@@ -165,11 +203,40 @@ const FarmDetailScreen = ({ farmName = '딸기농장' }) => {
 										trailColor: '#d6d6d6',
 									})}
 								>
-									<div style={{ fontSize: 24, marginTop: -5 }}>
+									<div className="info_wrap">
 										<strong>{`${percentage}%`}</strong>
 									</div>
 								</CircularProgressbarWithChildren>
 							</li>
+
+							<li className="data_item">
+								<CircularProgressbarWithChildren
+									value={percentage}
+									styles={buildStyles({
+										textColor: '#3e98c7',
+										pathColor: '#3e98c7',
+										trailColor: '#d6d6d6',
+									})}
+								>
+									<div className="info_wrap">
+										<strong>{`${percentage}%`}</strong>
+									</div>
+								</CircularProgressbarWithChildren>
+							</li>
+							<li className="data_item">
+								<CircularProgressbarWithChildren
+									value={percentage}
+									styles={buildStyles({
+										textColor: '#3e98c7',
+										pathColor: '#3e98c7',
+										trailColor: '#d6d6d6',
+									})}
+								>
+									<div className="info_wrap">
+										<strong>{`${percentage}%`}</strong>
+									</div>
+								</CircularProgressbarWithChildren>
+							</li> */}
 						</ul>
 						<SelectVegetablePopup
 							isOpen={isPopupOpen}

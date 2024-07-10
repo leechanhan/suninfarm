@@ -41,9 +41,9 @@ export class HttpManager {
 	 */
 	static preHandle(response) {
 		const { data, status } = response;
-		console.log('data ', data, status);
+		console.log(`API RES `, data, status);
 		HttpManager.searchError(data, status);
-		return response?.data?.result;
+		return response.data;
 	}
 
 	/**
@@ -52,29 +52,14 @@ export class HttpManager {
 	 * @param status
 	 */
 	static searchError(data, status) {
-		const { resCd, resMsg, error, result } = data;
-		console.log('data ', data, status);
-		// if (status !== 200) {
-		// 	throw new CustomError(isDev() ? error + '' + status : '오류가 발생했습니다.');
-		// }
+		const { result, reason } = data;
+		if (status !== 200) {
+			throw new CustomError('통신중에 알수없는 오류가 발생했습니다.');
+		}
 
-		// if (Number(resCd) !== 0) {
-		// 	throw new CustomError(isDev() ? resMsg : '오류가 발생했습니다.');
+		// if (result !== 'success') {
+		// 	throw new CustomError(`오류가 발생했습니다 : ${reason}`);
 		// }
-
-		// if (resCd.toString() === CustomError.RESULT_CODE.FAILED_LOGIN) {
-		// 	throw new CustomError(CustomError.ERROR_MSG.FAILED_LOGIN, false, () => (location.href = '/login.do'));
-		// } else if (resCd.toString() !== HTTP.RESULT_CODE.SUCCESS) {
-		// 	throw new CustomError(resMsg, false);
-		// }
-
-		// if (result && result?.actFlag === FLAGS.ACT_FLAG.ERROR) {
-		// 	throw new CustomError(result.resMsg);
-		// }
-
-		// if (result && result?.actFlag === FLAGS.ACT_FLAG.WARNING) {
-		// 	CustomLogger.error(result?.resMsg);
-		//}
 	}
 
 	//인터셉터 바인드
@@ -100,27 +85,20 @@ export class HttpManager {
 	static send = ({ customAxios = GeneralAxios, method = HTTP.METHOD.GET, url, data = {}, useCache = false, useLoading = false }) => {
 		const config = { url, method };
 
-		console.log(`send api `, url, method);
 		//todo 로딩 스피너 개선 예정 mutation api만 스피너 돌도록
 		if (useLoading) {
 			// eslint-disable-next-line react-hooks/rules-of-hooks
 			useGlobalStoreAction().showLoading();
 		}
-		const userid = CookieUtils.getCookie('usr_id');
-		if (userid === '' || userid == null) {
-			throw new CustomError(isDev() ? 'resMsg' : '로그인이 필요합니다.');
-		}
-		data.usr_id = userid;
+
 		if (method === HTTP.METHOD.GET) {
-			config.params = data;
-			config.data = {};
+			//config.params = data;
+			//config.data = {};
 		} else {
-			config.data = data;
+			// config.data = data;
 		}
-
-		console.log('api send : ', config.data);
 		config.cache = useCache;
-
+		console.log(`API REQ `, config);
 		return customAxios(config);
 	};
 
@@ -176,8 +154,18 @@ export default class ServiceManager {
 	 * @returns {*}
 	 */
 	static createRequest(url, method, data, isFileUpload = false, useLoading = true, useCache = false) {
+		const userid = CookieUtils.getCookie('usr_id') ?? '';
+		if (url !== 'login' && userid === '') {
+			throw new CustomError(CustomError.ERROR_MSG.FAILED_LOGIN, false, () => (location.href = '/login'));
+		}
+		let params = url !== 'login?' ? { ...data, usr_id: userid } : data;
+		const queryString = Object.entries(params)
+			.map(([key, value]) => value && key + '=' + value)
+			.filter((v) => v)
+			.join('&');
+
 		const requestOption = {
-			url: this.REQUEST_MAPPING + url,
+			url: this.REQUEST_MAPPING + url + queryString,
 			method,
 			data,
 			useCache,

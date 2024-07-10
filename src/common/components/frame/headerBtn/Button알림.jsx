@@ -10,7 +10,7 @@ const Button알림 = ({ className = '', fill = COLORS.GRAY7 }) => {
 		<button
 			type="button"
 			className={`btn_back ${className}`}
-			onClick={() => router.back()}
+			onClick={() => router.push('/alarm')}
 		>
 			<img src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/header/icon_alarm.png`} />
 		</button>

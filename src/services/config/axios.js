@@ -13,10 +13,10 @@ const devHeaders = isDev() ? { 'test-id': process.env.NEXT_PUBLIC_TEST_ID } : {}
 //일반
 export const GeneralAxios = axios.create({
 	dataType: 'json',
-	contentType: 'application/json; charset=UTF-8;',
+	contentType: 'application/json;',
 	baseURL: `${process.env.NEXT_PUBLIC_API_PATH}`,
 	validateStatus: false,
-	headers: { 'Content-Type': 'application/json', Accept: '*/*' },
+	responseType: 'json',
 });
 
 //파일 업로드용

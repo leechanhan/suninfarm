@@ -4,15 +4,8 @@ import { HTTP } from '@lib/constant';
 class MemberService extends ServiceManager {
 	static REQUEST_MAPPING = '';
 	static URLS = {
-		캠폐인_상품_목록_조회: 'products',
-		캠폐인_상품_상세_조회: 'product',
-		캠폐인_브랜드_목록: 'brands',
-		캠폐인_브랜드_상세: 'brand',
-		활성_캠폐인_목록: 'active',
-		캠폐인_가이드: 'guide',
-		브랜드_팔로우: 'followBrand',
-		유저_팔로우: 'followUser',
-		로그인: 'login',
+		가입: 'joinus?',
+		로그인: 'login?',
 	};
 	static fetch;
 
@@ -22,11 +15,11 @@ class MemberService extends ServiceManager {
 	 */
 
 	static getLogin({ usr_id, usr_pw }) {
-		return this.createRequest(this.URLS.로그인, HTTP.METHOD.POST, { usr_id, usr_pw });
+		return this.createRequest(this.URLS.로그인, HTTP.METHOD.GET, { usr_id, usr_pw });
 	}
 
-	static fetchCampaignProductList({ categoryNo }) {
-		return this.createRequest(this.URLS.캠폐인_상품_목록_조회, HTTP.METHOD.GET, { exposureChk: 1, expCategoryNo: categoryNo });
+	static postJoin(data) {
+		return this.createRequest(this.URLS.가입, HTTP.METHOD.GET, data);
 	}
 
 	static fetchCampaignProduct({ productCode }) {

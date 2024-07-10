@@ -10,7 +10,6 @@ class ExampleService extends ServiceManager {
 		contentType: 'application/json; charset=UTF-8;',
 		baseURL: `${process.env.NEXT_PUBLIC_API_PATH}`,
 		validateStatus: false,
-		// headers: { 'Content-Encoding': 'gzip' },
 	});
 
 	static fetchPeople() {

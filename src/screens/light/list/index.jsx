@@ -11,20 +11,20 @@ import Swal from 'sweetalert2';
 import LightService from '@service/LightService';
 const LightListScreen = ({ farmName = '딸기농장' }) => {
 	const [checkDevice, setCheckDevice] = useState(false);
-	const [lightInfo, setLightInfo] = useState(null);
+	const [lightInfo, setLightInfo] = useState({});
+	// const [values, setLightInfo] = useState(new Map());
 	const CHANNEL_CNT = 3;
 	const router = useRouter();
 
 	const handlerDeleteDevice = (name) => {
 		CustomAlert.warning({ html: `${name}을 삭제하시겠습니까?`, callback: () => {} });
 	};
-	const [values, setValues] = useState(new Map());
 	const updateLightDiming = useCallback(
 		debounce((data) => {
-			lightInfo.ctr_chval1 = 'values';
-
-			//lightInfo.ctr_chval2 = values.get(`${lightInfo.ctr_ieee}ctr_ch1va2`);
-			//lightInfo.ctr_chval3 = values.get(`${lightInfo.ctr_ieee}ctr_ch1va3`);
+			console.log('1');
+			lightInfo.ctr_chval1 = lightInfo[`${lightInfo.ctr_ieee}ctr_ch1va1`];
+			lightInfo.ctr_chval2 = lightInfo[`${lightInfo.ctr_ieee}ctr_ch1va2`];
+			lightInfo.ctr_chval3 = lightInfo[`${lightInfo.ctr_ieee}ctr_ch1va3`];
 
 			LightService.putLightInfo(lightInfo)
 				.then((res) => {
@@ -40,27 +40,46 @@ const LightListScreen = ({ farmName = '딸기농장' }) => {
 
 	const handleChangeProgressValue = (ieee, key, value) => {
 		const lightKey = ieee + key;
-		setValues((prevValues) => {
-			const newValues = new Map(prevValues);
-			if (!newValues.has(lightKey)) {
-				newValues.set(lightKey, value);
+		// setLightInfo((prevValues) => {
+		// 	const newValues = new Map(prevValues);
+		// 	if (!newValues.has(lightKey)) {
+		// 		newValues.set(lightKey, value);
+		// 	}
+		// 	newValues.set(lightKey, Number(value));
+		// 	return newValues;
+		// });
+		setLightInfo((prevValues) => {
+			const newValues = { ...prevValues }; // 기존 값을 복사하여 새 객체 생성
+			if (!Object.prototype.hasOwnProperty.call(newValues, lightKey)) {
+				newValues[lightKey] = value;
 			}
-			newValues.set(lightKey, Number(value));
-			return newValues;
+			newValues[lightKey] = Number(value); // 값을 업데이트
+			return newValues; // 새 객체 반환
 		});
 
-		if (key === 'master') {
-			setValues((prevValues) => {
-				const newValues = new Map(prevValues);
+		// if (key === 'master') {
+		// 	setLightInfo((prevValues) => {
+		// 		const newValues = new Map(prevValues);
 
-				newValues.set(`${ieee}ctr_ch1val`, Number(value));
-				newValues.set(`${ieee}ctr_ch1va2`, Number(value));
-				newValues.set(`${ieee}ctr_ch1va3`, Number(value));
-				return newValues;
+		// 		newValues.set(`${ieee}ctr_ch1val`, Number(value));
+		// 		newValues.set(`${ieee}ctr_ch1va2`, Number(value));
+		// 		newValues.set(`${ieee}ctr_ch1va3`, Number(value));
+		// 		return newValues;
+		// 	});
+		// }
+		if (key === 'master') {
+			setLightInfo((prevValues) => {
+				const newValues = { ...prevValues }; // 기존 값을 복사하여 새 객체 생성
+
+				newValues[`${ieee}ctr_ch1va1`] = Number(value);
+				newValues[`${ieee}ctr_ch1va2`] = Number(value);
+				newValues[`${ieee}ctr_ch1va3`] = Number(value);
+
+				return newValues; // 새 객체 반환
 			});
 		}
-		// updateLightDiming(values);
-		// updateLightDiming(newValue);
+
+		updateLightDiming(lightInfo);
 	};
 
 	useEffect(() => {
@@ -70,7 +89,7 @@ const LightListScreen = ({ farmName = '딸기농장' }) => {
 
 		console.log('getLightInfo', query);
 		handleChangeProgressValue(query.ctr_ieee, 'master', 50);
-		handleChangeProgressValue(query.ctr_ieee, 'ctr_ch1val', query.ctr_ch1val);
+		handleChangeProgressValue(query.ctr_ieee, 'ctr_ch1va1', query.ctr_ch1va1);
 		handleChangeProgressValue(query.ctr_ieee, 'ctr_ch1va2', query.ctr_ch1va2);
 		handleChangeProgressValue(query.ctr_ieee, 'ctr_ch1va3', query.ctr_ch1va3);
 	}, []);
@@ -88,7 +107,7 @@ const LightListScreen = ({ farmName = '딸기농장' }) => {
 						<ul className="light_list_wrap">
 							<div className="light_title">{lightInfo.ctr_name}</div>
 							<li className="light_item">
-								<span className="light_value">{values.get(lightInfo.ctr_ieee + 'master')}%</span>
+								<span className="light_value">{lightInfo[lightInfo.ctr_ieee + 'master']}%</span>
 								<div className="ui_wrap">
 									<span className="label_total">Total</span>
 									<input
@@ -96,7 +115,7 @@ const LightListScreen = ({ farmName = '딸기농장' }) => {
 										type="range"
 										min="0"
 										max="100"
-										value={values.get(lightInfo.ctr_ieee + 'master')}
+										value={lightInfo[lightInfo.ctr_ieee + 'master']}
 										onChange={(e) => handleChangeProgressValue(lightInfo.ctr_ieee, 'master', e.target.value)}
 									/>
 									<img
@@ -108,7 +127,7 @@ const LightListScreen = ({ farmName = '딸기농장' }) => {
 							</li>
 							<div className="light_divider"></div>
 							<li className="light_item">
-								<span className="light_value">{values.get(lightInfo.ctr_ieee + 'ctr_ch1val')}%</span>
+								<span className="light_value">{lightInfo[lightInfo.ctr_ieee + 'ctr_ch1va1']}%</span>
 								<div className="ui_wrap">
 									<span className="label_white">W</span>
 									<input
@@ -116,8 +135,8 @@ const LightListScreen = ({ farmName = '딸기농장' }) => {
 										type="range"
 										min="0"
 										max="100"
-										value={values.get(lightInfo.ctr_ieee + 'ctr_ch1val')}
-										onChange={(e) => handleChangeProgressValue(lightInfo.ctr_ieee, 'ctr_ch1val', e.target.value)}
+										value={lightInfo[lightInfo.ctr_ieee + 'ctr_ch1va1']}
+										onChange={(e) => handleChangeProgressValue(lightInfo.ctr_ieee, 'ctr_ch1va1', e.target.value)}
 									/>
 									<img
 										className="icon_light_gray"
@@ -127,7 +146,7 @@ const LightListScreen = ({ farmName = '딸기농장' }) => {
 								</div>
 							</li>
 							<li className="light_item">
-								<span className="light_value">{values.get(lightInfo.ctr_ieee + 'ctr_ch1va2')}%</span>
+								<span className="light_value">{lightInfo[lightInfo.ctr_ieee + 'ctr_ch1va2']}%</span>
 								<div className="ui_wrap">
 									<span className="label_red">R</span>
 									<input
@@ -135,7 +154,7 @@ const LightListScreen = ({ farmName = '딸기농장' }) => {
 										type="range"
 										min="0"
 										max="100"
-										value={values.get(lightInfo.ctr_ieee + 'ctr_ch1va2')}
+										value={lightInfo[lightInfo.ctr_ieee + 'ctr_ch1va2']}
 										onChange={(e) => handleChangeProgressValue(lightInfo.ctr_ieee, 'ctr_ch1va2', e.target.value)}
 									/>
 									<img
@@ -146,7 +165,7 @@ const LightListScreen = ({ farmName = '딸기농장' }) => {
 								</div>
 							</li>
 							<li className="light_item">
-								<span className="light_value">{values.get(lightInfo.ctr_ieee + 'ctr_ch1va3')}%</span>
+								<span className="light_value">{lightInfo[lightInfo.ctr_ieee + 'ctr_ch1va3']}%</span>
 								<div className="ui_wrap">
 									<span className="label_blue">B</span>
 									<input
@@ -154,7 +173,7 @@ const LightListScreen = ({ farmName = '딸기농장' }) => {
 										type="range"
 										min="0"
 										max="100"
-										value={values.get(lightInfo.ctr_ieee + 'ctr_ch1va3')}
+										value={lightInfo[lightInfo.ctr_ieee + 'ctr_ch1va3']}
 										onChange={(e) => handleChangeProgressValue(lightInfo.ctr_ieee, 'ctr_ch1va3', e.target.value)}
 									/>
 									<img

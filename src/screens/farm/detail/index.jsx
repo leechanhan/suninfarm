@@ -161,7 +161,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 								<div className="data_chart_wrap">
 									<li className="data_item">
 										<CircularProgressbarWithChildren
-											value={item.ctr_ch1val ?? 0}
+											value={item.ctr_ch1va1 ?? 0}
 											styles={buildStyles({
 												textColor: '#3e98c7',
 												pathColor: '#3e98c7',
@@ -169,7 +169,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 											})}
 										>
 											<div className="info_wrap">
-												<strong>{parseInt(item.ctr_ch1val)}%</strong>
+												<strong>{parseInt(item.ctr_ch1va1)}%</strong>
 											</div>
 										</CircularProgressbarWithChildren>
 									</li>

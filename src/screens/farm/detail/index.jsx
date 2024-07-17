@@ -13,42 +13,50 @@ import SelectVegetablePopup from '@component/popup/SelectVegetable';
 import Button팝업종료 from '@component/frame/headerBtn/Button팝업종료';
 import VegetableList from '../components/VegetableList';
 import GatewayService from '@service/GtwayService';
+import CookieUtils from '@lib/utils/cookie';
 
 const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 	const router = useRouter();
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
+	const [gtwId, setGtwId] = useState();
 	const [farmDetailInfo, setFarmDetailInfo] = useState({});
 	useEffect(() => {
 		const isVisible = new URLSearchParams(window.location.search).get('selectVegetable');
 		if (isVisible === 'Y') {
 			setIsPopupOpen(true);
 		}
+	}, []);
 
-		const gtw_id = new URLSearchParams(window.location.search).get('gtw_id') ?? '';
-		if (gtw_id !== '') {
+	useEffect(() => {
+		const gtw_id = CookieUtils.getCookie('gtw_id');
+
+		if (gtw_id?.length > 0) {
+			setGtwId(gtw_id);
 			GatewayService.getGatewayDetail({ gtw_id })
 				.then((res) => {
+					console.log('geteway home', res);
 					setFarmDetailInfo(res);
 				})
 				.catch((err) => {
 					console.log('geteway home err', err);
 				});
 		}
-	}, []);
-
-	useEffect(() => {}, []);
+	});
 
 	const onClosePopup = () => {
 		setIsPopupOpen(false);
 	};
 
 	const saveVegetable = (item) => {
-		//setSelectedItem(item);
 		onClosePopup();
 		console.log(item);
 	};
 
-	const percentage = 60;
+	const onClickLight = (lightInfo) => {
+		const data = { ...lightInfo, ...{ gtw_id: gtwId } };
+		const queryString = new URLSearchParams(data).toString();
+		openPage(`/light/list?${queryString}`, router);
+	};
 	return (
 		<div className="content_wrapper">
 			<div className="page_container_gray">
@@ -71,16 +79,16 @@ const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_location.png`}
 									alt=""
 								/>
-								<span>{farmDetailInfo.location}</span>
+								<span>{farmDetailInfo.gtw_addr}</span>
 							</div>
 							<div className="temper_wrap">
 								<span>
-									{farmDetailInfo.maxTemper}º / {farmDetailInfo.minTempre}º
+									{parseInt(farmDetailInfo.rcd_itemp ?? '0')}º / {parseInt(farmDetailInfo.rcd_ihumi ?? '0')}º
 								</span>
 							</div>
 							<div className="moisture_wrap">
 								<span>
-									강수량 : {farmDetailInfo.rain}mm, 습도 : {farmDetailInfo.moisture}%
+									강수량 : {farmDetailInfo.rain ?? '0'}mm, 습도 : {farmDetailInfo.moisture ?? '0'}%
 								</span>
 							</div>
 						</div>
@@ -94,7 +102,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_temper.png`}
 									alt=""
 								/>
-								<span className="blue">{farmDetailInfo.temper}º</span>
+								<span className="blue">{farmDetailInfo.temper ?? '0'}º</span>
 							</li>
 							<li className="data_item">
 								<img
@@ -102,7 +110,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_moisture.png`}
 									alt=""
 								/>
-								<span className="green">{farmDetailInfo.moisture}%</span>
+								<span className="green">{farmDetailInfo.moisture ?? '0'}%</span>
 							</li>
 							<li className="data_item">
 								<img
@@ -110,7 +118,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_co2.png`}
 									alt=""
 								/>
-								<span className="pink">{farmDetailInfo.co2}</span>
+								<span className="pink">{farmDetailInfo.rcd_co2 ?? '0'}</span>
 							</li>
 						</ul>
 						<ul className="data_wrap">
@@ -120,7 +128,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_par.png`}
 									alt=""
 								/>
-								<span className="blue">{farmDetailInfo.par}</span>
+								<span className="blue">{farmDetailInfo.rcd_par ?? '0'}</span>
 							</li>
 							<li className="data_item">
 								<img
@@ -128,7 +136,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_ec.png`}
 									alt=""
 								/>
-								<span className="green">{farmDetailInfo.ec}</span>
+								<span className="green">{farmDetailInfo.ec ?? '0'}</span>
 							</li>
 							<li className="data_item">
 								<img
@@ -136,108 +144,67 @@ const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_ph.png`}
 									alt=""
 								/>
-								<span className="pink">{farmDetailInfo.ph}</span>
+								<span className="pink">{farmDetailInfo.ph ?? '0'}</span>
 							</li>
 						</ul>
 					</div>
 
 					<div className="farm_light_wrap">
 						<span className="subtitle">농장 안 조명 상태 &#62;</span>
-						<ul
-							className="data_wrap"
-							onClick={() => openPage('/light/list', router)}
-						>
-							{/* {farmDetailInfo?.lightList?.map((item, index) => (
-								<li
-									className="data_item"
-									key={index}
-								>
-									<CircularProgressbarWithChildren
-										value={item.percent ?? 0}
-										styles={buildStyles({
-											textColor: '#3e98c7',
-											pathColor: '#3e98c7',
-											trailColor: '#d6d6d6',
-										})}
-									>
-										<div className="info_wrap">
-											<strong>{`${item.percent}%`}</strong>
-										</div>
-									</CircularProgressbarWithChildren>
-								</li>
-							))} */}
-							{/* <li className="data_item">
-								<CircularProgressbarWithChildren
-									value={percentage}
-									styles={buildStyles({
-										textColor: '#3e98c7',
-										pathColor: '#3e98c7',
-										trailColor: '#d6d6d6',
-									})}
-								>
-									<div className="info_wrap">
-										<strong>{`${percentage}%`}</strong>
-									</div>
-								</CircularProgressbarWithChildren>
-							</li>
-							<li className="data_item">
-								<CircularProgressbarWithChildren
-									value={percentage}
-									styles={buildStyles({
-										textColor: '#3e98c7',
-										pathColor: '#3e98c7',
-										trailColor: '#d6d6d6',
-									})}
-								>
-									<div className="info_wrap">
-										<strong>{`${percentage}%`}</strong>
-									</div>
-								</CircularProgressbarWithChildren>
-							</li>
-							<li className="data_item">
-								<CircularProgressbarWithChildren
-									value={percentage}
-									styles={buildStyles({
-										textColor: '#3e98c7',
-										pathColor: '#3e98c7',
-										trailColor: '#d6d6d6',
-									})}
-								>
-									<div className="info_wrap">
-										<strong>{`${percentage}%`}</strong>
-									</div>
-								</CircularProgressbarWithChildren>
-							</li>
+						{farmDetailInfo?.ctr_list?.ctr_item.map((item, index) => (
+							<ul
+								className="data_wrap"
+								key={index}
+								onClick={() => onClickLight(item)}
+							>
+								<span className="data_title">{item.ctr_name}</span>
+								<div className="data_chart_wrap">
+									<li className="data_item">
+										<CircularProgressbarWithChildren
+											value={item.ctr_ch1val ?? 0}
+											styles={buildStyles({
+												textColor: '#3e98c7',
+												pathColor: '#3e98c7',
+												trailColor: '#d6d6d6',
+											})}
+										>
+											<div className="info_wrap">
+												<strong>{parseInt(item.ctr_ch1val)}%</strong>
+											</div>
+										</CircularProgressbarWithChildren>
+									</li>
+									<li className="data_item">
+										<CircularProgressbarWithChildren
+											value={item.ctr_ch1va2 ?? 0}
+											styles={buildStyles({
+												textColor: '#3e98c7',
+												pathColor: '#3e98c7',
+												trailColor: '#d6d6d6',
+											})}
+										>
+											<div className="info_wrap">
+												<strong>{parseInt(item.ctr_ch1va2)}%</strong>
+											</div>
+										</CircularProgressbarWithChildren>
+									</li>
+									<li className="data_item">
+										<CircularProgressbarWithChildren
+											value={item.ctr_ch1va3 ?? 0}
+											styles={buildStyles({
+												textColor: '#3e98c7',
+												pathColor: '#3e98c7',
+												trailColor: '#d6d6d6',
+											})}
+										>
+											<div className="info_wrap">
+												<strong>{parseInt(item.ctr_ch1va3)}%</strong>
+											</div>
+										</CircularProgressbarWithChildren>
+									</li>
+								</div>
+							</ul>
+						))}
 
-							<li className="data_item">
-								<CircularProgressbarWithChildren
-									value={percentage}
-									styles={buildStyles({
-										textColor: '#3e98c7',
-										pathColor: '#3e98c7',
-										trailColor: '#d6d6d6',
-									})}
-								>
-									<div className="info_wrap">
-										<strong>{`${percentage}%`}</strong>
-									</div>
-								</CircularProgressbarWithChildren>
-							</li>
-							<li className="data_item">
-								<CircularProgressbarWithChildren
-									value={percentage}
-									styles={buildStyles({
-										textColor: '#3e98c7',
-										pathColor: '#3e98c7',
-										trailColor: '#d6d6d6',
-									})}
-								>
-									<div className="info_wrap">
-										<strong>{`${percentage}%`}</strong>
-									</div>
-								</CircularProgressbarWithChildren>
-							</li> */}
-						</ul>
 						<SelectVegetablePopup
 							isOpen={isPopupOpen}
 							onClose={() => <Button팝업종료 popupClose={onClosePopup} />}

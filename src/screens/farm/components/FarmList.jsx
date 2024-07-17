@@ -5,6 +5,7 @@ import EmptyFarm from './EmptyFarm';
 import { vegetableMap, weatherMap } from '@constants/static';
 import GatewayService from '@service/GatewayService';
 import CustomAlert from '@lib/alert';
+import CookieUtils from '@lib/utils/cookie';
 const FarmInfo = ({ farmList = [] }) => {
 	const router = useRouter();
 	useEffect(() => {}, [farmList]);
@@ -35,6 +36,12 @@ const FarmInfo = ({ farmList = [] }) => {
 			},
 		});
 	};
+
+	const onClickFarm = (gtw_id) => {
+		CookieUtils.setCookie('gtw_id', gtw_id, 365);
+		openPage(`/farm/detail`, router);
+	};
+
 	return (
 		<>
 			{farmList && farmList.length > 0 ? (
@@ -43,7 +50,7 @@ const FarmInfo = ({ farmList = [] }) => {
 						<p className="title">나의 농장</p>
 						{farmList.map((item, idx) => (
 							<li
-								onClick={() => openPage(`/farm/detail?gtw_id=${item.gtw_id}`, router)}
+								onClick={() => onClickFarm(item.gtw_id)}
 								className="farminfo_item"
 								style={{ backgroundColor: vegetableMap[item?.gtw_crop]?.activeColor ?? '#FF6563' }}
 								key={idx}

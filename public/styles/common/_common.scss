@@ -96,7 +96,7 @@ textarea {
 }
 
 .page_container_gray {
-	height: viewHeight();
+	// height: viewHeight();
 	display: flex;
 	flex-direction: column;
 	max-width: #{$MAX_WIDTH}px;

@@ -1,7 +1,7 @@
 import CustomAlert from '@lib/alert';
 import { openPage } from '@lib/hooks/common';
+import CookieUtils from '@lib/utils/cookie';
 import { useRouter } from 'next/router';
-
 const Layout사이드바 = ({ onClose }) => {
 	const router = useRouter();
 	const handleLogout = (event) => {
@@ -9,6 +9,7 @@ const Layout사이드바 = ({ onClose }) => {
 		CustomAlert.question({
 			html: `로그아웃 하시겠습니까?`,
 			callback: () => {
+				CookieUtils.setCookie('usr_id', '', 365);
 				openPage('/login', router);
 			},
 		});

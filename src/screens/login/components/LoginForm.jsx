@@ -27,18 +27,18 @@ const LoginForm = () => {
 	};
 
 	useEffect(() => {
-		// 	const { data: result } = MemberQuery.getLogin({ usr_id: 'test', usr_pw: '1234' }, { suspense: true });
+		if (CookieUtils.getCookie('usr_id')?.length > 0) {
+			router.push('/farm/list');
+		}
 	});
 
 	const handlerLogin = async (e, usr_id, usr_pw) => {
 		e.preventDefault();
 		if (usr_id === '' || usr_pw === '') {
-			Swal.fire({
-				icon: 'warning',
-				title: '안내',
-				text: `아이디 혹은 비밀번호를 입력해주세요`,
-				confirmButtonText: '확인',
-			}).then((res) => {});
+			CustomAlert.error({
+				html: `아이디 혹은 비밀번호를 입력해주세요`,
+				callback: () => {},
+			});
 		} else {
 			MemberService.getLogin({ usr_id, usr_pw })
 				.then((res) => {

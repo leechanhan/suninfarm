@@ -155,7 +155,7 @@ export default class ServiceManager {
 	 */
 	static createRequest(url, method, data, isFileUpload = false, useLoading = true, useCache = false) {
 		const userid = CookieUtils.getCookie('usr_id') ?? '';
-		if (url !== 'login' && userid === '') {
+		if (url !== 'login?' && userid === '') {
 			throw new CustomError(CustomError.ERROR_MSG.FAILED_LOGIN, false, () => (location.href = '/login'));
 		}
 		let params = url === 'login?' || url === 'joinus?' ? data : { ...data, usr_id: userid };

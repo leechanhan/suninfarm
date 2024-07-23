@@ -29,6 +29,12 @@ class StringUtils {
 	static isEmpty(str) {
 		return !str || str.trim() === '';
 	}
+
+	static getRandom(min, max) {
+		const value = parseInt(Math.random() * (max - min) + min);
+		console.log(value);
+		return value;
+	}
 }
 
 export default StringUtils;

@@ -10,22 +10,18 @@ import { debounce } from 'lodash';
 import Swal from 'sweetalert2';
 import LightService from '@service/LightService';
 const LightListScreen = ({ farmName = '딸기농장' }) => {
-	const [checkDevice, setCheckDevice] = useState(false);
-	const [lightInfo, setLightInfo] = useState({});
-	// const [values, setLightInfo] = useState(new Map());
 	const CHANNEL_CNT = 3;
 	const router = useRouter();
+
+	const [lightInfo, setLightInfo] = useState(router?.query);
+	const [masterDiming, setMasterDiming] = useState(0);
+	// const [values, setLightInfo] = useState(new Map());
 
 	const handlerDeleteDevice = (name) => {
 		CustomAlert.warning({ html: `${name}을 삭제하시겠습니까?`, callback: () => {} });
 	};
 	const updateLightDiming = useCallback(
 		debounce((data) => {
-			console.log('1');
-			lightInfo.ctr_chval1 = lightInfo[`${lightInfo.ctr_ieee}ctr_ch1va1`];
-			lightInfo.ctr_chval2 = lightInfo[`${lightInfo.ctr_ieee}ctr_ch1va2`];
-			lightInfo.ctr_chval3 = lightInfo[`${lightInfo.ctr_ieee}ctr_ch1va3`];
-
 			LightService.putLightInfo(lightInfo)
 				.then((res) => {
 					console.log('putLightInfo', res);
@@ -38,60 +34,58 @@ const LightListScreen = ({ farmName = '딸기농장' }) => {
 		[],
 	);
 
-	const handleChangeProgressValue = (ieee, key, value) => {
-		const lightKey = ieee + key;
-		// setLightInfo((prevValues) => {
-		// 	const newValues = new Map(prevValues);
-		// 	if (!newValues.has(lightKey)) {
-		// 		newValues.set(lightKey, value);
-		// 	}
-		// 	newValues.set(lightKey, Number(value));
-		// 	return newValues;
-		// });
+	const handleMasterDiming = (value) => {
 		setLightInfo((prevValues) => {
 			const newValues = { ...prevValues }; // 기존 값을 복사하여 새 객체 생성
-			if (!Object.prototype.hasOwnProperty.call(newValues, lightKey)) {
-				newValues[lightKey] = value;
-			}
-			newValues[lightKey] = Number(value); // 값을 업데이트
-			return newValues; // 새 객체 반환
+
+			console.log('123');
+			newValues.ctr_ch1val = Number(value);
+			newValues.ctr_ch2val = Number(value);
+			newValues.ctr_ch3val = Number(value);
+			updateLightDiming();
+			return newValues;
 		});
 
-		// if (key === 'master') {
-		// 	setLightInfo((prevValues) => {
-		// 		const newValues = new Map(prevValues);
+		setMasterDiming(value);
+	};
 
-		// 		newValues.set(`${ieee}ctr_ch1val`, Number(value));
-		// 		newValues.set(`${ieee}ctr_ch1va2`, Number(value));
-		// 		newValues.set(`${ieee}ctr_ch1va3`, Number(value));
-		// 		return newValues;
-		// 	});
-		// }
-		if (key === 'master') {
-			setLightInfo((prevValues) => {
-				const newValues = { ...prevValues }; // 기존 값을 복사하여 새 객체 생성
+	const handleDimingWhite = (value) => {
+		setLightInfo((prevValues) => {
+			const newValues = { ...prevValues };
+			newValues.ctr_ch1val = Number(value);
+			updateLightDiming();
+			return newValues;
+		});
+	};
 
-				newValues[`${ieee}ctr_ch1va1`] = Number(value);
-				newValues[`${ieee}ctr_ch1va2`] = Number(value);
-				newValues[`${ieee}ctr_ch1va3`] = Number(value);
+	const handleDimingRed = (value) => {
+		setLightInfo((prevValues) => {
+			const newValues = { ...prevValues };
+			newValues.ctr_ch2val = Number(value);
+			updateLightDiming();
+			return newValues;
+		});
+	};
 
-				return newValues; // 새 객체 반환
-			});
-		}
-
-		updateLightDiming(lightInfo);
+	const handleDimingBlue = (value) => {
+		setLightInfo((prevValues) => {
+			const newValues = { ...prevValues };
+			newValues.ctr_ch3val = Number(value);
+			updateLightDiming();
+			return newValues;
+		});
 	};
 
 	useEffect(() => {
 		const { query } = router;
 
-		setLightInfo(query);
+		//setLightInfo(query);
 
-		console.log('getLightInfo', query);
-		handleChangeProgressValue(query.ctr_ieee, 'master', 50);
-		handleChangeProgressValue(query.ctr_ieee, 'ctr_ch1va1', query.ctr_ch1va1);
-		handleChangeProgressValue(query.ctr_ieee, 'ctr_ch1va2', query.ctr_ch1va2);
-		handleChangeProgressValue(query.ctr_ieee, 'ctr_ch1va3', query.ctr_ch1va3);
+		//	console.log('getLightInfo', query);
+		// handleDiming(query.ctr_ieee, 'master', 50);
+		// handleChangeProgressValue(query.ctr_ieee, 'ctr_ch1val', query.ctr_ch1val);
+		// handleChangeProgressValue(query.ctr_ieee, 'ctr_ch2val', query.ctr_ch2val);
+		// handleChangeProgressValue(query.ctr_ieee, 'ctr_ch3val', query.ctr_ch3val);
 	}, []);
 
 	return (
@@ -107,7 +101,7 @@ const LightListScreen = ({ farmName = '딸기농장' }) => {
 						<ul className="light_list_wrap">
 							<div className="light_title">{lightInfo.ctr_name}</div>
 							<li className="light_item">
-								<span className="light_value">{lightInfo[lightInfo.ctr_ieee + 'master']}%</span>
+								<span className="light_value">{masterDiming}%</span>
 								<div className="ui_wrap">
 									<span className="label_total">Total</span>
 									<input
@@ -115,8 +109,8 @@ const LightListScreen = ({ farmName = '딸기농장' }) => {
 										type="range"
 										min="0"
 										max="100"
-										value={lightInfo[lightInfo.ctr_ieee + 'master']}
-										onChange={(e) => handleChangeProgressValue(lightInfo.ctr_ieee, 'master', e.target.value)}
+										value={masterDiming}
+										onChange={(e) => handleMasterDiming(e.target.value)}
 									/>
 									<img
 										className="icon_light_gray"
@@ -127,7 +121,7 @@ const LightListScreen = ({ farmName = '딸기농장' }) => {
 							</li>
 							<div className="light_divider"></div>
 							<li className="light_item">
-								<span className="light_value">{lightInfo[lightInfo.ctr_ieee + 'ctr_ch1va1']}%</span>
+								<span className="light_value">{lightInfo.ctr_ch1val}%</span>
 								<div className="ui_wrap">
 									<span className="label_white">W</span>
 									<input
@@ -135,8 +129,8 @@ const LightListScreen = ({ farmName = '딸기농장' }) => {
 										type="range"
 										min="0"
 										max="100"
-										value={lightInfo[lightInfo.ctr_ieee + 'ctr_ch1va1']}
-										onChange={(e) => handleChangeProgressValue(lightInfo.ctr_ieee, 'ctr_ch1va1', e.target.value)}
+										value={lightInfo.ctr_ch1val}
+										onChange={(e) => handleDimingWhite(e.target.value)}
 									/>
 									<img
 										className="icon_light_gray"
@@ -146,7 +140,7 @@ const LightListScreen = ({ farmName = '딸기농장' }) => {
 								</div>
 							</li>
 							<li className="light_item">
-								<span className="light_value">{lightInfo[lightInfo.ctr_ieee + 'ctr_ch1va2']}%</span>
+								<span className="light_value">{lightInfo.ctr_ch2val}%</span>
 								<div className="ui_wrap">
 									<span className="label_red">R</span>
 									<input
@@ -154,8 +148,8 @@ const LightListScreen = ({ farmName = '딸기농장' }) => {
 										type="range"
 										min="0"
 										max="100"
-										value={lightInfo[lightInfo.ctr_ieee + 'ctr_ch1va2']}
-										onChange={(e) => handleChangeProgressValue(lightInfo.ctr_ieee, 'ctr_ch1va2', e.target.value)}
+										value={lightInfo.ctr_ch2val}
+										onChange={(e) => handleDimingRed(e.target.value)}
 									/>
 									<img
 										className="icon_light_gray"
@@ -165,7 +159,7 @@ const LightListScreen = ({ farmName = '딸기농장' }) => {
 								</div>
 							</li>
 							<li className="light_item">
-								<span className="light_value">{lightInfo[lightInfo.ctr_ieee + 'ctr_ch1va3']}%</span>
+								<span className="light_value">{lightInfo.ctr_ch3val}%</span>
 								<div className="ui_wrap">
 									<span className="label_blue">B</span>
 									<input
@@ -173,8 +167,8 @@ const LightListScreen = ({ farmName = '딸기농장' }) => {
 										type="range"
 										min="0"
 										max="100"
-										value={lightInfo[lightInfo.ctr_ieee + 'ctr_ch1va3']}
-										onChange={(e) => handleChangeProgressValue(lightInfo.ctr_ieee, 'ctr_ch1va3', e.target.value)}
+										value={lightInfo.ctr_ch3val}
+										onChange={(e) => handleDimingBlue(e.target.value)}
 									/>
 									<img
 										className="icon_light_gray"

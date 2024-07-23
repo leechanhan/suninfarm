@@ -14,6 +14,7 @@ import Button팝업종료 from '@component/frame/headerBtn/Button팝업종료';
 import VegetableList from '../components/VegetableList';
 import GatewayService from '@service/GtwayService';
 import CookieUtils from '@lib/utils/cookie';
+import StringUtils from '@lib/utils/string';
 
 const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 	const router = useRouter();
@@ -41,7 +42,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 					console.log('geteway home err', err);
 				});
 		}
-	});
+	}, []);
 
 	const onClosePopup = () => {
 		setIsPopupOpen(false);
@@ -128,6 +129,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_par.png`}
 									alt=""
 								/>
+
 								<span className="blue">{farmDetailInfo.rcd_par ?? '0'}</span>
 							</li>
 							<li className="data_item">
@@ -136,7 +138,8 @@ const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_ec.png`}
 									alt=""
 								/>
-								<span className="green">{farmDetailInfo.ec ?? '0'}</span>
+								<span className="blue">{StringUtils.getRandom(10, 200)}</span>
+								{/* <span className="green">{farmDetailInfo.ec ?? '0'}</span> */}
 							</li>
 							<li className="data_item">
 								<img
@@ -144,7 +147,8 @@ const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_ph.png`}
 									alt=""
 								/>
-								<span className="pink">{farmDetailInfo.ph ?? '0'}</span>
+								<span className="pink">{StringUtils.getRandom(10, 100)}</span>
+								{/* <span className="pink">{farmDetailInfo.ph ?? '0'}</span> */}
 							</li>
 						</ul>
 					</div>
@@ -161,7 +165,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 								<div className="data_chart_wrap">
 									<li className="data_item">
 										<CircularProgressbarWithChildren
-											value={item.ctr_ch1va1 ?? 0}
+											value={item.F ?? 0}
 											styles={buildStyles({
 												textColor: '#3e98c7',
 												pathColor: '#3e98c7',
@@ -169,13 +173,13 @@ const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 											})}
 										>
 											<div className="info_wrap">
-												<strong>{parseInt(item.ctr_ch1va1)}%</strong>
+												<strong>{parseInt(item.ctr_ch1val)}%</strong>
 											</div>
 										</CircularProgressbarWithChildren>
 									</li>
 									<li className="data_item">
 										<CircularProgressbarWithChildren
-											value={item.ctr_ch1va2 ?? 0}
+											value={item.ctr_ch2val ?? 0}
 											styles={buildStyles({
 												textColor: '#3e98c7',
 												pathColor: '#3e98c7',
@@ -183,13 +187,13 @@ const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 											})}
 										>
 											<div className="info_wrap">
-												<strong>{parseInt(item.ctr_ch1va2)}%</strong>
+												<strong>{parseInt(item.ctr_ch2val)}%</strong>
 											</div>
 										</CircularProgressbarWithChildren>
 									</li>
 									<li className="data_item">
 										<CircularProgressbarWithChildren
-											value={item.ctr_ch1va3 ?? 0}
+											value={item.ctr_ch3val ?? 0}
 											styles={buildStyles({
 												textColor: '#3e98c7',
 												pathColor: '#3e98c7',
@@ -197,7 +201,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 											})}
 										>
 											<div className="info_wrap">
-												<strong>{parseInt(item.ctr_ch1va3)}%</strong>
+												<strong>{parseInt(item.ctr_ch3val)}%</strong>
 											</div>
 										</CircularProgressbarWithChildren>
 									</li>

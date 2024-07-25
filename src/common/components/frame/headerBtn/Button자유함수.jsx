@@ -3,7 +3,7 @@ import COLORS from '@constants/colors';
 import { useRouter } from 'next/router';
 import React from 'react';
 
-const Button자유함수 = ({ className = '', imgPath = '/images/png/button_plus', routerPath = '/farm/list' }) => {
+const ButtonFree = ({ className = '', imgPath = '/images/png/button_plus', routerPath = '/farm/list' }) => {
 	const router = useRouter();
 
 	return (
@@ -17,4 +17,4 @@ const Button자유함수 = ({ className = '', imgPath = '/images/png/button_plus
 	);
 };
 
-export default Button자유함수;
+export default ButtonFree;

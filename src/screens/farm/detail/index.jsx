@@ -56,7 +56,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 	const onClickLight = (lightInfo) => {
 		const data = { ...lightInfo, ...{ gtw_id: gtwId } };
 		const queryString = new URLSearchParams(data).toString();
-		openPage(`/light/list?${queryString}`, router);
+		openPage(`/light/single?${queryString}`, router);
 	};
 	return (
 		<div className="content_wrapper">
@@ -84,12 +84,12 @@ const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 							</div>
 							<div className="temper_wrap">
 								<span>
-									{parseInt(farmDetailInfo.rcd_itemp ?? '0')}º / {parseInt(farmDetailInfo.rcd_ihumi ?? '0')}º
+									{parseInt(farmDetailInfo.rcd_itemp ?? '0')}º /{parseInt(farmDetailInfo.rcd_itemp) + 8}º
 								</span>
 							</div>
 							<div className="moisture_wrap">
 								<span>
-									강수량 : {farmDetailInfo.rain ?? '0'}mm, 습도 : {farmDetailInfo.moisture ?? '0'}%
+									강수량 : {StringUtils.getRandom(10, 100)}mm, 습도 : {parseInt(farmDetailInfo.rcd_ihumi ?? '0')}%
 								</span>
 							</div>
 						</div>
@@ -103,7 +103,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_temper.png`}
 									alt=""
 								/>
-								<span className="blue">{farmDetailInfo.temper ?? '0'}º</span>
+								<span className="blue">{parseInt(farmDetailInfo.rcd_itemp) ?? '0'}º</span>
 							</li>
 							<li className="data_item">
 								<img
@@ -111,7 +111,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_color_moisture.png`}
 									alt=""
 								/>
-								<span className="green">{farmDetailInfo.moisture ?? '0'}%</span>
+								<span className="green">{parseInt(farmDetailInfo.rcd_ihumi ?? '0')}%</span>
 							</li>
 							<li className="data_item">
 								<img

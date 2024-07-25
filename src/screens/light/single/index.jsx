@@ -9,7 +9,7 @@ import { useEffect, useState, useCallback } from 'react';
 import { debounce } from 'lodash';
 import Swal from 'sweetalert2';
 import LightService from '@service/LightService';
-const LightListScreen = ({ farmName = '딸기농장' }) => {
+const LightScreen = ({ farmName = '딸기농장' }) => {
 	const CHANNEL_CNT = 3;
 	const router = useRouter();
 
@@ -178,7 +178,7 @@ const LightListScreen = ({ farmName = '딸기농장' }) => {
 	);
 };
 
-LightListScreen.Layout = Layout메인헤더;
-LightListScreen.isGnb = true;
-LightListScreen.pageName = '조명제어';
-export default LightListScreen;
+LightScreen.Layout = Layout메인헤더;
+LightScreen.isGnb = true;
+LightScreen.pageName = '조명제어';
+export default LightScreen;

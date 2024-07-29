@@ -6,6 +6,14 @@ const Header메타설정 = ({ description, title }) => {
 		<Head>
 			<title>{`아이보리${title ? ` | ${title}` : ''}`}</title>
 			<meta
+				name="referrer"
+				content="no-referrer-when-downgrade"
+			></meta>
+			<meta
+				httpEquiv="Content-Security-Policy"
+				content="upgrade-insecure-requests"
+			/>
+			<meta
 				name="description"
 				content={description}
 			/>

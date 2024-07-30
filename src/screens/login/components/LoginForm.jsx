@@ -55,7 +55,6 @@ const LoginForm = () => {
 				})
 				.catch((err) => {
 					console.log(err);
-					CookieUtils.setCookie('usr_id', usr_id, 365);
 				});
 		}
 	};

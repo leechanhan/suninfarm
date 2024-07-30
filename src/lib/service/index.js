@@ -10,6 +10,8 @@ import fp from 'lodash/fp';
 import { isDev } from '@lib/function/util';
 import CookieUtils from '@lib/utils/cookie';
 
+import CustomAlert from '@lib/alert';
+
 export class HttpManager {
 	static REQUEST = 'request';
 	static RESPONSE = 'response';
@@ -156,7 +158,12 @@ export default class ServiceManager {
 	static createRequest(url, method, data, isFileUpload = false, useLoading = true, useCache = false) {
 		const userid = CookieUtils.getCookie('usr_id') ?? '';
 		if (url !== 'login?' && userid === '') {
-			throw new CustomError(CustomError.ERROR_MSG.FAILED_LOGIN, false, () => (location.href = '/login'));
+			CustomAlert.error({
+				html: `로그인이 필요합니다.\n로그인 페이지로 이동합니다.`,
+				callback: () => {
+					location.replace('/login');
+				},
+			});
 		}
 		let params = url === 'login?' || url === 'joinus?' ? data : { ...data, usr_id: userid };
 		const queryString = Object.entries(params)

@@ -15,7 +15,6 @@ const LightScreen = ({ farmName = '딸기농장' }) => {
 
 	const [lightInfo, setLightInfo] = useState(router?.query);
 	const [masterDiming, setMasterDiming] = useState(0);
-	// const [values, setLightInfo] = useState(new Map());
 
 	const handlerDeleteDevice = (name) => {
 		CustomAlert.warning({ html: `${name}을 삭제하시겠습니까?`, callback: () => {} });
@@ -25,13 +24,12 @@ const LightScreen = ({ farmName = '딸기농장' }) => {
 			LightService.putLightInfo(lightInfo)
 				.then((res) => {
 					console.log('putLightInfo', res);
-					// setFarmDetailInfo(res);
 				})
 				.catch((err) => {
 					console.log('putLightInfo err', err);
 				});
 		}, 1300),
-		[lightInfo],
+		[],
 	);
 
 	const handleMasterDiming = (value) => {

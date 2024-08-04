@@ -20,16 +20,21 @@ const LightScreen = ({ farmName = '딸기농장' }) => {
 		CustomAlert.warning({ html: `${name}을 삭제하시겠습니까?`, callback: () => {} });
 	};
 	const updateLightDiming = useCallback(
-		debounce((data) => {
-			LightService.putLightInfo(lightInfo)
+		debounce((newLightInfo) => {
+			LightService.putLightInfo(newLightInfo)
 				.then((res) => {
-					console.log('putLightInfo', res);
+					if (res.result === 'success') {
+						console.log('조명 설정 완료');
+					} else {
+						console.log('조명 설정 실패', res?.reason);
+					}
 				})
 				.catch((err) => {
 					console.log('putLightInfo err', err);
+					console.log('조명 설정 실패');
 				});
 		}, 1300),
-		[],
+		[], // debounce된 함수는 상태 값의 의존성이 필요 없음
 	);
 
 	const handleMasterDiming = (value) => {
@@ -74,6 +79,10 @@ const LightScreen = ({ farmName = '딸기농장' }) => {
 			return newValues;
 		});
 	};
+	// 상태 값이 업데이트될 때마다 debounced 함수 호출
+	useEffect(() => {
+		updateLightDiming(lightInfo);
+	}, [lightInfo, updateLightDiming]); // lightInfo가 변경될 때마다 호출
 
 	useEffect(() => {
 		const { query } = router;

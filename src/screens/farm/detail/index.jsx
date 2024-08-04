@@ -42,7 +42,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 					console.log('geteway home err', err);
 				});
 		}
-	}, []);
+	}, [gtwId]);
 
 	const onClosePopup = () => {
 		setIsPopupOpen(false);

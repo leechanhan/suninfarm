@@ -6,6 +6,7 @@ class LightService extends ServiceManager {
 	static URLS = {
 		리스트: 'getlight?',
 		조명셋팅: 'setlight?',
+		그룹조명셋팅: 'allsetlight?',
 	};
 
 	static getLightInfo({ ctr_ieee }) {
@@ -14,6 +15,10 @@ class LightService extends ServiceManager {
 
 	static putLightInfo(data) {
 		return this.createRequest(this.URLS.조명셋팅, HTTP.METHOD.GET, data);
+	}
+
+	static putGtwayLightInfo(data) {
+		return this.createRequest(this.URLS.그룹조명셋팅, HTTP.METHOD.GET, data);
 	}
 }
 export default LightService;

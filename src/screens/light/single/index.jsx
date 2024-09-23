@@ -15,49 +15,53 @@ const LightScreen = ({ farmName = '딸기농장' }) => {
 
 	const [lightInfo, setLightInfo] = useState(router?.query);
 	const [masterDiming, setMasterDiming] = useState(0);
+	const [lightKey, setLightKey] = useState({});
 
 	const handlerDeleteDevice = (name) => {
 		CustomAlert.warning({ html: `${name}을 삭제하시겠습니까?`, callback: () => {} });
 	};
-	const updateLightDiming = useCallback(
-		debounce((newLightInfo) => {
-			LightService.putLightInfo(newLightInfo)
-				.then((res) => {
-					if (res.result === 'success') {
-						console.log('조명 설정 완료');
-					} else {
-						console.log('조명 설정 실패', res?.reason);
-					}
-				})
-				.catch((err) => {
-					console.log('putLightInfo err', err);
-					console.log('조명 설정 실패');
-				});
-		}, 1300),
-		[], // debounce된 함수는 상태 값의 의존성이 필요 없음
-	);
+	const putLightInfo = () => {
+		const data = Object.assign({}, lightKey, lightInfo);
+		console.log('Merged State:', data);
+		LightService.putLightInfo(data)
+			.then((res) => {
+				if (res.result === 'success') {
+					console.log('조명 설정 완료');
+				} else {
+					console.log('조명 설정 실패', res?.reason);
+				}
+			})
+			.catch((err) => {
+				console.log('putLightInfo err', err);
+				console.log('조명 설정 실패');
+			});
+	};
 
 	const handleMasterDiming = (value) => {
-		setLightInfo((prevValues) => {
-			const newValues = { ...prevValues }; // 기존 값을 복사하여 새 객체 생성
+		setMasterDiming(value);
+	};
 
-			console.log('123');
+	const handleDragEndTotal = (value) => {
+		console.log('handleDragEndTotal1');
+		setLightInfo((prevValues) => {
+			const newValues = { ...prevValues };
 			newValues.ctr_ch1val = Number(value);
 			newValues.ctr_ch2val = Number(value);
 			newValues.ctr_ch3val = Number(value);
-
 			return newValues;
 		});
-
-		setMasterDiming(value);
-		updateLightDiming();
 	};
+
+	useEffect(() => {
+		console.log('handleDragEndTotal2', lightInfo);
+		putLightInfo();
+	}, [lightInfo]);
 
 	const handleDimingWhite = (value) => {
 		setLightInfo((prevValues) => {
 			const newValues = { ...prevValues };
 			newValues.ctr_ch1val = Number(value);
-			updateLightDiming();
+			//updateLightDiming();
 			return newValues;
 		});
 	};
@@ -66,7 +70,7 @@ const LightScreen = ({ farmName = '딸기농장' }) => {
 		setLightInfo((prevValues) => {
 			const newValues = { ...prevValues };
 			newValues.ctr_ch2val = Number(value);
-			updateLightDiming();
+			//updateLightDiming();
 			return newValues;
 		});
 	};
@@ -75,17 +79,33 @@ const LightScreen = ({ farmName = '딸기농장' }) => {
 		setLightInfo((prevValues) => {
 			const newValues = { ...prevValues };
 			newValues.ctr_ch3val = Number(value);
-			updateLightDiming();
+			//updateLightDiming();
 			return newValues;
 		});
 	};
 	// 상태 값이 업데이트될 때마다 debounced 함수 호출
-	useEffect(() => {
-		updateLightDiming(lightInfo);
-	}, [lightInfo, updateLightDiming]); // lightInfo가 변경될 때마다 호출
+	//	useEffect(() => {
+	// 	updateLightDiming(lightInfo);
+	//}, [lightInfo, updateLightDiming]); // lightInfo가 변경될 때마다 호출
+
+	const handleDragEndWhite = () => {
+		console.log('handleDragEndWhite');
+	};
+
+	const handleDragEndRed = () => {
+		console.log('handleDragEndRed');
+	};
+
+	const handleDragEndBlue = () => {
+		console.log('handleDragEndBlue');
+	};
 
 	useEffect(() => {
-		const { query } = router;
+		// 현재 URL의 쿼리 스트링을 가져옴
+		const queryParams = new URLSearchParams(window.location.search);
+		const ctr_ieee = queryParams.get('ctr_ieee');
+		const gtw_id = queryParams.get('gtw_id');
+		setLightKey({ ctr_ieee, gtw_id });
 	}, []);
 
 	return (
@@ -110,6 +130,8 @@ const LightScreen = ({ farmName = '딸기농장' }) => {
 										min="0"
 										max="100"
 										value={masterDiming}
+										onMouseUp={(e) => handleDragEndTotal(e.target.value)}
+										onTouchEnd={(e) => handleDragEndTotal(e.target.value)}
 										onChange={(e) => handleMasterDiming(e.target.value)}
 									/>
 									<img
@@ -130,6 +152,8 @@ const LightScreen = ({ farmName = '딸기농장' }) => {
 										min="0"
 										max="100"
 										value={lightInfo.ctr_ch1val}
+										onMouseUp={(e) => handleDragEndWhite(e.target.value)}
+										onTouchEnd={(e) => handleDragEndWhite(e.target.value)}
 										onChange={(e) => handleDimingWhite(e.target.value)}
 									/>
 									<img
@@ -149,6 +173,8 @@ const LightScreen = ({ farmName = '딸기농장' }) => {
 										min="0"
 										max="100"
 										value={lightInfo.ctr_ch2val}
+										onMouseUp={(e) => handleDragEndRed(e.target.value)}
+										onTouchEnd={(e) => handleDragEndRed(e.target.value)}
 										onChange={(e) => handleDimingRed(e.target.value)}
 									/>
 									<img
@@ -168,6 +194,8 @@ const LightScreen = ({ farmName = '딸기농장' }) => {
 										min="0"
 										max="100"
 										value={lightInfo.ctr_ch3val}
+										onMouseUp={(e) => handleDragEndBlue(e.target.value)}
+										onTouchEnd={(e) => handleDragEndBlue(e.target.value)}
 										onChange={(e) => handleDimingBlue(e.target.value)}
 									/>
 									<img

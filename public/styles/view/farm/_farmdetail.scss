@@ -176,3 +176,90 @@
 		}
 	}
 }
+.light_list_wrap {
+	display: flex;
+	border-radius: mediaVal(20);
+	flex-direction: column;
+	background-color: #fff;
+	@include media(margin, 6, 20);
+
+	.light_item {
+		@include media(margin, 6, 20);
+		display: flex;
+		flex-direction: column;
+		.light_value {
+			@include media(padding-left, 52);
+			@include font(15, normal, bold);
+			@include media(height, 16);
+			color: $FONT;
+		}
+		.ui_wrap {
+			width: 100%;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+			@include media(height, 40);
+			@include font(14, normal, bold);
+
+			.light_progress {
+				width: 100%;
+				border-radius: mediaVal(20);
+				@include media(height, 6);
+				@include media(margin, 0, 8, 0, 8);
+				-webkit-appearance: none;
+				appearance: none;
+				background: #ddd;
+
+				&::-webkit-slider-thumb {
+					-webkit-appearance: none;
+					appearance: none;
+					@include media(width, 32);
+					@include media(height, 32);
+					cursor: pointer;
+					background-size: cover;
+				}
+
+				&.total::-webkit-slider-thumb {
+					background-image: url('/images/png/light/icon_light_total.png'); /* Placeholder for sun icon */
+				}
+				&.white::-webkit-slider-thumb {
+					background-image: url('/images/png/light/icon_light_white.png'); /* Placeholder for sun icon */
+				}
+				&.red::-webkit-slider-thumb {
+					background-image: url('/images/png/light/icon_light_red.png'); /* Placeholder for sun icon */
+				}
+				&.blue::-webkit-slider-thumb {
+					background-image: url('/images/png/light/icon_light_blue.png'); /* Placeholder for sun icon */
+				}
+			}
+
+			.label_total {
+				color: $GREEN;
+				@include media(width, 48);
+			}
+
+			.label_white {
+				color: $ORANGE;
+				@include media(width, 46);
+				@include media(padding-left, 8);
+			}
+
+			.label_red {
+				color: $PINK;
+				@include media(width, 46);
+				@include media(padding-left, 8);
+			}
+
+			.label_blue {
+				color: $BLUE;
+				@include media(width, 46);
+				@include media(padding-left, 8);
+			}
+			.icon_light_gray {
+				@include media(width, 22);
+				@include media(height, 22);
+			}
+		}
+	}
+}

@@ -15,7 +15,7 @@ import GatewayService from '@service/GtwayService';
 import CookieUtils from '@lib/utils/cookie';
 import StringUtils from '@lib/utils/string';
 
-const LightListScreen = ({ farmName = '딸기농장', seqNo }) => {
+const LightListScreen = ({ farmName = '', seqNo }) => {
 	const router = useRouter();
 
 	const [lightInfo, setLightInfo] = useState(router?.query);
@@ -74,7 +74,7 @@ const LightListScreen = ({ farmName = '딸기농장', seqNo }) => {
 			<div className="page_container_gray">
 				<Header
 					classes="nonPadding bg_gray"
-					title={farmName}
+					title={farmDetailInfo.gtw_name}
 					LeftButton={() => <Button뒤로가기 />}
 				/>
 				<div className="light_list_wrap">

@@ -48,38 +48,61 @@ const LightScreen = ({ farmName = '딸기농장' }) => {
 			newValues.ctr_ch1val = Number(value);
 			newValues.ctr_ch2val = Number(value);
 			newValues.ctr_ch3val = Number(value);
+			debouncedPutLightInfo(newValues); // 최신 값으로 디바운스 호출
 			return newValues;
 		});
 	};
 
 	useEffect(() => {
-		console.log('handleDragEndTotal2', lightInfo);
-		putLightInfo();
+		// console.log('handleDragEndTotal2', lightInfo);
+		//putLightInfo();
 	}, [lightInfo]);
+	// 디바운스된 putLightInfo 함수
+	const debouncedPutLightInfo = useCallback(
+		debounce((updatedLightInfo) => {
+			const data = Object.assign({}, lightKey, updatedLightInfo);
+			LightService.putLightInfo(data)
+				.then((res) => {
+					if (res.result === 'success') {
+						console.log('조명 설정 완료');
+					} else {
+						console.log('조명 설정 실패', res?.reason);
+					}
+				})
+				.catch((err) => {
+					console.log('putLightInfo err', err);
+					console.log('조명 설정 실패');
+				});
+		}, 500),
+		[],
+	);
 
+	// handleDimingWhite에서 상태 업데이트 후 디바운스 호출
 	const handleDimingWhite = (value) => {
 		setLightInfo((prevValues) => {
 			const newValues = { ...prevValues };
 			newValues.ctr_ch1val = Number(value);
-			//updateLightDiming();
+			debouncedPutLightInfo(newValues); // 최신 값으로 디바운스 호출
 			return newValues;
 		});
 	};
 
+	// handleDimingRed에서 상태 업데이트 후 디바운스 호출
 	const handleDimingRed = (value) => {
 		setLightInfo((prevValues) => {
 			const newValues = { ...prevValues };
 			newValues.ctr_ch2val = Number(value);
-			//updateLightDiming();
+			debouncedPutLightInfo(newValues); // 최신 값으로 디바운스 호출
 			return newValues;
 		});
 	};
 
+	// handleDimingBlue에서 상태 업데이트 후 디바운스 호출
 	const handleDimingBlue = (value) => {
 		setLightInfo((prevValues) => {
 			const newValues = { ...prevValues };
 			newValues.ctr_ch3val = Number(value);
-			//updateLightDiming();
+			debouncedPutLightInfo(newValues); // 최신 값으로 디바운스 호출
 			return newValues;
 		});
 	};

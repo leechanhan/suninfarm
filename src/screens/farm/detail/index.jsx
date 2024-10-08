@@ -16,7 +16,7 @@ import GatewayService from '@service/GtwayService';
 import CookieUtils from '@lib/utils/cookie';
 import StringUtils from '@lib/utils/string';
 
-const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
+const FarmDetailScreen = ({ farmName = '', seqNo }) => {
 	const router = useRouter();
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [gtwId, setGtwId] = useState();
@@ -30,7 +30,6 @@ const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 
 	useEffect(() => {
 		const gtw_id = CookieUtils.getCookie('gtw_id');
-
 		if (gtw_id?.length > 0) {
 			setGtwId(gtw_id);
 			GatewayService.getGatewayDetail({ gtw_id })
@@ -63,7 +62,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 			<div className="page_container_gray">
 				<Header
 					classes="nonPadding bg_gray"
-					title={farmName}
+					title={farmDetailInfo.gtw_name}
 					LeftButton={() => <Button뒤로가기 />}
 				/>
 				<div className="farm_detail_wrap">
@@ -95,7 +94,7 @@ const FarmDetailScreen = ({ farmName = '딸기농장', seqNo }) => {
 						</div>
 					</div>
 					<div className="farm_data_wrap">
-						<span className="subtitle">딸기 농장 현재 상태 &#62;</span>
+						<span className="subtitle">{farmDetailInfo.gtw_name} 현재 상태 &#62;</span>
 						<ul className="data_wrap">
 							<li className="data_item">
 								<img

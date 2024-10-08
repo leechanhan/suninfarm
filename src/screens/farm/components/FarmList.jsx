@@ -37,8 +37,9 @@ const FarmInfo = ({ farmList = [] }) => {
 		});
 	};
 
-	const onClickFarm = (gtw_id) => {
+	const onClickFarm = (gtw_id, gtw_name) => {
 		CookieUtils.setCookie('gtw_id', gtw_id, 365);
+		CookieUtils.setCookie('gtw_name', gtw_name, 365);
 		openPage(`/farm/detail`, router);
 	};
 
@@ -50,7 +51,7 @@ const FarmInfo = ({ farmList = [] }) => {
 						<p className="title">나의 농장</p>
 						{farmList.map((item, idx) => (
 							<li
-								onClick={() => onClickFarm(item.gtw_id)}
+								onClick={() => onClickFarm(item.gtw_id, item.gtw_name)}
 								className="farminfo_item"
 								style={{ backgroundColor: vegetableMap[item?.gtw_crop]?.activeColor ?? '#FF6563' }}
 								key={idx}

@@ -117,7 +117,7 @@ const SettingScreen = ({ farmName = '' }) => {
 	}
 
 	function convertToHoursAndMinutes(totalSeconds) {
-		// 총 초에서 시간 값을 계산 (0~5 중 하나로 설정)
+		// 총 초에서 시간 값을 계산 (0~5 시간 사이로 설정)
 		const hours = Math.floor(totalSeconds / 3600);
 		const validHours = Math.min(Math.max(hours, 0), 5); // 시간은 0~5 사이로 제한
 
@@ -125,8 +125,9 @@ const SettingScreen = ({ farmName = '' }) => {
 		const remainingSeconds = totalSeconds - validHours * 3600;
 		const minutes = Math.floor(remainingSeconds / 60);
 
-		// 분 값은 0 또는 30으로 설정
-		const validMinutes = remainingSeconds % 3600 >= 1800 ? '30' : '00';
+		// 분 값을 0, 10, 20, 30, 40, 50으로 설정
+		const validMinutesOptions = ['00', '10', '20', '30', '40', '50'];
+		const validMinutes = validMinutesOptions[Math.floor(minutes / 10)];
 
 		const date = {
 			hours: validHours.toString(), // 문자열로 변환하여 반환
@@ -138,7 +139,7 @@ const SettingScreen = ({ farmName = '' }) => {
 	}
 
 	function convertToHoursAndMinutesText(totalSeconds) {
-		// 총 초에서 시간 값을 계산 (0~5 중 하나로 설정)
+		// 총 초에서 시간 값을 계산 (0~5 시간 사이로 설정)
 		const hours = Math.floor(totalSeconds / 3600);
 		const validHours = Math.min(Math.max(hours, 0), 5); // 시간은 0~5 사이로 제한
 
@@ -146,10 +147,12 @@ const SettingScreen = ({ farmName = '' }) => {
 		const remainingSeconds = totalSeconds - validHours * 3600;
 		const minutes = Math.floor(remainingSeconds / 60);
 
-		// 분 값은 0 또는 30으로 설정
-		const validMinutes = remainingSeconds % 3600 >= 1800 ? '30' : '00';
+		// 분 값을 0, 10, 20, 30, 40, 50으로 설정
+		const validMinutesOptions = ['00', '10', '20', '30', '40', '50'];
+		const validMinutes = validMinutesOptions[Math.floor(minutes / 10)];
 
-		return '타이머 시간 : ' + validHours.toString() + '시간 ' + validMinutes + '분';
+		const tempHour = validHours.toString() === '0' ? '' : validHours.toString() + '시간 ';
+		return '타이머 시간 : ' + tempHour + validMinutes + '분';
 	}
 
 	function boolArrayToBinaryString(boolArray) {
@@ -216,7 +219,7 @@ const SettingScreen = ({ farmName = '' }) => {
 		// set time
 		setTime('12:00');
 
-		setTimer({ hours: '00', minutes: '30' });
+		setTimer({ hours: '00', minutes: '10' });
 		// set week
 		setSelectedDays([false, false, false, false, false, false, false]);
 		setIsPopupOpen(true);

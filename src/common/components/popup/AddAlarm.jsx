@@ -10,7 +10,7 @@ const AddAlarm = ({ isOpen, onClose, onSave, time, setTime, timer, setTimer, sel
 	}
 	// 타이머 콤보박스용 30분 단위 옵션
 	const timerHoursOptions = Array.from({ length: 6 }, (_, i) => i); // 0~2시간 선택
-	const timerMinutesOptions = ['00', '30']; // 30분 단위
+	const timerMinutesOptions = ['00', '10', '20', '30', '40', '50']; // 30분 단위
 
 	const toggleDay = (index) => {
 		const updatedDays = selectedDays.map((day, i) => (i === index ? !day : day));

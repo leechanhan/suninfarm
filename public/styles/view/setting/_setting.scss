@@ -46,6 +46,13 @@
 				@include media(padding-left, 16);
 				color: $FONT;
 			}
+			.setting_plus {
+				@include media(padding, 6);
+				@include media(width, 32);
+				@include media(height, 32);
+				margin-left: auto;
+				@include center;
+			}
 		}
 		.water_time_wrap {
 			display: flex;
@@ -55,7 +62,7 @@
 
 			.water_time_item {
 				flex: 1;
-				width: 50%;
+				width: 100%;
 				border-radius: mediaVal(10);
 				background-color: #f2f4f6;
 				@include media(margin, 6);
@@ -70,4 +77,212 @@
 			}
 		}
 	}
+}
+
+.schedule {
+	display: flex;
+	flex-direction: column;
+	gap: 10px; /* 아이템 간의 간격 */
+}
+
+.schedule-item {
+	flex-direction: column;
+	position: relative;
+	// display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background-color: #eaf5ff; /* 배경색 */
+	flex: 1;
+	border-radius: mediaVal(10);
+	background-color: #f2f4f6;
+	@include media(margin, 6);
+	@include media(padding, 16, 20);
+	box-shadow: 6px 6px 10px rgba(0, 0, 0, 0.15);
+	.area {
+		@include font(12, normal, normal);
+	}
+	.time {
+		@include font(24, normal, normal);
+	}
+	.schedule-item-row {
+		@include media(padding, 2, 0);
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		flex: 1;
+	}
+}
+
+.time {
+	@include font(18, normal, normal);
+	font-weight: bold;
+}
+
+.days {
+	@include font(15, normal, normal);
+	color: #3d3d3d;
+}
+
+/* 스위치 스타일 */
+.switch {
+	position: relative;
+	display: inline-block;
+	@include media(width, 48);
+	@include media(height, 24);
+}
+
+.switch input {
+	display: none;
+}
+
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	transition: 0.4s;
+	border-radius: mediaVal(24);
+	@include media(height, 24);
+}
+
+.slider:before {
+	position: absolute;
+	content: '';
+	@include media(width, 18);
+	@include media(height, 18);
+	@include media(left, 8);
+	@include media(bottom, 3);
+	background-color: white;
+	transition: 0.4s;
+	border-radius: 50%;
+}
+
+input:checked + .slider {
+	background-color: #4caf50; /* 활성화 시 배경색 */
+}
+
+input:checked + .slider:before {
+	transform: translateX(21px); /* 스위치 이동 */
+}
+
+.nutrient-supply-container {
+	width: 100%;
+	height: 100vh;
+	@include media(padding, 22, 32);
+
+	.titleWrap {
+		display: flex;
+		align-items: center;
+		justify-items: center;
+		span {
+			color: #646e82;
+			@include font(14, normal, bold);
+		}
+		img {
+			@include media(width, 24);
+			@include media(padding-right, 4);
+		}
+	}
+	.timezoneWrap {
+		@include media(padding-bottom, 16);
+		.time-picker,
+		.timer-picker {
+			@include media(padding, 10, 0);
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+			input {
+				border: 1px solid #000;
+				@include media(padding-top, 20);
+				@include font(30, normal, bold);
+				width: 100%;
+				@include media(padding, 6);
+				text-align: center;
+				outline: none;
+			}
+			select {
+				@include media(padding-top, 20);
+				@include font(30, normal, bold);
+				width: 100%;
+				@include media(padding, 6);
+				text-align: center;
+				outline: none;
+			}
+		}
+	}
+
+	.day-selector {
+		@include media(margin, 10, 0);
+		@include media(padding, 20, 0);
+		.days {
+			@include media(padding, 10, 0);
+			display: flex;
+			justify-content: space-around;
+
+			button {
+				background-color: #ccc;
+				border: none;
+				border-radius: 5px;
+				@include media(padding, 12);
+				@include font(13, normal, normal);
+				cursor: pointer;
+
+				&.active {
+					background-color: #4caf50;
+					color: white;
+					@include font(13, normal, bold);
+				}
+			}
+		}
+	}
+
+	.nutrient-supply-container {
+		// 부모 컨테이너 스타일
+		display: flex;
+		flex-direction: column;
+		align-items: center; // 자식 요소들을 가운데 정렬
+		width: 100%;
+		height: 100vh;
+		@include media(padding, 22, 32);
+
+		.save-button {
+			@include center;
+			@include media(width, 160);
+			@include media(padding, 10);
+			background-color: #89c528;
+			color: white;
+			border: none;
+			border-radius: mediaVal(13);
+			@include font(16, normal, normal);
+			cursor: pointer;
+			&:hover {
+				background-color: #45a049;
+			}
+		}
+	}
+}
+.checkbox-overlay {
+	position: absolute;
+	left: 0; /* 체크박스 왼쪽에 위치 */
+	top: 50%;
+	transform: translateY(-50%); /* 수직 중앙 정렬 */
+	width: 76%; /* 원하는 너비 설정 */
+	height: 100%; /* 원하는 높이 설정 */
+	background-color: transparent; /* 클릭 가능한 영역 */
+	cursor: pointer; /* 커서 포인터로 변경 */
+	z-index: 1; /* 체크박스 위에 표시 */
+}
+.delete-overlay {
+	position: absolute;
+	right: -10px; /* 체크박스 왼쪽에 위치 */
+	top: 4px;
+	transform: translateY(-50%); /* 수직 중앙 정렬 */
+	@include media(width, 24);
+	@include media(height, 24);
+	background-color: transparent; /* 클릭 가능한 영역 */
+	cursor: pointer; /* 커서 포인터로 변경 */
+	z-index: 1; /* 체크박스 위에 표시 */
 }

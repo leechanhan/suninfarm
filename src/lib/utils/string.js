@@ -32,7 +32,6 @@ class StringUtils {
 
 	static getRandom(min, max) {
 		const value = parseInt(Math.random() * (max - min) + min);
-		console.log(value);
 		return value;
 	}
 }

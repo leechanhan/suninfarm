@@ -20,11 +20,9 @@ const Nav하단메뉴 = ({ pageName }) => {
 		setIconArray((prevState) => ({ ...prevState, [prevPage]: false }));
 		setPrevActivePage(name);
 		setIconArray((prevState) => ({ ...prevState, [name]: true }));
-		console.log(iconArray);
 	};
 
 	useEffect(() => {
-		console.log(iconArray);
 		if (pageName !== '') {
 			setIconArray((prevState) => ({ ...prevState, [pageName]: true }));
 		}

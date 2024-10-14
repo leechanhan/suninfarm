@@ -157,7 +157,7 @@ export default class ServiceManager {
 	 */
 	static createRequest(url, method, data, isFileUpload = false, useLoading = true, useCache = false) {
 		const userid = CookieUtils.getCookie('usr_id') ?? '';
-		if (url !== 'login?' && userid === '') {
+		if ((url !== 'login?' || url !== 'test?') && userid === '') {
 			CustomAlert.error({
 				html: `로그인이 필요합니다.\n로그인 페이지로 이동합니다.`,
 				callback: () => {

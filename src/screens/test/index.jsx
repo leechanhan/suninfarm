@@ -154,18 +154,18 @@ const TestIndexScreen = () => {
 	const debouncedPutLightInfo = useCallback(
 		debounce((updatedLightInfo) => {
 			console.log(updatedLightInfo);
-			// LightService.putTestLight(updatedLightInfo)
-			// 	.then((res) => {
-			// 		if (res.result === 'success') {
-			// 			console.log('조명 설정 완료');
-			// 		} else {
-			// 			console.log('조명 설정 실패', res?.reason);
-			// 		}
-			// 	})
-			// 	.catch((err) => {
-			// 		console.log('putLightInfo err', err);
-			// 		console.log('조명 설정 실패');
-			// 	});
+			LightService.putTestLight(updatedLightInfo)
+				.then((res) => {
+					if (res.result === 'success') {
+						console.log('조명 설정 완료');
+					} else {
+						console.log('조명 설정 실패', res?.reason);
+					}
+				})
+				.catch((err) => {
+					console.log('putLightInfo err', err);
+					console.log('조명 설정 실패');
+				});
 		}, 500),
 		[],
 	);

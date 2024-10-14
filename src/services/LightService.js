@@ -7,6 +7,10 @@ class LightService extends ServiceManager {
 		리스트: 'getlight?',
 		조명셋팅: 'setlight?',
 		그룹조명셋팅: 'allsetlight?',
+
+		테스트조명조회: 'getchannel?',
+		테스트조명그룹제어: 'setgroup?',
+		테스트조명개별제어: 'setchannel?',
 	};
 
 	static getLightInfo({ ctr_ieee }) {
@@ -19,6 +23,15 @@ class LightService extends ServiceManager {
 
 	static putGtwayLightInfo(data) {
 		return this.createRequest(this.URLS.그룹조명셋팅, HTTP.METHOD.GET, data);
+	}
+	static getTestLight() {
+		return this.createRequest(this.URLS.테스트조명조회, HTTP.METHOD.GET, {});
+	}
+	static putTestLightGroup(data) {
+		return this.createRequest(this.URLS.테스트조명그룹제어, HTTP.METHOD.GET, data);
+	}
+	static putTestLight(data) {
+		return this.createRequest(this.URLS.테스트조명개별제어, HTTP.METHOD.GET, data);
 	}
 }
 export default LightService;

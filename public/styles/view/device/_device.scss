@@ -116,20 +116,20 @@
 
 				.label_white {
 					color: $ORANGE;
-					@include media(width, 46);
-					@include media(padding-left, 8);
+					@include media(width, 50);
+					@include media(padding-left, 2);
 				}
 
 				.label_red {
 					color: $PINK;
-					@include media(width, 46);
-					@include media(padding-left, 8);
+					@include media(width, 50);
+					@include media(padding-left, 2);
 				}
 
 				.label_blue {
 					color: $BLUE;
-					@include media(width, 46);
-					@include media(padding-left, 8);
+					@include media(width, 50);
+					@include media(padding-left, 2);
 				}
 				.icon_light_gray {
 					@include media(width, 22);

@@ -286,3 +286,6 @@ input:checked + .slider:before {
 	cursor: pointer; /* 커서 포인터로 변경 */
 	z-index: 1; /* 체크박스 위에 표시 */
 }
+.semicolon {
+	@include font(33, normal, bold);
+}

@@ -23,7 +23,7 @@ const SettingScreen = ({ farmName = '' }) => {
 	const [alarmList, setAlarmList] = useState(null);
 
 	const [time, setTime] = useState('07:00');
-	const [timer, setTimer] = useState('00:30');
+	const [timer, setTimer] = useState('00:01');
 	const [selectedDays, setSelectedDays] = useState([false, false, false, false, false, false, false]);
 
 	// 요일 배열 (월, 화, 수, 목, 금, 토, 일 순서)
@@ -108,51 +108,49 @@ const SettingScreen = ({ farmName = '' }) => {
 			});
 	};
 
-	function convertToSeconds(hour, min) {
-		const hoursInSeconds = parseInt(hour, 10) * 3600; // 1시간 = 3600초
+	function convertToSeconds(min, sec) {
 		const minutesInSeconds = parseInt(min, 10) * 60; // 1분 = 60초
-		const totalSeconds = hoursInSeconds + minutesInSeconds;
+		const seconds = parseInt(sec, 10); // 초는 그대로
+		const totalSeconds = minutesInSeconds + seconds;
 
 		return totalSeconds;
 	}
 
 	function convertToHoursAndMinutes(totalSeconds) {
-		// 총 초에서 시간 값을 계산 (0~5 시간 사이로 설정)
-		const hours = Math.floor(totalSeconds / 3600);
-		const validHours = Math.min(Math.max(hours, 0), 5); // 시간은 0~5 사이로 제한
+		// 총 초에서 분 값을 계산 (0~59 분 사이로 설정)
+		const minutes = Math.floor(totalSeconds / 60);
+		const validMinutes = Math.min(Math.max(minutes, 0), 59); // 분은 0~59 사이로 제한
 
-		// 남은 초로부터 분을 계산
-		const remainingSeconds = totalSeconds - validHours * 3600;
-		const minutes = Math.floor(remainingSeconds / 60);
+		// 남은 초 계산 (0~59 초 사이로 설정)
+		const remainingSeconds = totalSeconds - validMinutes * 60;
+		const validSeconds = Math.min(Math.max(remainingSeconds, 0), 59); // 초는 0~59 사이로 제한
 
-		// 분 값을 0, 10, 20, 30, 40, 50으로 설정
-		const validMinutesOptions = ['00', '10', '20', '30', '40', '50'];
-		const validMinutes = validMinutesOptions[Math.floor(minutes / 10)];
-
+		// 수정된 객체 구조
 		const date = {
-			hours: validHours.toString(), // 문자열로 변환하여 반환
-			minutes: validMinutes, // 문자열로 변환하여 반환
+			minute: validMinutes.toString().padStart(2, '0'), // 분 값을 minute로 저장
+			sec: validSeconds.toString().padStart(2, '0'), // 초 값을 sec로 저장
 		};
 
-		console.log('time :', date);
+		console.log('time:', date);
 		return date;
 	}
 
 	function convertToHoursAndMinutesText(totalSeconds) {
-		// 총 초에서 시간 값을 계산 (0~5 시간 사이로 설정)
-		const hours = Math.floor(totalSeconds / 3600);
-		const validHours = Math.min(Math.max(hours, 0), 5); // 시간은 0~5 사이로 제한
+		// 총 초에서 분 값을 계산 (0~59 분 사이로 설정)
+		const minutes = Math.floor(totalSeconds / 60);
+		const validMinutes = Math.min(Math.max(minutes, 0), 59); // 분은 0~59 사이로 제한
 
-		// 남은 초로부터 분을 계산
-		const remainingSeconds = totalSeconds - validHours * 3600;
-		const minutes = Math.floor(remainingSeconds / 60);
+		// 남은 초 계산 (0~59 초 사이로 설정)
+		const remainingSeconds = totalSeconds - validMinutes * 60;
+		const validSeconds = Math.min(Math.max(remainingSeconds, 0), 59); // 초는 0~59 사이로 제한
 
-		// 분 값을 0, 10, 20, 30, 40, 50으로 설정
-		const validMinutesOptions = ['00', '10', '20', '30', '40', '50'];
-		const validMinutes = validMinutesOptions[Math.floor(minutes / 10)];
+		// 수정된 객체 구조
+		const date = {
+			minute: validMinutes.toString().padStart(2, '0'), // 분 값을 minute로 저장
+			sec: validSeconds.toString().padStart(2, '0'), // 초 값을 sec로 저장
+		};
 
-		const tempHour = validHours.toString() === '0' ? '' : validHours.toString() + '시간 ';
-		return '타이머 시간 : ' + tempHour + validMinutes + '분';
+		return '타이머 시간 : ' + date.minute + ' 분 ' + date.sec + '초';
 	}
 
 	function boolArrayToBinaryString(boolArray) {
@@ -219,7 +217,7 @@ const SettingScreen = ({ farmName = '' }) => {
 		// set time
 		setTime('12:00');
 
-		setTimer({ hours: '00', minutes: '10' });
+		setTimer({ minute: '00', sec: '01' });
 		// set week
 		setSelectedDays([false, false, false, false, false, false, false]);
 		setIsPopupOpen(true);
@@ -228,9 +226,9 @@ const SettingScreen = ({ farmName = '' }) => {
 	const onEdit = () => {};
 
 	const onSave = () => {
-		const totalSeconds = convertToSeconds(timer.hours, timer.minutes);
+		const totalSeconds = convertToSeconds(timer.minute, timer.sec);
 		if (totalSeconds === 0) {
-			CustomAlert.info({ html: '양액공급 타이머 시간은 최소 30분입니다.', callback: () => {} });
+			CustomAlert.info({ html: '양액공급 타이머 시간은 최소 1초입니다.', callback: () => {} });
 			return;
 		}
 
@@ -243,8 +241,8 @@ const SettingScreen = ({ farmName = '' }) => {
 			onClosePopup();
 		}
 		console.log(time);
-		console.log(timer.hours);
-		console.log(timer.minutes);
+		console.log(timer.minute);
+		console.log(timer.sec);
 		console.log(selectedDays);
 
 		const binaryString = boolArrayToBinaryString(selectedDays);

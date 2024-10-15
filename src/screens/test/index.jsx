@@ -84,13 +84,13 @@ const TestIndexScreen = () => {
 		console.log('handleDragEndTotalG1');
 		setLightInfo1((prevValues) => {
 			const newValues = { ...prevValues };
-			newValues.val1 = Number(value);
-			newValues.val2 = Number(value);
-			newValues.val3 = Number(value);
-			newValues.val4 = Number(value);
-			newValues.val5 = Number(value);
-			newValues.val6 = Number(value);
-			newValues.val = Number(value);
+			newValues.val1 = value;
+			newValues.val2 = value;
+			newValues.val3 = value;
+			newValues.val4 = value;
+			newValues.val5 = value;
+			newValues.val6 = value;
+			newValues.val = value;
 			debouncedPutLightGroupInfo(newValues); // 최신 값으로 디바운스 호출
 			return newValues;
 		});
@@ -99,13 +99,13 @@ const TestIndexScreen = () => {
 		console.log('handleDragEndTotalG2');
 		setLightInfo2((prevValues) => {
 			const newValues = { ...prevValues };
-			newValues.val1 = Number(value);
-			newValues.val2 = Number(value);
-			newValues.val3 = Number(value);
-			newValues.val4 = Number(value);
-			newValues.val5 = Number(value);
-			newValues.val6 = Number(value);
-			newValues.val = Number(value);
+			newValues.val1 = value;
+			newValues.val2 = value;
+			newValues.val3 = value;
+			newValues.val4 = value;
+			newValues.val5 = value;
+			newValues.val6 = value;
+			newValues.val = value;
 			debouncedPutLightGroupInfo(newValues); // 최신 값으로 디바운스 호출
 			return newValues;
 		});
@@ -115,13 +115,13 @@ const TestIndexScreen = () => {
 		console.log('handleDragEndTotalG3');
 		setLightInfo3((prevValues) => {
 			const newValues = { ...prevValues };
-			newValues.val1 = Number(value);
-			newValues.val2 = Number(value);
-			newValues.val3 = Number(value);
-			newValues.val4 = Number(value);
-			newValues.val5 = Number(value);
-			newValues.val6 = Number(value);
-			newValues.val = Number(value);
+			newValues.val1 = value;
+			newValues.val2 = value;
+			newValues.val3 = value;
+			newValues.val4 = value;
+			newValues.val5 = value;
+			newValues.val6 = value;
+			newValues.val = value;
 			debouncedPutLightGroupInfo(newValues); // 최신 값으로 디바운스 호출
 			return newValues;
 		});
@@ -173,7 +173,7 @@ const TestIndexScreen = () => {
 	const handleDimingLight1 = (key, value) => {
 		setLightInfo1((prevValues) => {
 			const newValues = { ...prevValues };
-			newValues[key] = Number(value);
+			newValues[key] = value;
 			debouncedPutLightInfo(newValues); // 최신 값으로 디바운스 호출
 			return newValues;
 		});
@@ -183,7 +183,7 @@ const TestIndexScreen = () => {
 	const handleDimingLight2 = (key, value) => {
 		setLightInfo2((prevValues) => {
 			const newValues = { ...prevValues };
-			newValues[key] = Number(value);
+			newValues[key] = value;
 			debouncedPutLightInfo(newValues); // 최신 값으로 디바운스 호출
 			return newValues;
 		});
@@ -193,7 +193,7 @@ const TestIndexScreen = () => {
 	const handleDimingLight3 = (key, value) => {
 		setLightInfo3((prevValues) => {
 			const newValues = { ...prevValues };
-			newValues[key] = Number(value);
+			newValues[key] = value;
 			debouncedPutLightInfo(newValues); // 최신 값으로 디바운스 호출
 			return newValues;
 		});

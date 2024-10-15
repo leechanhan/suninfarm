@@ -45,9 +45,9 @@ const LightScreen = ({ farmName = '딸기농장' }) => {
 		console.log('handleDragEndTotal1');
 		setLightInfo((prevValues) => {
 			const newValues = { ...prevValues };
-			newValues.ctr_ch1val = Number(value);
-			newValues.ctr_ch2val = Number(value);
-			newValues.ctr_ch3val = Number(value);
+			newValues.ctr_ch1val = value;
+			newValues.ctr_ch2val = value;
+			newValues.ctr_ch3val = value;
 			debouncedPutLightInfo(newValues); // 최신 값으로 디바운스 호출
 			return newValues;
 		});
@@ -81,7 +81,7 @@ const LightScreen = ({ farmName = '딸기농장' }) => {
 	const handleDimingWhite = (value) => {
 		setLightInfo((prevValues) => {
 			const newValues = { ...prevValues };
-			newValues.ctr_ch1val = Number(value);
+			newValues.ctr_ch1val = value;
 			debouncedPutLightInfo(newValues); // 최신 값으로 디바운스 호출
 			return newValues;
 		});
@@ -91,7 +91,7 @@ const LightScreen = ({ farmName = '딸기농장' }) => {
 	const handleDimingRed = (value) => {
 		setLightInfo((prevValues) => {
 			const newValues = { ...prevValues };
-			newValues.ctr_ch2val = Number(value);
+			newValues.ctr_ch2val = value;
 			debouncedPutLightInfo(newValues); // 최신 값으로 디바운스 호출
 			return newValues;
 		});
@@ -101,7 +101,7 @@ const LightScreen = ({ farmName = '딸기농장' }) => {
 	const handleDimingBlue = (value) => {
 		setLightInfo((prevValues) => {
 			const newValues = { ...prevValues };
-			newValues.ctr_ch3val = Number(value);
+			newValues.ctr_ch3val = value;
 			debouncedPutLightInfo(newValues); // 최신 값으로 디바운스 호출
 			return newValues;
 		});

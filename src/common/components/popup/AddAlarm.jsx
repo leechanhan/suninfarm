@@ -9,8 +9,9 @@ const AddAlarm = ({ isOpen, onClose, onSave, time, setTime, timer, setTimer, sel
 		return null;
 	}
 	// 타이머 콤보박스용 30분 단위 옵션
-	const timerHoursOptions = Array.from({ length: 6 }, (_, i) => i); // 0~2시간 선택
-	const timerMinutesOptions = ['00', '10', '20', '30', '40', '50']; // 30분 단위
+	const timerMinOptions = Array.from({ length: 60 }, (_, i) => i.toString().padStart(2, '0'));
+	// const timerMinutesOptions = ['01', '10', '20', '30', '40', '50']; // 30분 단위
+	const timerSecsOptions = Array.from({ length: 60 }, (_, i) => i.toString().padStart(2, '0'));
 
 	const toggleDay = (index) => {
 		const updatedDays = selectedDays.map((day, i) => (i === index ? !day : day));
@@ -18,18 +19,19 @@ const AddAlarm = ({ isOpen, onClose, onSave, time, setTime, timer, setTimer, sel
 	};
 
 	// 시간을 처리하는 함수
-	const handleHourChange = (hour) => {
+	const handleSecChange = (sec) => {
 		setTimer((prevTimer) => ({
 			...prevTimer,
-			hours: hour,
+			sec: sec,
 		}));
 	};
 
 	// 분을 처리하는 함수
 	const handleMinuteChange = (minute) => {
+		console.log('1');
 		setTimer((prevTimer) => ({
 			...prevTimer,
-			minutes: minute,
+			minute: minute,
 		}));
 	};
 
@@ -70,29 +72,29 @@ const AddAlarm = ({ isOpen, onClose, onSave, time, setTime, timer, setTimer, sel
 					<div className="timezoneWrap">
 						<div className="timer-picker">
 							<select
-								value={timer.hours} // timer.hours를 기본값으로 설정
-								onChange={(e) => handleHourChange(e.target.value)}
-							>
-								{timerHoursOptions.map((option) => (
-									<option
-										key={option}
-										value={option}
-									>
-										{option} 시간
-									</option>
-								))}
-							</select>
-							<span>{''}</span>
-							<select
-								value={timer.minutes} // timer.minutes를 기본값으로 설정
+								value={timer.minute} // timer.hours를 기본값으로 설정
 								onChange={(e) => handleMinuteChange(e.target.value)}
 							>
-								{timerMinutesOptions.map((option) => (
+								{timerMinOptions.map((option) => (
 									<option
 										key={option}
 										value={option}
 									>
 										{option} 분
+									</option>
+								))}
+							</select>
+							<span className="semicolon">{': '}</span>
+							<select
+								value={timer.sec} // timer.minutes를 기본값으로 설정
+								onChange={(e) => handleSecChange(e.target.value)}
+							>
+								{timerSecsOptions.map((option) => (
+									<option
+										key={option}
+										value={option}
+									>
+										{option} 초
 									</option>
 								))}
 							</select>

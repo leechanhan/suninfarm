@@ -112,7 +112,9 @@
 			.vegetable_img {
 				width: 100%;
 			}
-
+			.vegetable_img_xl {
+				width: 145%;
+			}
 			.icon_ai {
 				position: absolute;
 				@include media(left, 8);

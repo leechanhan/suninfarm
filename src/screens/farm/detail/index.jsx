@@ -69,11 +69,28 @@ const FarmDetailScreen = ({ farmName = '', seqNo }) => {
 					<div className="weather_wrap">
 						<div className="weather_img_wrap">
 							<img
-								src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/weather/good.png`}
+								src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/weather/rain20.png`}
 								alt=""
 							/>
 						</div>
 						<div className="weather_text_wrap">
+							<div className="location_wrap">
+								<img
+									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_location.png`}
+									alt=""
+								/>
+								<span>{farmDetailInfo.gtw_addr}</span>
+							</div>
+							<div className="temper_wrap">
+								<span>
+									{'14'}º / {'20'}º
+								</span>
+							</div>
+							<div className="moisture_wrap">
+								<span>강수확률 : 20%, 습도 : {'35'}%</span>
+							</div>
+						</div>
+						{/* <div className="weather_text_wrap">
 							<div className="location_wrap">
 								<img
 									src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_location.png`}
@@ -91,7 +108,7 @@ const FarmDetailScreen = ({ farmName = '', seqNo }) => {
 									강수량 : {StringUtils.getRandom(10, 100)}mm, 습도 : {parseInt(farmDetailInfo.rcd_ihumi ?? '0')}%
 								</span>
 							</div>
-						</div>
+						</div> */}
 					</div>
 					<div className="farm_data_wrap">
 						<span className="subtitle">{farmDetailInfo.gtw_name} 현재 상태 &#62;</span>

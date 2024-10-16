@@ -53,10 +53,6 @@ const LightScreen = ({ farmName = '딸기농장' }) => {
 		});
 	};
 
-	useEffect(() => {
-		// console.log('handleDragEndTotal2', lightInfo);
-		//putLightInfo();
-	}, [lightInfo]);
 	// 디바운스된 putLightInfo 함수
 	const debouncedPutLightInfo = useCallback(
 		debounce((updatedLightInfo) => {

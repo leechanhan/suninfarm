@@ -26,11 +26,11 @@ export const vegetableReverseNumberMap = {
 };
 
 export const vegetableMap = {
-	1: { imgPath: `${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/vegetable/icon_berry.png`, activeColor: '#FAAED7', name: '딸기' },
+	1: { imgPath: `${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/vegetable/icon_berry.png`, activeColor: '#b7d66d', name: '딸기' },
 	2: { imgPath: `${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/vegetable/icon_tomato.png`, activeColor: '#FF6563', name: '토마토' },
 	3: { imgPath: `${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/vegetable/icon_paprica.png`, activeColor: '#FAC126', name: '파프리카' },
 	4: { imgPath: `${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/vegetable/icon_carrot.png`, activeColor: '#FF6563', name: '당근' },
-	5: { imgPath: `${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/vegetable/icon_grape.png`, activeColor: '#FAAED7', name: '포도' },
+	5: { imgPath: `${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/vegetable/icon_grape.png`, activeColor: '#ba76ce ', name: '포도' },
 	6: { imgPath: `${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/vegetable/icon_gaji.png`, activeColor: '#FAC126', name: '가지' },
 };
 

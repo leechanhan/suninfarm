@@ -58,7 +58,7 @@ const FarmInfo = ({ farmList = [] }) => {
 							>
 								<div className="farminfo_img_wrap">
 									<img
-										className="vegetable_img"
+										className={item?.gtw_crop === '1' ? 'vegetable_img_xl' : 'vegetable_img'}
 										src={
 											vegetableMap[item?.gtw_crop]?.imgPath ?? `${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/vegetable/icon_berry.png`
 										}

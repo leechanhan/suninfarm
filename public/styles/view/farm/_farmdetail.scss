@@ -22,8 +22,9 @@
 			justify-content: center;
 			align-items: flex-start;
 			.location_wrap {
+				max-width: 50vw;
 				border-radius: mediaVal(20);
-				@include media(padding, 6, 16);
+				@include media(padding, 6, 8);
 				background-color: rgba($color: #646e82, $alpha: 0.15);
 				width: auto;
 				display: flex;
@@ -40,6 +41,8 @@
 					white-space: nowrap;
 					overflow: hidden;
 					@include media(width, 138);
+					text-overflow: ellipsis;
+					width: 100%;
 				}
 			}
 			.temper_wrap {

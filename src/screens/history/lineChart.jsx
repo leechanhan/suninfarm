@@ -19,7 +19,7 @@ const LineChart = ({ data }) => {
 						},
 						y: {
 							beginAtZero: true,
-							max: 100, // 최대값 설정
+							max: 30, // 최대값 설정
 						},
 					},
 				},

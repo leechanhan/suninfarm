@@ -20,7 +20,7 @@ const FarmDetailScreen = ({ farmName = '', seqNo }) => {
 	const router = useRouter();
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 	const [gtwId, setGtwId] = useState();
-	const [farmDetailInfo, setFarmDetailInfo] = useState({});
+	const [farmDetailInfo, setFarmDetailInfo] = useState({ rcd_itemp: '-', rcd_ihumi: '-', rcd_co2: '-', rcd_par: '-' });
 	useEffect(() => {
 		const isVisible = new URLSearchParams(window.location.search).get('selectVegetable');
 		if (isVisible === 'Y') {

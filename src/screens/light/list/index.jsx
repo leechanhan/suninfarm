@@ -36,6 +36,8 @@ const LightListScreen = ({ farmName = '', seqNo }) => {
 				.then((res) => {
 					console.log('geteway home', res);
 					setFarmDetailInfo(res);
+
+					setMasterDiming(getMaxValue(res.ctr_list.ctr_item));
 				})
 				.catch((err) => {
 					console.log('geteway home err', err);
@@ -43,6 +45,9 @@ const LightListScreen = ({ farmName = '', seqNo }) => {
 		}
 	};
 
+	function getMaxValue(arr) {
+		return Math.max(...arr.flatMap((item) => [item.ctr_ch1val, item.ctr_ch2val, item.ctr_ch3val]));
+	}
 	const handleMasterDiming = (value) => {
 		setMasterDiming(value);
 	};

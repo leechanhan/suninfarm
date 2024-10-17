@@ -4,8 +4,8 @@ const FarmAlarm = () => {
 	return (
 		<>
 			<div className="alarm_wrap">
-				<span className="alarm_title">알림</span>
-				<span>신선하고 공기가 탁한 저녁 귀가 시 농장의 창문을 꼭 닫아주세요.</span>
+				<span className="alarm_title">AI 알림</span>
+				<span>구름이 많고 강수확률이 높아 습도가 높으므로 습도 관리에 유의해주세요.🌦️</span>
 			</div>
 		</>
 	);

@@ -6,7 +6,7 @@ import CustomAlert from '@lib/alert';
 import { useState } from 'react';
 import Header from '@component/frame/Header';
 import CustomForms from '@component/etc/CustomForms';
-const DeviceListScreen = ({ farmName = '딸기농장' }) => {
+const DeviceListScreen = ({ farmName = '' }) => {
 	const handlerTest = () => {
 		Swal.fire({
 			icon: 'warning',

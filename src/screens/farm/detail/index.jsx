@@ -36,6 +36,7 @@ const FarmDetailScreen = ({ farmName = '', seqNo }) => {
 				.then((res) => {
 					console.log('geteway home', res);
 					setFarmDetailInfo(res);
+					CookieUtils.setCookie('farmName', res.farmName, 365);
 				})
 				.catch((err) => {
 					console.log('geteway home err', err);
@@ -83,11 +84,11 @@ const FarmDetailScreen = ({ farmName = '', seqNo }) => {
 							</div>
 							<div className="temper_wrap">
 								<span>
-									{'14'}º / {'20'}º
+									{'14'}º / {'22'}º
 								</span>
 							</div>
 							<div className="moisture_wrap">
-								<span>강수확률 : 20%, 습도 : {'35'}%</span>
+								<span>강수확률 : 20%, 습도 : {'56'}%</span>
 							</div>
 						</div>
 						{/* <div className="weather_text_wrap">

@@ -8,7 +8,7 @@ import Header from '@component/frame/Header';
 import CustomForms from '@component/etc/CustomForms';
 import { Chart, LineController, CategoryScale, LinearScale, PointElement, LineElement } from 'chart.js';
 import LineChart from '../lineChart';
-const HistoryScreen = ({ farmName = '딸기농장' }) => {
+const HistoryScreen = ({ farmName = '' }) => {
 	const handlerTest = () => {
 		Swal.fire({
 			icon: 'warning',
@@ -34,11 +34,12 @@ const HistoryScreen = ({ farmName = '딸기농장' }) => {
 		{ devName: '조명 장치', devSerial: 'AA2D234F324234234D' },
 	]);
 	const [chartData1, setChartData1] = useState({
+		max: 40,
 		labels: ['', '', '', '', '', '', '', '', '', '', '', ''],
 		datasets: [
 			{
 				label: 'Data 1',
-				data: [16, 18, 17, 17, 16, 16, 16, 18, 18, 17, 17, 16],
+				data: [14, 18, 17, 17, 16, 16, 16, 18, 18, 17, 17, 16],
 				borderColor: '#FFD3EB',
 				backgroundColor: '#60C6FF',
 				pointRadius: 5, // 포인트 크기
@@ -51,10 +52,10 @@ const HistoryScreen = ({ farmName = '딸기농장' }) => {
 			},
 			{
 				label: 'Data 2',
-				data: [18, 15, 19, 20, 23, 20, 20, 23, 22, 23, 20, 23],
+				data: [18, 15, 19, 20, 23, 20, 20, 23, 22, 19, 20, 23],
 				borderColor: '#60C6FF',
 				backgroundColor: '#60C6FF',
-				pointRadius: 5, // 포인트 크기
+				pointRadius: 5, // 포인트 크기0
 				pointBackgroundColor: '#fff', // 포인트 배경색
 				pointBorderColor: '#60C6FF', // 포인트 테두리 색
 				pointHoverRadius: 7, // 호버 시 포인트 크기
@@ -66,6 +67,7 @@ const HistoryScreen = ({ farmName = '딸기농장' }) => {
 	});
 
 	const [chartData2, setChartData2] = useState({
+		max: 40,
 		labels: ['', '', '', '', '', '', '', '', '', '', '', ''],
 		datasets: [
 			{
@@ -97,11 +99,12 @@ const HistoryScreen = ({ farmName = '딸기농장' }) => {
 		],
 	});
 	const [chartData3, setChartData3] = useState({
+		max: 800,
 		labels: ['', '', '', '', '', '', '', '', '', '', '', ''],
 		datasets: [
 			{
 				label: 'Data 1',
-				data: [11, 10, 12, 10, 10, 10, 12, 12, 12, 10, 10, 12],
+				data: [614, 709, 667, 711, 508, 684, 592, 494, 723, 627, 548, 722],
 				borderColor: '#FFD3EB',
 				backgroundColor: '#60C6FF',
 				pointRadius: 5, // 포인트 크기
@@ -114,7 +117,7 @@ const HistoryScreen = ({ farmName = '딸기농장' }) => {
 			},
 			{
 				label: 'Data 2',
-				data: [16, 16, 17, 20, 15, 16, 19, 16, 19, 17, 10, 12],
+				data: [566, 545, 647, 592, 622, 546, 708, 514, 739, 661, 691, 473],
 				borderColor: '#60C6FF',
 				backgroundColor: '#60C6FF',
 				pointRadius: 5, // 포인트 크기
@@ -138,8 +141,8 @@ const HistoryScreen = ({ farmName = '딸기농장' }) => {
 				<div className="history_info_wrap">
 					<div className="history_title_wrap">
 						<span>온도</span>
-						<span>실내 18º</span>
-						<span>실외 23º</span>
+						<span>실내 14º</span>
+						<span>실외 22º</span>
 					</div>
 					<div className="history_chart_wrap">
 						<LineChart data={chartData1} />

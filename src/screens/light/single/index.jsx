@@ -8,12 +8,15 @@ import { useRouter } from 'next/router';
 import { useEffect, useState, useCallback } from 'react';
 import { debounce } from 'lodash';
 import Swal from 'sweetalert2';
+import CookieUtils from '@lib/utils/cookie';
 import LightService from '@service/LightService';
-const LightScreen = ({ farmName = '딸기농장' }) => {
+const LightScreen = () => {
 	const CHANNEL_CNT = 3;
 	const router = useRouter();
 
-	const [lightInfo, setLightInfo] = useState(router?.query);
+	const [farmName, setFarmName] = useState('');
+	//const [lightInfo, setLightInfo] = useState(router?.query);
+	const [lightInfo, setLightInfo] = useState('');
 	const [masterDiming, setMasterDiming] = useState(0);
 	const [lightKey, setLightKey] = useState({});
 
@@ -118,13 +121,23 @@ const LightScreen = ({ farmName = '딸기농장' }) => {
 	const handleDragEndBlue = () => {
 		console.log('handleDragEndBlue');
 	};
+	function getMaxValueFromObject(obj) {
+		return Math.max(obj.ctr_ch1val, obj.ctr_ch2val, obj.ctr_ch3val);
+	}
 
 	useEffect(() => {
 		// 현재 URL의 쿼리 스트링을 가져옴
 		const queryParams = new URLSearchParams(window.location.search);
+		console.log(router?.query);
 		const ctr_ieee = queryParams.get('ctr_ieee');
 		const gtw_id = queryParams.get('gtw_id');
 		setLightKey({ ctr_ieee, gtw_id });
+		const farmName = CookieUtils.getCookie('gtw_name');
+		setFarmName(farmName);
+		setMasterDiming(getMaxValueFromObject(router?.query));
+		setLightInfo(router?.query);
+
+		//const [lightInfo, setLightInfo] = useState(router?.query);
 	}, []);
 
 	return (

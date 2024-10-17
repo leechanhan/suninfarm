@@ -132,13 +132,12 @@
 			@include font(14, normal, bold);
 		}
 		.data_wrap {
-			border-radius: mediaVal(20);
 			width: 100%;
 			display: flex;
 			flex-direction: column;
 			flex-wrap: wrap;
 			background-color: #fff;
-			border-radius: mediaVal(20);
+			border-radius: mediaVal(16);
 			@include media(margin-bottom, 16);
 			.data_title {
 				color: #646e82;

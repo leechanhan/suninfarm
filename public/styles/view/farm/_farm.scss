@@ -75,7 +75,7 @@
 	flex-direction: column;
 	justify-content: center;
 	background-color: #87cd76;
-	@include media(padding, 18, 30);
+	@include media(padding, 12, 20);
 	color: #fff;
 	span {
 		@include font(15, normal, normal);

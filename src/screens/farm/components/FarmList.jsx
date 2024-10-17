@@ -51,7 +51,7 @@ const FarmInfo = ({ farmList = [] }) => {
 						<p className="title">나의 농장</p>
 						{farmList.map((item, idx) => (
 							<li
-								onClick={() => onClickFarm(item.gtw_id, item.gtw_name)}
+								onClick={() => onClickFarm(item.gtw_id, item.gtw_name, item.farmName)}
 								className="farminfo_item"
 								style={{ backgroundColor: vegetableMap[item?.gtw_crop]?.activeColor ?? '#FF6563' }}
 								key={idx}

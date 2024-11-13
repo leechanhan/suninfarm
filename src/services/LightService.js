@@ -11,6 +11,11 @@ class LightService extends ServiceManager {
 		테스트조명조회: 'getchannel?',
 		테스트조명그룹제어: 'setgroup?',
 		테스트조명개별제어: 'setchannel?',
+
+		테스트알림조회: 'get6alarm?',
+		태스트알림삭제: 'del6alarm?',
+		테스트알림추가: 'add6alarm?',
+		테스트조명개별제어4: 'setchannel?',
 	};
 
 	static getLightInfo({ ctr_ieee }) {
@@ -32,6 +37,16 @@ class LightService extends ServiceManager {
 	}
 	static putTestLight(data) {
 		return this.createRequest(this.URLS.테스트조명개별제어, HTTP.METHOD.GET, data);
+	}
+
+	static getTestAlarmList(data) {
+		return this.createRequest(this.URLS.테스트알림조회, HTTP.METHOD.GET, data);
+	}
+	static deleteTestAlarm(data) {
+		return this.createRequest(this.URLS.태스트알림삭제, HTTP.METHOD.GET, data);
+	}
+	static addTestAlarm(data) {
+		return this.createRequest(this.URLS.테스트알림추가, HTTP.METHOD.GET, data);
 	}
 }
 export default LightService;

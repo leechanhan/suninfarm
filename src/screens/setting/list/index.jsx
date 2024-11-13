@@ -355,6 +355,7 @@ const SettingScreen = ({ farmName = '' }) => {
 								isEdit={isEditMode}
 								time={time}
 								setTime={setTime}
+								title={'양액공급 추가'}
 								timer={timer}
 								setTimer={setTimer}
 								selectedDays={selectedDays}

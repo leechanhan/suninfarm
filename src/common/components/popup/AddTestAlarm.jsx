@@ -4,10 +4,13 @@ import Layout기본헤더 from '@component/layout/Layout기본헤더';
 import Button뒤로가기 from '@component/frame/headerBtn/Button뒤로가기';
 import Header from '@component/frame/Header';
 import { useEffect, useState } from 'react';
-const AddAlarm = ({ isOpen, onClose, onSave, time, setTime, timer, setTimer, selectedDays, setSelectedDays, isEdit, title }) => {
+const AddTestAlarm = ({ isOpen, onClose, onSave, time, setTime, timer, setTimer, selectedDays, setSelectedDays, isEdit, title, setPopupIeee, popupIeee }) => {
 	if (!isOpen) {
 		return null;
 	}
+
+	const ieeeOptions = ['B43A31FFFE000001', 'B43A31FFFE000002', 'B43A31FFFE000003'];
+
 	// 타이머 콤보박스용 30분 단위 옵션
 	const timerMinOptions = Array.from({ length: 60 }, (_, i) => i.toString().padStart(2, '0'));
 	// const timerMinutesOptions = ['01', '10', '20', '30', '40', '50']; // 30분 단위
@@ -34,7 +37,9 @@ const AddAlarm = ({ isOpen, onClose, onSave, time, setTime, timer, setTimer, sel
 			minute: minute,
 		}));
 	};
-
+	const handleIeeeChange = (val) => {
+		setPopupIeee(val);
+	};
 	const handleTimeChange = (e) => setTime(e.target.value);
 	const handleTimerChange = (e) => setTimer(e.target.value);
 	return (
@@ -45,6 +50,30 @@ const AddAlarm = ({ isOpen, onClose, onSave, time, setTime, timer, setTimer, sel
 					LeftButton={onClose}
 				/>
 				<div className="nutrient-supply-container">
+					<div className="titleWrap">
+						<img
+							className="icon_clock"
+							src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_clock.png`}
+						/>
+						<span className="title">조명선택</span>
+					</div>
+					<div className="timezoneWrap">
+						<div className="time-picker">
+							<select
+								value={popupIeee}
+								onChange={(e) => handleIeeeChange(e.target.value)}
+							>
+								{ieeeOptions.map((option) => (
+									<option
+										key={option}
+										value={option}
+									>
+										{option}
+									</option>
+								))}
+							</select>
+						</div>
+					</div>
 					<div className="titleWrap">
 						<img
 							className="icon_clock"
@@ -62,7 +91,7 @@ const AddAlarm = ({ isOpen, onClose, onSave, time, setTime, timer, setTimer, sel
 						</div>
 					</div>
 
-					<div className="titleWrap">
+					{/* <div className="titleWrap">
 						<img
 							className="icon_clock"
 							src={`${process.env.NEXT_PUBLIC_BASE_PATH}/images/png/icon_clock.png`}
@@ -99,7 +128,7 @@ const AddAlarm = ({ isOpen, onClose, onSave, time, setTime, timer, setTimer, sel
 								))}
 							</select>
 						</div>
-					</div>
+					</div> */}
 
 					<div className="day-selector">
 						<div className="titleWrap">
@@ -134,4 +163,4 @@ const AddAlarm = ({ isOpen, onClose, onSave, time, setTime, timer, setTimer, sel
 		</div>
 	);
 };
-export default AddAlarm;
+export default AddTestAlarm;

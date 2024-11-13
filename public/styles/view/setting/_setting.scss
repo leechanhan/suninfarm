@@ -205,7 +205,7 @@ input:checked + .slider:before {
 			}
 			select {
 				@include media(padding-top, 20);
-				@include font(30, normal, bold);
+				@include font(24, normal, bold);
 				width: 100%;
 				@include media(padding, 6);
 				text-align: center;

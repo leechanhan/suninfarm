@@ -182,3 +182,55 @@
 
 	background-size: cover;
 }
+
+.button-group {
+	display: flex;
+	width: 100%;
+	justify-content: space-between; /* 좌우 여백 */
+
+	.button {
+		flex: 1;
+		@include font(12, normal, normal);
+		@include media(margin, 0, 6);
+		@include media(padding, 10);
+		border: none;
+		border-radius: mediaVal(16);
+		background-color: #ccc;
+		color: #696969;
+		font-weight: bold;
+		cursor: pointer;
+		transition: background-color 0.3s;
+	}
+
+	.button.active {
+		background-color: #f1c40f; /* 활성화된 버튼 색상 */
+		color: #fff;
+		@include font(14, normal, normal);
+	}
+}
+
+.tab-group {
+	display: flex;
+	width: 100%;
+	justify-content: space-between; /* 좌우 여백 */
+	.button {
+		border-top-right-radius: 20px;
+		border-top-left-radius: 20px;
+		flex: 1;
+		@include font(12, normal, normal);
+		@include media(margin, 0, 0);
+		@include media(padding, 8, 0);
+		border: none;
+		background-color: #ccc;
+		color: #696969;
+		font-weight: bold;
+		cursor: pointer;
+		transition: background-color 0.3s;
+	}
+
+	.button.active {
+		background-color: #f1c40f; /* 활성화된 버튼 색상 */
+		color: #fff;
+		@include font(14, normal, bold);
+	}
+}

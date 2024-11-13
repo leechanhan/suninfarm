@@ -157,7 +157,7 @@ export default class ServiceManager {
 	 */
 	static createRequest(url, method, data, isFileUpload = false, useLoading = true, useCache = false) {
 		const userid = CookieUtils.getCookie('usr_id') ?? '';
-		if ((url !== 'login?' || url !== 'test?') && userid === '') {
+		if ((url !== 'login?' || url !== 'test?' || url !== 'getchannel?') && userid === '') {
 			CustomAlert.error({
 				html: `로그인이 필요합니다.\n로그인 페이지로 이동합니다.`,
 				callback: () => {
@@ -166,6 +166,24 @@ export default class ServiceManager {
 			});
 		}
 		let params = url === 'login?' || url === 'joinus?' ? data : { ...data, usr_id: userid };
+		const queryString = Object.entries(params)
+			.map(([key, value]) => value && key + '=' + value)
+			.filter((v) => v)
+			.join('&');
+
+		const requestOption = {
+			url: this.REQUEST_MAPPING + url + queryString,
+			method,
+			data,
+			useCache,
+			useLoading,
+		};
+
+		return isFileUpload ? HttpManager.sendFile(requestOption) : HttpManager.send(requestOption);
+	}
+
+	static createRequestTest(url, method, data, isFileUpload = false, useLoading = true, useCache = false) {
+		let params = url === 'login?' || url === 'joinus?' ? data : { ...data };
 		const queryString = Object.entries(params)
 			.map(([key, value]) => value && key + '=' + value)
 			.filter((v) => v)

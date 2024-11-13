@@ -30,23 +30,23 @@ class LightService extends ServiceManager {
 		return this.createRequest(this.URLS.그룹조명셋팅, HTTP.METHOD.GET, data);
 	}
 	static getTestLight() {
-		return this.createRequest(this.URLS.테스트조명조회, HTTP.METHOD.GET, {});
+		return this.createRequestTest(this.URLS.테스트조명조회, HTTP.METHOD.GET, {});
 	}
 	static putTestLightGroup(data) {
-		return this.createRequest(this.URLS.테스트조명그룹제어, HTTP.METHOD.GET, data);
+		return this.createRequestTest(this.URLS.테스트조명그룹제어, HTTP.METHOD.GET, data);
 	}
 	static putTestLight(data) {
-		return this.createRequest(this.URLS.테스트조명개별제어, HTTP.METHOD.GET, data);
+		return this.createRequestTest(this.URLS.테스트조명개별제어, HTTP.METHOD.GET, data);
 	}
 
 	static getTestAlarmList(data) {
-		return this.createRequest(this.URLS.테스트알림조회, HTTP.METHOD.GET, data);
+		return this.createRequestTest(this.URLS.테스트알림조회, HTTP.METHOD.GET, data);
 	}
 	static deleteTestAlarm(data) {
-		return this.createRequest(this.URLS.태스트알림삭제, HTTP.METHOD.GET, data);
+		return this.createRequestTest(this.URLS.태스트알림삭제, HTTP.METHOD.GET, data);
 	}
 	static addTestAlarm(data) {
-		return this.createRequest(this.URLS.테스트알림추가, HTTP.METHOD.GET, data);
+		return this.createRequestTest(this.URLS.테스트알림추가, HTTP.METHOD.GET, data);
 	}
 }
 export default LightService;

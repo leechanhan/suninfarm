@@ -29,8 +29,8 @@ class LightService extends ServiceManager {
 	static putGtwayLightInfo(data) {
 		return this.createRequest(this.URLS.그룹조명셋팅, HTTP.METHOD.GET, data);
 	}
-	static getTestLight() {
-		return this.createRequestTest(this.URLS.테스트조명조회, HTTP.METHOD.GET, {});
+	static getTestLight(data) {
+		return this.createRequestTest(this.URLS.테스트조명조회, HTTP.METHOD.GET, data);
 	}
 	static putTestLightGroup(data) {
 		return this.createRequestTest(this.URLS.테스트조명그룹제어, HTTP.METHOD.GET, data);

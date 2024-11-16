@@ -44,23 +44,19 @@ const TestIndexScreen = () => {
 	const [timer, setTimer] = useState('00:01');
 	const [selectedDays, setSelectedDays] = useState([false, false, false, false, false, false, false]);
 
-	useEffect(() => {
-		LightService.getTestLight()
-			.then((res) => {
-				console.log('getTestLight', res);
-				// 각 ieee 값으로 객체를 찾고 변수에 저장
-				const lightInfo1 = findLightInfoByIeee('B43A31FFFE000001', res.ch_list.ch_item);
-				const lightInfo2 = findLightInfoByIeee('B43A31FFFE000002', res.ch_list.ch_item);
-				const lightInfo3 = findLightInfoByIeee('B43A31FFFE000003', res.ch_list.ch_item);
-
-				setLightInfo1(lightInfo1);
-				setLightInfo2(lightInfo2);
-				setLightInfo3(lightInfo3);
-			})
-			.catch((err) => {
-				console.log('getTestLight', err);
-			});
-	}, []);
+	const getLightInfo = async () => {
+		try {
+			console.log('getTestLight');
+			const res1 = await LightService.getTestLight({ ieee: 'B43A31FFFE000001' });
+			const res2 = await LightService.getTestLight({ ieee: 'B43A31FFFE000002' });
+			const res3 = await LightService.getTestLight({ ieee: 'B43A31FFFE000003' });
+			setLightInfo1(res1 ?? {});
+			setLightInfo2(res2 ?? {});
+			setLightInfo3(res3 ?? {});
+		} catch (error) {
+			console.error('Error fetching alarm list:', error);
+		}
+	};
 
 	const getAlarmList = async () => {
 		try {
@@ -74,34 +70,9 @@ const TestIndexScreen = () => {
 			setAlarm1List(res1?.alm_list?.alm_item ?? []);
 			setAlarm2List(res2?.alm_list?.alm_item ?? []);
 			setAlarm3List(res3?.alm_list?.alm_item ?? []);
-
-			// setAlarm3List([
-			// 	{
-			// 		alm_no: '1',
-			// 		alm_mac: 'B43A31FFFE000002',
-			// 		alm_time: '11:30:00',
-			// 		alm_enable: '1',
-			// 		alm_week: '1111111',
-			// 	},
-			// 	{
-			// 		alm_no: '2',
-			// 		alm_mac: 'B43A31FFFE000002',
-			// 		alm_time: '11:50:00',
-			// 		alm_enable: '1',
-			// 		alm_week: '1111111',
-			// 	},
-			// ]);
-			console.log(res1);
-			console.log(res3);
 		} catch (error) {
 			console.error('Error fetching alarm list:', error);
 		}
-		// const res1 = await LightService.putTestAlarmList({ ieee: 'B43A31FFFE000001' });
-		// setAlarm1List(res1?.alm_list?.alm_item ?? []);
-		// const res2 = await LightService.putTestAlarmList({ ieee: 'B43A31FFFE000002' });
-		// setAlarm2List(res2?.alm_list?.alm_item ?? []);
-		// const res3 = await LightService.putTestAlarmList({ ieee: 'B43A31FFFE000003' });
-		// setAlarm3List(res3?.alm_list?.alm_item ?? []);
 	};
 
 	// 특정 ieee 값에 맞는 객체를 찾아주는 함수
@@ -240,10 +211,6 @@ const TestIndexScreen = () => {
 		});
 	};
 
-	useEffect(() => {
-		// console.log('handleDragEndTotal2', lightInfo);
-		//putLightInfo();
-	}, [lightInfo]);
 	// 디바운스된 putLightInfo 함수
 	const debouncedPutLightGroupInfo = useCallback(
 		debounce((updatedLightInfo) => {
@@ -415,6 +382,7 @@ const TestIndexScreen = () => {
 		const ctr_ieee = queryParams.get('ctr_ieee');
 		const gtw_id = queryParams.get('gtw_id');
 		setLightKey({ ctr_ieee, gtw_id });
+		getLightInfo();
 	}, []);
 
 	return (

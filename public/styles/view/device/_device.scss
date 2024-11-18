@@ -40,6 +40,10 @@
 	}
 }
 
+.resetRound {
+	border-radius: 0px !important;
+}
+
 .light_info_wrap {
 	border-radius: mediaVal(20);
 	@include media(padding, 20);

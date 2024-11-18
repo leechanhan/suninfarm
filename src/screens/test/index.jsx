@@ -390,8 +390,8 @@ const TestIndexScreen = () => {
 			<div className="page_container_gray">
 				<Header
 					classes="nonPadding bg_gray"
-					title={'개별 조명 제어'}
-					LeftButton={() => <div style={{ width: 38, height: 38 }}></div>}
+					title={'6채널 조명 제어 앱'}
+					LeftButton={() => <div style={{ width: 28, height: 38 }}></div>}
 				/>
 				<div className="tab-group">
 					<button
@@ -568,7 +568,7 @@ const TestIndexScreen = () => {
 					</div>
 				) : (
 					lightInfo && (
-						<div className="light_info_wrap">
+						<div className="light_info_wrap resetRound">
 							<ul className="light_list_wrap">
 								<li className="light_item">
 									<span className="light_value">{masterDiming1}%</span>
@@ -1025,7 +1025,6 @@ const TestIndexScreen = () => {
 						</div>
 					)
 				)}
-				;
 			</div>
 		</div>
 	);

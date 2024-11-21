@@ -390,7 +390,7 @@ const TestIndexScreen = () => {
 			<div className="page_container_gray">
 				<Header
 					classes="nonPadding bg_gray"
-					title={'6채널 조명 제어 앱'}
+					title={'LED 6채널 제어'}
 					LeftButton={() => <div style={{ width: 28, height: 38 }}></div>}
 				/>
 				<div className="tab-group">
